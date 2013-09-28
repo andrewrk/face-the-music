@@ -1,0 +1,12 @@
+{
+  "name": "face-the-music",
+  "version": "0.0.0",
+  "description": "game prototype using chem game engine",
+  "scripts": {
+    "dev": "npm install && chem dev"
+  },
+  "dependencies": {
+    "chem-cli": "~1.1.0",
+    "chem": "~3.1.0"
+  }
+}
