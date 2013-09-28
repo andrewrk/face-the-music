@@ -18,6 +18,11 @@ function startGame(map) {
   var player = new chem.Sprite(ani.dude, {
     batch: levelBatch,
   });
+  var crowd = new chem.Sprite(ani.platform,{
+    batch: batch,
+    pos: v(20,0),
+    scale: v(50,900).divBy(ani.platform.frames[0].size)
+  });
   var playerVel = v(0,0);
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
@@ -25,10 +30,12 @@ function startGame(map) {
   var playerMaxSpeed = 5;
   var playerRunAcc = 0.25;
   var playerAirAcc = 0.15;
-  var playerJumpVec = v(0,-6); //added ONCE
+  var playerJumpVec = v(0,-6.5); //added ONCE
   var friction = 1.15;
   var grounded = false;
   var scroll = v(0, 0);
+  
+  var crowdSpeed = 2;
 
 
   engine.on('update', onUpdate);
@@ -37,7 +44,11 @@ function startGame(map) {
   loadMap();
 
   function onUpdate(dt, dx) {
-    var newPlayerPos = player.pos.plus(playerVel);
+    //Update crowd position
+    crowd.pos.x += crowdSpeed;
+  
+    //Player COLISION
+    var newPlayerPos = player.pos.plus(playerVel.scaled(dx));
     grounded = false;
     for (var i = 0; i < platforms.length; i += 1) {
       var platform = platforms[i];
