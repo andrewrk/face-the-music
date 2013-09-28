@@ -18,9 +18,10 @@ var GRAVITY = 0.2;
 function startGame(map) {
   var levelBatch = new chem.Batch();
   var staticBatch = new chem.Batch();
-  var player = new chem.Sprite(ani.dude, {
+  var player = new chem.Sprite(ani.roadieIdle, {
     batch: levelBatch,
   });
+  var playerSize = v(15, 57);
   var crowd = new chem.Sprite(ani.platform,{
     batch: levelBatch,
     pos: v(20,0),
@@ -51,11 +52,24 @@ function startGame(map) {
 
   loadMap();
 
+  function playerRect() {
+    return {
+      pos: player.pos,
+      size: playerSize,
+    };
+  }
+
   function onUpdate(dt, dx) {
+    //CONTROLS
+    var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
+    var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
+    var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
+
     //Update crowd position
     crowd.pos.x += crowdSpeed;
 
-    if(rectCollision(player,crowdRect)){
+    var pr = playerRect();
+    if(rectCollision(pr,crowdRect)){
       //kill it
       player.pos.x = 99999;
     }
@@ -65,14 +79,14 @@ function startGame(map) {
     grounded = false;
     for (var i = 0; i < platforms.length; i += 1) {
       var platform = platforms[i];
-      if (rectCollision(player, platform)) {
-        var outVec = resolveMinDist(player, platform);
+      if (rectCollision(pr, platform)) {
+        var outVec = resolveMinDist(pr, platform);
         if (Math.abs(outVec.x) > Math.abs(outVec.y)) {
-          var xDiff = resolveX(outVec.x, player, platform);
+          var xDiff = resolveX(outVec.x, pr, platform);
           newPlayerPos.x += xDiff;
           playerVel.x = 0;
         } else {
-          var yDiff = resolveY(outVec.y, player, platform);
+          var yDiff = resolveY(outVec.y, pr, platform);
           newPlayerPos.y += yDiff;
           playerVel.y = 0;
         }
@@ -86,11 +100,6 @@ function startGame(map) {
     scroll = player.pos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     if (scroll.y < 0) scroll.y = 0;
-
-    //CONTROLS
-    var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
-    var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
-    var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
 
     if (left) {
       if(grounded)
@@ -131,6 +140,32 @@ function startGame(map) {
 
     // gravity
     playerVel.y += GRAVITY * dx;
+
+    var wantedAni = getPlayerAnimation();
+    if (player.animation !== wantedAni) {
+      player.setAnimation(wantedAni);
+      player.setFrameIndex(0);
+    }
+
+
+    function getPlayerAnimation() {
+      if (grounded) {
+        if (Math.abs(playerVel.x) > 0) {
+          if (left || right) {
+            return ani.roadieRun;
+          } else {
+            return ani.roadieSlide;
+          }
+        } else {
+          return ani.roadieIdle;
+        }
+      } else if (playerVel.y < 0) {
+        return ani.roadieJumpUp;
+      } else {
+        return ani.roadieJumpDown;
+      }
+    }
+
   }
 
   function onDraw(context) {
