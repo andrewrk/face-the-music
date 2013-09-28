@@ -1,64 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
- <objectgroup name="Object Layer 1" width="100" height="100">
-  <object name="Start" x="251" y="115" width="67" height="61"/>
-  <object name="Platform" x="183" y="276" width="227" height="49"/>
-  <object name="Platform" x="369" y="192" width="70" height="101"/>
-  <object name="Platform" x="103" y="397" width="70" height="101"/>
-  <object name="Platform" x="37" y="343" width="70" height="101"/>
-  <object name="Platform" x="521" y="259" width="186" height="39"/>
-  <object name="Platform" x="738" y="348" width="268" height="33"/>
-  <object name="Platform" x="752" y="161" width="163" height="38"/>
-  <object name="Platform" x="984" y="89" width="143" height="40"/>
-  <object name="Platform" x="1287" y="240" width="186" height="39"/>
-  <object name="Platform" x="1081" y="302" width="186" height="39"/>
-  <object name="Platform" x="1604" y="256" width="186" height="39"/>
-  <object name="Platform" x="1928" y="255" width="186" height="39"/>
-  <object name="Platform" x="2189" y="255" width="186" height="39"/>
-  <object name="Platform" x="2347" y="13" width="41" height="610"/>
-  <object name="Skull" type="attack" x="931" y="84" width="32" height="32">
+<map version="1.0" orientation="orthogonal" width="5000" height="554" tilewidth="1" tileheight="1">
+ <objectgroup name="Object Layer 1" width="5000" height="554">
+  <object name="Start" x="300" y="378" width="75" height="61"/>
+  <object name="Platform" x="0" y="448" width="984" height="106">
+   <properties>
+    <property name="image" value="ground_dry_dirt.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="984" y="448" width="984" height="106">
+   <properties>
+    <property name="image" value="ground_dry_dirt.png"/>
+   </properties>
+  </object>
+  <object name="Skull" x="920" y="285" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="5"/>
    </properties>
   </object>
-  <object name="Skull" type="attack" x="896" y="295" width="32" height="32">
+  <object name="Skull" x="1347" y="342" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="5"/>
    </properties>
   </object>
-  <object name="Skull" type="attack" x="1415" y="143" width="32" height="32">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="attack" x="1547" y="185" width="32" height="32">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="attack" x="1638" y="246" width="32" height="32">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="attack" x="1399" y="303" width="32" height="32">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="attack" x="1513" y="88" width="32" height="32">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="attack" x="1455" y="29" width="32" height="32">
+  <object name="Skull" x="1098" y="316" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="5"/>
