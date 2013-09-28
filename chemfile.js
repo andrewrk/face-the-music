@@ -30,8 +30,14 @@ exports.spritesheet = {
       loop: true,
     },
     roadieIdle: {
-      frames: "roadie/roadie_idle_1.png",
+      frames: [
+        "roadie/roadie_idle_1.png",
+        "roadie/roadie_idle_2.png",
+        "roadie/roadie_idle_3.png",
+      ],
       anchor: {x: 25, y: 22},
+      loop: true,
+      delay: 0.2,
     },
     roadieSlide: {
       frames: [

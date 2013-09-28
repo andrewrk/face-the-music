@@ -64,7 +64,7 @@ function startGame(map) {
   var mikeProjectileSpeed = 10;//6;
   
   var tripleShot = false;
-  var currentWeapon = 'microphone';
+  var currentWeapon = 'drums';
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -115,6 +115,7 @@ function startGame(map) {
         var aimVec = engine.mousePos.plus(scroll).minus(playerPos).normalize();
 
         if(currentWeapon == 'microphone'){
+          //Microphone        
           projectiles.push({
             sprite: new chem.Sprite(ani.soundwave, {
               batch: levelBatch,
@@ -125,7 +126,9 @@ function startGame(map) {
           });
           
           if(tripleShot){
-            //TRIPLE SHOT: Add Two More
+            var aimVec2 = vec2d.unitfrom
+          
+            //add a TRIPLE SHOT
             projectiles.push({
               sprite: new chem.Sprite(ani.soundwave, {
                 batch: levelBatch,
@@ -147,6 +150,23 @@ function startGame(map) {
         }
         else if(currentWeapon == 'guitar'){
           
+        }
+        else if(currentWeapon == 'drums'){
+          //var aimVec = v(1,-1).normalize();
+          var angle = 0;
+          
+          for(var i=0;i<16;i++){
+            angle = i*Math.PI/8
+            aimVec = v(Math.cos(angle),Math.sin(angle));
+            projectiles.push({
+              sprite: new chem.Sprite(ani.soundwave, {
+                batch: levelBatch,
+                pos: aimVec.scaled(10).plus(playerPos.offset(0, 0)),
+                rotation: aimVec.angle(),
+              }),
+              vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
+            });
+          }
         }
         
         mikeReload = mikeReloadAmt;
@@ -314,7 +334,7 @@ function startGame(map) {
     function getPlayerAnimation() {
       if (grounded) {
         if (Math.abs(playerVel.x) > 0) {
-          if (left || right) {
+          if (left&&playerVel.x<=0 || right&&playerVel.x>=0) {
             return ani.roadieRun;
           } else {
             return ani.roadieSlide;
