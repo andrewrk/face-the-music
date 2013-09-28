@@ -5,6 +5,8 @@ var canvas = document.getElementById("game");
 var engine = new chem.Engine(canvas);
 var tmx = require('chem-tmx');
 
+canvas.style.cursor = "none";
+
 engine.buttonCaptureExceptions[chem.button.KeyF5] = true;
 
 engine.showLoadProgressBar();
@@ -15,15 +17,21 @@ var GRAVITY = 0.2;
 
 function startGame(map) {
   var levelBatch = new chem.Batch();
-  var player = new chem.Sprite(ani.dude, {
+  var staticBatch = new chem.Batch();
+  var player = new chem.Sprite(ani.roadieIdle, {
     batch: levelBatch,
   });
+  var playerPos = v();
+  var playerSize = v(15, 57);
   var crowd = new chem.Sprite(ani.platform,{
     batch: levelBatch,
     pos: v(20,0),
     scale: v(50,900).divBy(ani.platform.frames[0].size)
   });
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
+  var crosshairSprite = new chem.Sprite(ani.crosshair, {
+    batch: staticBatch,
+  });
   var playerVel = v(0,0);
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
@@ -41,19 +49,35 @@ function startGame(map) {
   //Enemies
   var spikeBalls = [];
 
+  var crowdSpeed = 2;
+  var directionFacing = 1;
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
+  engine.on('mousemove', onMouseMove);
 
   loadMap();
 
+  function playerRect() {
+    return {
+      pos: playerPos,
+      size: playerSize,
+    };
+  }
+
   function onUpdate(dt, dx) {
+    //CONTROLS
+    var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
+    var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
+    var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
+
     //Update crowd position
     crowd.pos.x += crowdSpeed;
     
-    if(rectCollision(player,crowdRect)){
-      //"kill" it
-      player.pos.x = 99999;
+    var pr = playerRect();
+    if(rectCollision(pr,crowdRect)){
+      //kill it
+      playerPos.x = 99999;
     }
     
     //spike balls
@@ -80,8 +104,8 @@ function startGame(map) {
             ball.pos.x -= ball.speed;
           }
           else{
-            var xDist = Math.abs(ball.pos.x - player.pos.x);
-            var yDist = Math.abs(ball.pos.y - player.pos.y);
+            var xDist = Math.abs(ball.pos.x - playerPos.x);
+            var yDist = Math.abs(ball.pos.y - playerPos.y);
           
             if(xDist < engine.size.x) //&& yDist < 50)
               ball.triggerOn = true;
@@ -91,19 +115,21 @@ function startGame(map) {
     }
     
   
-    //Platform Collision
-    var newPlayerPos = player.pos.plus(playerVel.scaled(dx));
+    
+
+    //Player COLISION
+    var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
     grounded = false;
     for (var i = 0; i < platforms.length; i += 1) {
       var platform = platforms[i];
-      if (rectCollision(player, platform)) {
-        var outVec = resolveMinDist(player, platform);
+      if (rectCollision(pr, platform)) {
+        var outVec = resolveMinDist(pr, platform);
         if (Math.abs(outVec.x) > Math.abs(outVec.y)) {
-          var xDiff = resolveX(outVec.x, player, platform);
+          var xDiff = resolveX(outVec.x, pr, platform);
           newPlayerPos.x += xDiff;
           playerVel.x = 0;
         } else {
-          var yDiff = resolveY(outVec.y, player, platform);
+          var yDiff = resolveY(outVec.y, pr, platform);
           newPlayerPos.y += yDiff;
           playerVel.y = 0;
         }
@@ -112,16 +138,11 @@ function startGame(map) {
         }
       }
     }
-    player.pos = newPlayerPos;
+    playerPos = newPlayerPos;
 
-    scroll = player.pos.minus(engine.size.scaled(0.5));
+    scroll = playerPos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     if (scroll.y < 0) scroll.y = 0;
-
-    //CONTROLS
-    var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
-    var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
-    var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
 
     if (left) {
       if(grounded)
@@ -162,6 +183,39 @@ function startGame(map) {
 
     // gravity
     playerVel.y += GRAVITY * dx;
+
+    var wantedAni = getPlayerAnimation();
+    if (player.animation !== wantedAni) {
+      player.setAnimation(wantedAni);
+      player.setFrameIndex(0);
+    }
+
+    directionFacing = sign(playerVel.x) || directionFacing;
+    player.scale.x = directionFacing;
+    player.pos = playerPos.clone();
+    // compensate for offset
+    if (directionFacing < 0) {
+      player.pos.x += playerSize.x;
+    }
+
+    function getPlayerAnimation() {
+      if (grounded) {
+        if (Math.abs(playerVel.x) > 0) {
+          if (left || right) {
+            return ani.roadieRun;
+          } else {
+            return ani.roadieSlide;
+          }
+        } else {
+          return ani.roadieIdle;
+        }
+      } else if (playerVel.y < 0) {
+        return ani.roadieJumpUp;
+      } else {
+        return ani.roadieJumpDown;
+      }
+    }
+
   }
 
   function onDraw(context) {
@@ -173,10 +227,14 @@ function startGame(map) {
     context.translate(-scroll.x, -scroll.y); // load identity
     levelBatch.draw(context);
 
+    // static
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
-
-    // draw a little fps counter in the corner
+    staticBatch.draw(context);
     fpsLabel.draw(context);
+  }
+
+  function onMouseMove(pos, button) {
+    crosshairSprite.pos = pos.clone();
   }
 
   function loadMap() {
@@ -192,7 +250,7 @@ function startGame(map) {
     var size = v(obj.width, obj.height);
     switch (obj.name) {
       case 'Start':
-        player.pos = v(pos.x + size.x / 2, pos.y + size.y);
+        playerPos = v(pos.x + size.x / 2, pos.y + size.y);
         break;
       case 'Platform':
         platforms.push({
