@@ -142,7 +142,7 @@ function startGame(map) {
 
     scroll = playerPos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
-    if (scroll.y < 0) scroll.y = 0;
+    scroll.y = 0;
 
     if (left) {
       if(grounded)
@@ -220,7 +220,7 @@ function startGame(map) {
 
   function onDraw(context) {
     // clear canvas to black
-    context.fillStyle = '#000000'
+    context.fillStyle = '#000000';
     context.fillRect(0, 0, engine.size.x, engine.size.y);
 
     // draw all sprites in batch
@@ -253,13 +253,14 @@ function startGame(map) {
         playerPos = v(pos.x + size.x / 2, pos.y + size.y);
         break;
       case 'Platform':
+        var img = chem.resources.images[obj.properties.image];
         platforms.push({
           pos: pos,
           size: size,
-          sprite: new chem.Sprite(ani.platform, {
+          sprite: new chem.Sprite(chem.Animation.fromImage(img), {
             batch: levelBatch,
             pos: pos,
-            scale: size.divBy(ani.platform.frames[0].size),
+            scale: size.divBy(v(img.width, img.height)),
           }),
         });
         break;
