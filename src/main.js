@@ -50,10 +50,16 @@ function startGame(map) {
   var spikeBalls = [];
   var decorations = [];
 
+  var projectiles = [];
+
   var directionFacing = 1;
 
   var bgImg = chem.resources.images['background.png'];
   var maxScrollX = null;
+
+  var mikeReloadAmt = 0.1;
+  var mikeReload = 0;
+  var mikeProjectileSpeed = 6;
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -76,23 +82,42 @@ function startGame(map) {
 
     //Update crowd position
     crowd.pos.x += crowdSpeed;
-    
+
     var pr = playerRect();
     if(rectCollision(pr,crowdRect)){
       //kill it
       playerPos.x = 99999;
     }
-    
+
+
+    if (mikeReload <= 0) {
+      if (engine.buttonState(chem.button.MouseLeft)) {
+        var aimVec = engine.mousePos.plus(scroll).minus(playerPos).normalize();
+        projectiles.push({
+          sprite: new chem.Sprite(ani.soundwave, {
+            batch: levelBatch,
+            pos: aimVec.scaled(10).plus(playerPos.offset(10, 0)),
+            rotation: aimVec.angle(),
+          }),
+          vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
+        });
+        mikeReload = mikeReloadAmt;
+      }
+    } else {
+      mikeReload -= dt;
+    }
+
     //spike balls
-    for(var i=0;i<spikeBalls.length; i++){
+    var i;
+    for(i=0;i<spikeBalls.length; i++){
       var ball = spikeBalls[i];
-      
+
       var ballRect = {
             pos: ball.pos.plus(v(-12,-32)),
             size: v(24,65)
       }
-      
-      
+
+
       if(rectCollision(player,ballRect)){
         ball.sprite.delete();
         spikeBalls.splice(i,1);
@@ -116,21 +141,25 @@ function startGame(map) {
           else{
             var xDist = Math.abs(ball.pos.x - playerPos.x);
             var yDist = Math.abs(ball.pos.y - playerPos.y);
-          
+
             if(xDist < engine.size.x) //&& yDist < 50)
               ball.triggerOn = true;
           }
         }
       }
     }
-    
-  
-    
+    for (i = 0; i < projectiles.length; i += 1) {
+      var projectile = projectiles[i];
+      projectile.sprite.pos.add(projectile.vel.scaled(dx));
+    }
+
+
+
 
     //Player COLISION
     var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
     grounded = false;
-    for (var i = 0; i < platforms.length; i += 1) {
+    for (i = 0; i < platforms.length; i += 1) {
       var platform = platforms[i];
       if (rectCollision(pr, platform)) {
         var outVec = resolveMinDist(pr, platform);

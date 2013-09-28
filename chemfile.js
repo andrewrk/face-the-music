@@ -62,10 +62,11 @@ exports.spritesheet = {
       anchor: {x: 25, y: 22},
       loop: false,
     },
+    soundwave: {},
     skullAttack: {
       frames: [
         "skull/flaming_skull_1.png",
-        "skull/flaming_skull_2.png",        
+        "skull/flaming_skull_2.png",
       ],
       anchor: {x:12,y:32},
       loop: true,
