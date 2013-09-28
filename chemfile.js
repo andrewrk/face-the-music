@@ -17,5 +17,6 @@ exports.spritesheet = {
     platform: {
       anchor: 'topleft',
     },
+    crosshair: {}
   }
 };

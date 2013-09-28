@@ -5,6 +5,8 @@ var canvas = document.getElementById("game");
 var engine = new chem.Engine(canvas);
 var tmx = require('chem-tmx');
 
+canvas.style.cursor = "none";
+
 engine.buttonCaptureExceptions[chem.button.KeyF5] = true;
 
 engine.showLoadProgressBar();
@@ -15,6 +17,7 @@ var GRAVITY = 0.2;
 
 function startGame(map) {
   var levelBatch = new chem.Batch();
+  var staticBatch = new chem.Batch();
   var player = new chem.Sprite(ani.dude, {
     batch: levelBatch,
   });
@@ -24,6 +27,9 @@ function startGame(map) {
     scale: v(50,900).divBy(ani.platform.frames[0].size)
   });
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
+  var crosshairSprite = new chem.Sprite(ani.crosshair, {
+    batch: staticBatch,
+  });
   var playerVel = v(0,0);
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
@@ -35,24 +41,25 @@ function startGame(map) {
   var friction = 1.15;
   var grounded = false;
   var scroll = v(0, 0);
-  
+
   var crowdSpeed = 2;
 
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
+  engine.on('mousemove', onMouseMove);
 
   loadMap();
 
   function onUpdate(dt, dx) {
     //Update crowd position
     crowd.pos.x += crowdSpeed;
-    
+
     if(rectCollision(player,crowdRect)){
       //kill it
       player.pos.x = 99999;
     }
-  
+
     //Player COLISION
     var newPlayerPos = player.pos.plus(playerVel.scaled(dx));
     grounded = false;
@@ -135,10 +142,14 @@ function startGame(map) {
     context.translate(-scroll.x, -scroll.y); // load identity
     levelBatch.draw(context);
 
+    // static
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
-
-    // draw a little fps counter in the corner
+    staticBatch.draw(context);
     fpsLabel.draw(context);
+  }
+
+  function onMouseMove(pos, button) {
+    crosshairSprite.pos = pos.clone();
   }
 
   function loadMap() {
