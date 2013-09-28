@@ -45,5 +45,11 @@
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
+  <object name="Decoration" x="653" y="413" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

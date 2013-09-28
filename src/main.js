@@ -48,6 +48,7 @@ function startGame(map) {
 
   //Enemies
   var spikeBalls = [];
+  var decorations = [];
 
   var directionFacing = 1;
 
@@ -260,12 +261,12 @@ function startGame(map) {
   function loadMapObject(obj) {
     var pos = v(obj.x, obj.y);
     var size = v(obj.width, obj.height);
+    var img = chem.resources.images[obj.properties.image];
     switch (obj.name) {
       case 'Start':
         playerPos = v(pos.x + size.x / 2, pos.y + size.y);
         break;
       case 'Platform':
-        var img = chem.resources.images[obj.properties.image];
         platforms.push({
           pos: pos,
           size: size,
@@ -285,10 +286,17 @@ function startGame(map) {
             pos: pos,
           }),
           type: obj.type,
-          range: parseInt(obj.properties.range),
-          speed: parseInt(obj.properties.speed),
+          range: parseInt(obj.properties.range, 10),
+          speed: parseInt(obj.properties.speed, 10),
           triggerOn: false,
         });
+        break;
+      case 'Decoration':
+        decorations.push(new chem.Sprite(chem.Animation.fromImage(img), {
+          batch: levelBatch,
+          pos: pos,
+          zOrder: parseInt(obj.properties.zOrder || 0, 10),
+        }));
         break;
     }
   }
