@@ -13,7 +13,7 @@ canvas.focus();
 
 function startGame(map) {
   var batch = new chem.Batch();
-  var player = new chem.Sprite(ani.ship, {
+  var player = new chem.Sprite(ani.dude, {
     batch: batch,
   });
   var playerVel = v();
@@ -54,17 +54,21 @@ function startGame(map) {
     var size = v(obj.width, obj.height);
     switch (obj.name) {
       case 'Start':
-        player.pos = pos;
+        player.pos = v(pos.x + size.x / 2, pos.y + size.y);
         break;
       case 'Platform':
         platforms.push({
           pos: pos,
           size: size,
+          sprite: new chem.Sprite(ani.platform, {
+            batch: batch,
+            pos: pos,
+            scale: size.divBy(ani.platform.frames[0].size),
+          }),
         });
         break;
     }
   }
-
 }
 
 chem.resources.on('ready', function() {
