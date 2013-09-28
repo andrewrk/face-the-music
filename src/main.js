@@ -59,9 +59,12 @@ function startGame(map) {
   var bgImg = chem.resources.images['background.png'];
   var maxScrollX = null;
 
-  var mikeReloadAmt = 0.1;
+  var mikeReloadAmt = 0.3//0.1;
   var mikeReload = 0;
-  var mikeProjectileSpeed = 6;
+  var mikeProjectileSpeed = 10;//6;
+  
+  var tripleShot = false;
+  var currentWeapon = 'microphone';
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -89,8 +92,10 @@ function startGame(map) {
     if(rectCollision(pr,crowdRect)){
       //kill it
       playerPos.x = 99999;
+      return;
     }
     
+    //WEED cloud collision
     for(var i=0;i<weedClouds.length;i++){
       var cloud = weedClouds[i];
       var cloudRect = {pos: cloud.pos.plus(v(100,30)), size: v(230,100)};
@@ -108,14 +113,42 @@ function startGame(map) {
     if (mikeReload <= 0) {
       if (engine.buttonState(chem.button.MouseLeft)) {
         var aimVec = engine.mousePos.plus(scroll).minus(playerPos).normalize();
-        projectiles.push({
-          sprite: new chem.Sprite(ani.soundwave, {
-            batch: levelBatch,
-            pos: aimVec.scaled(10).plus(playerPos.offset(10, 0)),
-            rotation: aimVec.angle(),
-          }),
-          vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
-        });
+
+        if(currentWeapon == 'microphone'){
+          projectiles.push({
+            sprite: new chem.Sprite(ani.soundwave, {
+              batch: levelBatch,
+              pos: aimVec.scaled(10).plus(playerPos.offset(0, 0)),
+              rotation: aimVec.angle(),
+            }),
+            vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
+          });
+          
+          if(tripleShot){
+            //TRIPLE SHOT: Add Two More
+            projectiles.push({
+              sprite: new chem.Sprite(ani.soundwave, {
+                batch: levelBatch,
+                pos: aimVec.scaled(10).plus(playerPos.offset(0, 0)),
+                rotation: aimVec.angle(),
+              }),
+              vel: aimVec.scaled(mikeProjectileSpeed*1.5).plus(playerVel),
+            });
+
+            projectiles.push({
+              sprite: new chem.Sprite(ani.soundwave, {
+                batch: levelBatch,
+                pos: aimVec.scaled(10).plus(playerPos.offset(0, 0)),
+                rotation: aimVec.angle(),
+              }),
+              vel: aimVec.scaled(mikeProjectileSpeed*1.5).plus(playerVel),
+            });
+          }
+        }
+        else if(currentWeapon == 'guitar'){
+          
+        }
+        
         mikeReload = mikeReloadAmt;
       }
     } else {
@@ -131,12 +164,16 @@ function startGame(map) {
             pos: ball.pos.plus(v(-12,-32)),
             size: v(24,65)
       }
-
-
+      
+      var ballColliding = false;
+      
+      
+      
       if(rectCollision(player,ballRect)){
         ball.sprite.delete();
         spikeBalls.splice(i,1);
         i--;
+        ballColliding = true;
       }
       else{
         //move it!
@@ -159,11 +196,34 @@ function startGame(map) {
           }
         }
       }
+      
+      if(!ballColliding){
+        for (j = 0; j < projectiles.length; j += 1) {
+          if(rectCollision(ballRect,projectiles[j].sprite)){
+            ball.sprite.delete();
+            spikeBalls.splice(i,1);
+            i--;
+            
+            projectiles[j].sprite.delete();
+            projectiles.splice(j,1);
+            break;
+          }
+        }
+      }
     }
+    
     for (i = 0; i < projectiles.length; i += 1) {
       var projectile = projectiles[i];
       projectile.sprite.pos.add(projectile.vel.scaled(dx));
+      
+      /*if(projectile.sprite.pos.minus(playerPos).length > 1){
+        projectiles[i].sprite.delete();
+        projectiles.splice(i,1);
+        i--;
+      }*/
     }
+    
+    console.log(projectiles);
 
 
 
