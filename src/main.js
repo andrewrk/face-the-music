@@ -14,9 +14,9 @@ canvas.focus();
 var GRAVITY = 0.2;
 
 function startGame(map) {
-  var batch = new chem.Batch();
+  var levelBatch = new chem.Batch();
   var player = new chem.Sprite(ani.dude, {
-    batch: batch,
+    batch: levelBatch,
   });
   var playerVel = v(0,0);
   var platforms = [];
@@ -28,6 +28,7 @@ function startGame(map) {
   var playerJumpVec = v(0,-6); //added ONCE
   var friction = 1.15;
   var grounded = false;
+  var scroll = v(0, 0);
 
 
   engine.on('update', onUpdate);
@@ -57,6 +58,10 @@ function startGame(map) {
       }
     }
     player.pos = newPlayerPos;
+
+    scroll = player.pos.minus(engine.size.scaled(0.5));
+    if (scroll.x < 0) scroll.x = 0;
+    if (scroll.y < 0) scroll.y = 0;
 
     //CONTROLS
     var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
@@ -110,7 +115,10 @@ function startGame(map) {
     context.fillRect(0, 0, engine.size.x, engine.size.y);
 
     // draw all sprites in batch
-    batch.draw(context);
+    context.translate(-scroll.x, -scroll.y); // load identity
+    levelBatch.draw(context);
+
+    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
 
     // draw a little fps counter in the corner
     fpsLabel.draw(context);
@@ -136,7 +144,7 @@ function startGame(map) {
           pos: pos,
           size: size,
           sprite: new chem.Sprite(ani.platform, {
-            batch: batch,
+            batch: levelBatch,
             pos: pos,
             scale: size.divBy(ani.platform.frames[0].size),
           }),
