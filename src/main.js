@@ -21,6 +21,7 @@ function startGame(map) {
   var player = new chem.Sprite(ani.roadieIdle, {
     batch: levelBatch,
   });
+  var playerPos = v();
   var playerSize = v(15, 57);
   var crowd = new chem.Sprite(ani.platform,{
     batch: levelBatch,
@@ -44,7 +45,7 @@ function startGame(map) {
   var scroll = v(0, 0);
 
   var crowdSpeed = 2;
-
+  var directionFacing = 1;
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -54,7 +55,7 @@ function startGame(map) {
 
   function playerRect() {
     return {
-      pos: player.pos,
+      pos: playerPos,
       size: playerSize,
     };
   }
@@ -71,11 +72,11 @@ function startGame(map) {
     var pr = playerRect();
     if(rectCollision(pr,crowdRect)){
       //kill it
-      player.pos.x = 99999;
+      playerPos.x = 99999;
     }
 
     //Player COLISION
-    var newPlayerPos = player.pos.plus(playerVel.scaled(dx));
+    var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
     grounded = false;
     for (var i = 0; i < platforms.length; i += 1) {
       var platform = platforms[i];
@@ -95,9 +96,9 @@ function startGame(map) {
         }
       }
     }
-    player.pos = newPlayerPos;
+    playerPos = newPlayerPos;
 
-    scroll = player.pos.minus(engine.size.scaled(0.5));
+    scroll = playerPos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     if (scroll.y < 0) scroll.y = 0;
 
@@ -147,6 +148,13 @@ function startGame(map) {
       player.setFrameIndex(0);
     }
 
+    directionFacing = sign(playerVel.x) || directionFacing;
+    player.scale.x = directionFacing;
+    player.pos = playerPos.clone();
+    // compensate for offset
+    if (directionFacing < 0) {
+      player.pos.x += playerSize.x;
+    }
 
     function getPlayerAnimation() {
       if (grounded) {
@@ -200,7 +208,7 @@ function startGame(map) {
     var size = v(obj.width, obj.height);
     switch (obj.name) {
       case 'Start':
-        player.pos = v(pos.x + size.x / 2, pos.y + size.y);
+        playerPos = v(pos.x + size.x / 2, pos.y + size.y);
         break;
       case 'Platform':
         platforms.push({
