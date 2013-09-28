@@ -12,19 +12,19 @@
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
-  <object name="Skull" x="920" y="285" width="50" height="50">
+  <object name="Skull" type="attack" x="920" y="285" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="5"/>
    </properties>
   </object>
-  <object name="Skull" x="1347" y="342" width="50" height="50">
+  <object name="Skull" type="attack" x="1347" y="342" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="5"/>
    </properties>
   </object>
-  <object name="Skull" x="1098" y="316" width="50" height="50">
+  <object name="Skull" type="attack" x="1098" y="316" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="5"/>
