@@ -267,10 +267,9 @@ function startGame(map) {
         spikeBalls.push({
           pos: pos,
           size: size,
-          sprite: new chem.Sprite(ani.platform, {
+          sprite: new chem.Sprite(ani.skullAttack, {
             batch: levelBatch,
             pos: pos,
-            scale: size.divBy(ani.platform.frames[0].size),
           }),
           type: obj.type,
           range: parseInt(obj.properties.range),

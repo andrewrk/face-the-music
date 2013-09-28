@@ -68,5 +68,13 @@ exports.spritesheet = {
       anchor: {x: 25, y: 22},
       loop: false,
     },
+    skullAttack: {
+      frames: [
+        "skull/flaming_skull_1.png",
+        "skull/flaming_skull_2.png",        
+      ],
+      loop: true,
+      delay: 0.2,
+    }
   }
 };
