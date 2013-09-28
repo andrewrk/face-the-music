@@ -73,6 +73,7 @@ exports.spritesheet = {
         "skull/flaming_skull_1.png",
         "skull/flaming_skull_2.png",        
       ],
+      anchor: {x:12,y:32},
       loop: true,
       delay: 0.2,
     }

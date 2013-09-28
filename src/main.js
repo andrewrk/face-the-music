@@ -83,17 +83,24 @@ function startGame(map) {
     //spike balls
     for(var i=0;i<spikeBalls.length; i++){
       var ball = spikeBalls[i];
-      if(rectCollision(player,ball)){
+      
+      var ballRect = {
+            pos: ball.pos.plus(v(-12,-32)),
+            size: v(24,65)
+      }
+      
+      
+      if(rectCollision(player,ballRect)){
         ball.sprite.delete();
         spikeBalls.splice(i,1);
         i--;
       }
       else{
         //move it!
-        if(ball.type == "vert"){
+        if(ball.type == "vertical"){
           
         }
-        else if(ball.type == "hor"){
+        else if(ball.type == "horizontal"){
           
         }
         else if(ball.type == "rotate"){
@@ -275,7 +282,7 @@ function startGame(map) {
           type: obj.type,
           range: parseInt(obj.properties.range),
           speed: parseInt(obj.properties.speed),
-          triggerOn: false
+          triggerOn: false,
         });
         break;
     }
