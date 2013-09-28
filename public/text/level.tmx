@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
- <layer name="Tile Layer 1" width="100" height="100">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BMQEAAADCoPVP7WULoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgBt5RKnmQJwAAA==
-  </data>
- </layer>
  <objectgroup name="Object Layer 1" width="100" height="100">
   <object name="Start" x="251" y="115" width="67" height="61"/>
   <object name="Platform" x="183" y="276" width="227" height="49"/>
-  <object name="Platform" x="394" y="225" width="70" height="101"/>
+  <object name="Platform" x="369" y="192" width="70" height="101"/>
   <object name="Platform" x="103" y="397" width="70" height="101"/>
   <object name="Platform" x="37" y="343" width="70" height="101"/>
-  <object name="Platform" x="529" y="269" width="95" height="48"/>
-  <object name="Platform" x="676" y="277" width="95" height="48"/>
-  <object name="Platform" x="951" y="274" width="95" height="48"/>
-  <object name="Platform" x="818" y="267" width="95" height="48"/>
+  <object name="Platform" x="521" y="259" width="186" height="39"/>
+  <object name="Platform" x="738" y="348" width="268" height="33"/>
+  <object name="Platform" x="752" y="161" width="163" height="38"/>
+  <object name="Platform" x="984" y="89" width="143" height="40"/>
+  <object name="Platform" x="1287" y="240" width="186" height="39"/>
+  <object name="Platform" x="1081" y="302" width="186" height="39"/>
+  <object name="Platform" x="1606" y="253" width="186" height="39"/>
+  <object name="Platform" x="1928" y="255" width="186" height="39"/>
+  <object name="Platform" x="2189" y="255" width="186" height="39"/>
+  <object name="Platform" x="2347" y="13" width="41" height="610"/>
  </objectgroup>
 </map>

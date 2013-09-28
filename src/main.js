@@ -19,10 +19,11 @@ function startGame(map) {
     batch: levelBatch,
   });
   var crowd = new chem.Sprite(ani.platform,{
-    batch: batch,
+    batch: levelBatch,
     pos: v(20,0),
     scale: v(50,900).divBy(ani.platform.frames[0].size)
   });
+  var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var playerVel = v(0,0);
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
@@ -46,6 +47,11 @@ function startGame(map) {
   function onUpdate(dt, dx) {
     //Update crowd position
     crowd.pos.x += crowdSpeed;
+    
+    if(rectCollision(player,crowdRect)){
+      //kill it
+      player.pos.x = 99999;
+    }
   
     //Player COLISION
     var newPlayerPos = player.pos.plus(playerVel.scaled(dx));
