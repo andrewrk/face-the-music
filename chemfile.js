@@ -12,7 +12,7 @@ exports.spritesheet = {
   },
   animations: {
     dude: {
-      anchor: 'bottom',
+      anchor: 'topleft',
     },
     platform: {
       anchor: 'topleft',

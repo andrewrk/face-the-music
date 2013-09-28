@@ -11,6 +11,8 @@ engine.showLoadProgressBar();
 engine.start();
 canvas.focus();
 
+var GRAVITY = 0.2;
+
 function startGame(map) {
   var batch = new chem.Batch();
   var player = new chem.Sprite(ani.dude, {
@@ -19,14 +21,14 @@ function startGame(map) {
   var playerVel = v(0,0);
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
-  
+
   var playerMaxSpeed = 5;
-  var playerRunAcc = .25;
-  var playerAirAcc = .15;
-  var playerJumpVec = v(0,-5); //added ONCE
+  var playerRunAcc = 0.25;
+  var playerAirAcc = 0.15;
+  var playerJumpVec = v(0,-6); //added ONCE
   var friction = 1.15;
-  var grounded = true;
-  
+  var grounded = false;
+
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -34,13 +36,32 @@ function startGame(map) {
   loadMap();
 
   function onUpdate(dt, dx) {
+    var newPlayerPos = player.pos.plus(playerVel);
+    for (var i = 0; i < platforms.length; i += 1) {
+      var platform = platforms[i];
+      if (rectCollision(player, platform)) {
+        var outVec = resolveMinDist(player, platform);
+        if (Math.abs(outVec.x) > Math.abs(outVec.y)) {
+          var xDiff = resolveX(outVec.x, player, platform);
+          newPlayerPos.x += xDiff;
+          playerVel.x = 0;
+        } else {
+          var yDiff = resolveY(outVec.y, player, platform);
+          newPlayerPos.y += yDiff;
+          playerVel.y = 0;
+        }
+        if (outVec.y < 0) {
+          grounded = true;
+        }
+      }
+    }
+    player.pos = newPlayerPos;
 
-    
     //CONTROLS
     var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
     var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
     var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
-    
+
     if (left) {
       if(grounded)
         playerVel.x -= playerRunAcc;
@@ -59,7 +80,7 @@ function startGame(map) {
         grounded = false;
       }
     }
-    
+
     //check MAX SPEED
     if(playerVel.x < -playerMaxSpeed){
         playerVel.x = -playerMaxSpeed;
@@ -67,18 +88,19 @@ function startGame(map) {
     if(playerVel.x > playerMaxSpeed){
       playerVel.x = playerMaxSpeed;
     }
-    
+
     //Apply FRICTION
     if(grounded && !left && !right){
-      if(Math.abs(playerVel.x) < .25){
+      if(Math.abs(playerVel.x) < 0.25){
         playerVel.x = 0;
       }
       else{
         playerVel.scale(1/friction);
       }
     }
-    
-    player.pos.add(playerVel);//.scaled(dx));
+
+    // gravity
+    playerVel.y += GRAVITY * dx;
   }
 
   function onDraw(context) {
@@ -129,3 +151,67 @@ chem.resources.on('ready', function() {
     startGame(map);
   });
 });
+
+function sign(n) {
+  if (n < 0) {
+    return -1;
+  } else if (n > 0) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+function rectCollision(rect1, rect2) {
+  return !(rect1.pos.x >= rect2.pos.x + rect2.size.x || rect1.pos.y >= rect2.pos.y + rect2.size.y ||
+           rect2.pos.x >= rect1.pos.x + rect1.size.x || rect2.pos.y >= rect1.pos.y + rect1.size.y ||
+           rect1.pos.x + rect1.size.x < rect2.pos.x || rect1.pos.y + rect1.size.y < rect2.pos.y ||
+           rect2.pos.x + rect2.size.x < rect1.pos.x || rect2.pos.y + rect2.size.y < rect1.pos.y);
+}
+
+function resolveX(xSign, dynamicRect, staticRect) {
+  if (xSign < 0) {
+    return staticRect.pos.x - (dynamicRect.pos.x + dynamicRect.size.x);
+  } else {
+    return staticRect.pos.x + staticRect.size.x - dynamicRect.pos.x + 1;
+  }
+}
+
+function resolveY(ySign, dynamicRect, staticRect) {
+  if (ySign < 0) {
+    return staticRect.pos.y - (dynamicRect.pos.y + dynamicRect.size.y);
+  } else {
+    return staticRect.pos.y + staticRect.size.y - dynamicRect.pos.y + 1;
+  }
+}
+
+function resolveMinDist(rect1, rect2) {
+  var minDist = Infinity;
+  var outVec;
+
+  var dist1 = Math.abs(rect1.pos.x - (rect2.pos.x + rect2.size.x));
+  if (dist1 < minDist) {
+    minDist = dist1;
+    outVec = v(1, 0);
+  }
+
+  dist1 = Math.abs(rect1.pos.x + rect1.size.x - rect2.pos.x);
+  if (dist1 < minDist) {
+    minDist = dist1;
+    outVec = v(-1, 0);
+  }
+
+  dist1 = Math.abs(rect1.pos.y - (rect2.pos.y + rect2.size.y));
+  if (dist1 < minDist) {
+    minDist = dist1;
+    outVec = v(0, 1);
+  }
+
+  dist1 = Math.abs(rect1.pos.y + rect1.size.y - rect2.pos.y);
+  if (dist1 < minDist) {
+    minDist = dist1;
+    outVec = v(0, -1);
+  }
+
+  return outVec;
+}
