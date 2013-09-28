@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="5000" height="554" tilewidth="1" tileheight="1">
- <objectgroup name="Object Layer 1" width="5000" height="554">
+<map version="1.0" orientation="orthogonal" width="4000" height="554" tilewidth="1" tileheight="1">
+ <objectgroup name="Object Layer 1" width="4000" height="554">
   <object name="Start" x="300" y="378" width="75" height="61"/>
   <object name="Platform" x="0" y="448" width="984" height="106">
    <properties>
@@ -28,6 +28,21 @@
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="5"/>
+   </properties>
+  </object>
+  <object name="Platform" x="1968" y="448" width="984" height="106">
+   <properties>
+    <property name="image" value="ground_dry_dirt.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="2952" y="448" width="984" height="106">
+   <properties>
+    <property name="image" value="ground_dry_dirt.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="3935" y="448" width="984" height="106">
+   <properties>
+    <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
  </objectgroup>

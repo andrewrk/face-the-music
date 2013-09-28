@@ -43,14 +43,16 @@ function startGame(map) {
   var friction = 1.15;
   var grounded = false;
   var scroll = v(0, 0);
-  
-  var crowdSpeed = .2;
-  
+
+  var crowdSpeed = 0.2;
+
   //Enemies
   var spikeBalls = [];
 
-  var crowdSpeed = 2;
   var directionFacing = 1;
+
+  var bgImg = chem.resources.images['background.png'];
+  var maxScrollX = null;
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -150,6 +152,8 @@ function startGame(map) {
     scroll = playerPos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     scroll.y = 0;
+    maxScrollX = map.width - engine.size.x / 2;
+    if (scroll.x > maxScrollX) scroll.x = maxScrollX;
 
     if (left) {
       if(grounded)
@@ -226,11 +230,12 @@ function startGame(map) {
   }
 
   function onDraw(context) {
-    // clear canvas to black
-    context.fillStyle = '#000000';
-    context.fillRect(0, 0, engine.size.x, engine.size.y);
+    var offsetX = scroll.x / maxScrollX * (bgImg.width - engine.size.x);
+    context.drawImage(bgImg, offsetX, 0, engine.size.x, bgImg.height, 0, 0, engine.size.x, engine.size.y);
+
 
     // draw all sprites in batch
+    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     context.translate(-scroll.x, -scroll.y); // load identity
     levelBatch.draw(context);
 
