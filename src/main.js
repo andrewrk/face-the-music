@@ -20,11 +20,12 @@ function startGame(map) {
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
   
-  var playerMaxSpeed = 5; //running
-  var playerRunAcc = .25; //added every frame until max speed)
-  var plaerJumpVec = v(0,-5); //added ONCE
+  var playerMaxSpeed = 5;
+  var playerRunAcc = .25;
+  var playerAirAcc = .15;
+  var playerJumpVec = v(0,-5); //added ONCE
   var friction = 1.15;
-  var grounded = false;
+  var grounded = true;
   
 
   engine.on('update', onUpdate);
@@ -38,13 +39,19 @@ function startGame(map) {
     //CONTROLS
     var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
     var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
-    var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.space);
+    var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
     
     if (left) {
-      playerVel.x -= playerRunAcc;
+      if(grounded)
+        playerVel.x -= playerRunAcc;
+      else
+        playerVel.x -= playerAirAcc;
     }
     if (right) {
-      playerVel.x += playerRunAcc;
+      if(grounded)
+        playerVel.x += playerRunAcc;
+      else
+        playerVel.x += playerAirAcc;
     }
     if (jump) {
       if(grounded){
