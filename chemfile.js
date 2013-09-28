@@ -17,5 +17,8 @@ exports.spritesheet = {
     platform: {
       anchor: 'topleft',
     },
+    skull: {
+      anchor: 'center',
+    }
   }
 };

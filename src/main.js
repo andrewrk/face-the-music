@@ -36,7 +36,10 @@ function startGame(map) {
   var grounded = false;
   var scroll = v(0, 0);
   
-  var crowdSpeed = 2;
+  var crowdSpeed = .2;
+  
+  //Enemies
+  var spikeBalls = [];
 
 
   engine.on('update', onUpdate);
@@ -49,11 +52,46 @@ function startGame(map) {
     crowd.pos.x += crowdSpeed;
     
     if(rectCollision(player,crowdRect)){
-      //kill it
+      //"kill" it
       player.pos.x = 99999;
     }
+    
+    //spike balls
+    for(var i=0;i<spikeBalls.length; i++){
+      var ball = spikeBalls[i];
+      if(rectCollision(player,ball)){
+        ball.sprite.delete();
+        spikeBalls.splice(i,1);
+        i--;
+      }
+      else{
+        //move it!
+        if(ball.type == "vert"){
+          
+        }
+        else if(ball.type == "hor"){
+          
+        }
+        else if(ball.type == "rotate"){
+          
+        }
+        else if(ball.type == "attack"){
+          if(ball.triggerOn){
+            ball.pos.x -= ball.speed;
+          }
+          else{
+            var xDist = Math.abs(ball.pos.x - player.pos.x);
+            var yDist = Math.abs(ball.pos.y - player.pos.y);
+          
+            if(xDist < engine.size.x) //&& yDist < 50)
+              ball.triggerOn = true;
+          }
+        }
+      }
+    }
+    
   
-    //Player COLISION
+    //Platform Collision
     var newPlayerPos = player.pos.plus(playerVel.scaled(dx));
     grounded = false;
     for (var i = 0; i < platforms.length; i += 1) {
@@ -165,6 +203,21 @@ function startGame(map) {
             pos: pos,
             scale: size.divBy(ani.platform.frames[0].size),
           }),
+        });
+        break;
+      case 'Skull':
+        spikeBalls.push({
+          pos: pos,
+          size: size,
+          sprite: new chem.Sprite(ani.platform, {
+            batch: levelBatch,
+            pos: pos,
+            scale: size.divBy(ani.platform.frames[0].size),
+          }),
+          type: obj.type,
+          range: parseInt(obj.properties.range),
+          speed: parseInt(obj.properties.speed),
+          triggerOn: false
         });
         break;
     }
