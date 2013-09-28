@@ -16,9 +16,16 @@ function startGame(map) {
   var player = new chem.Sprite(ani.dude, {
     batch: batch,
   });
-  var playerVel = v();
+  var playerVel = v(0,0);
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
+  
+  var playerMaxSpeed = 5; //running
+  var playerRunAcc = .25; //added every frame until max speed)
+  var plaerJumpVec = v(0,-5); //added ONCE
+  var friction = 1.15;
+  var grounded = false;
+  
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -26,7 +33,45 @@ function startGame(map) {
   loadMap();
 
   function onUpdate(dt, dx) {
-    player.pos.add(playerVel);
+
+    
+    //CONTROLS
+    var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
+    var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
+    var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.space);
+    
+    if (left) {
+      playerVel.x -= playerRunAcc;
+    }
+    if (right) {
+      playerVel.x += playerRunAcc;
+    }
+    if (jump) {
+      if(grounded){
+        playerVel.add(playerJumpVec);
+        grounded = false;
+      }
+    }
+    
+    //check MAX SPEED
+    if(playerVel.x < -playerMaxSpeed){
+        playerVel.x = -playerMaxSpeed;
+    }
+    if(playerVel.x > playerMaxSpeed){
+      playerVel.x = playerMaxSpeed;
+    }
+    
+    //Apply FRICTION
+    if(grounded && !left && !right){
+      if(Math.abs(playerVel.x) < .25){
+        playerVel.x = 0;
+      }
+      else{
+        playerVel.scale(1/friction);
+      }
+    }
+    
+    player.pos.add(playerVel);//.scaled(dx));
   }
 
   function onDraw(context) {
