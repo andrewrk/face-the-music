@@ -63,7 +63,7 @@ function startGame(map) {
   var mikeReload = 0;
   var mikeProjectileSpeed = 10;//6;
   
-  var tripleShot = false;
+  var tripleShot = true;
   var currentWeapon = 'drums';
 
   engine.on('update', onUpdate);
@@ -84,6 +84,16 @@ function startGame(map) {
     var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
     var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
     var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
+    var shift = engine.buttonJustPressed(chem.button.KeyShift);
+    
+    if(shift){
+      if(currentWeapon == 'microphone'){
+        currentWeapon = 'drums';
+      }
+      else if(currentWeapon == 'drums'){
+        currentWeapon = 'microphone';
+      }
+    }
 
     //Update crowd position
     crowd.pos.x += crowdSpeed;
@@ -126,26 +136,29 @@ function startGame(map) {
           });
           
           if(tripleShot){
-            var aimVec2 = vec2d.unitfrom
+            var angle2 = aimVec.angle()+Math.PI/8;
+            var angle3 = angle2-Math.PI/4;
+            var aimVec2 = v(Math.cos(angle2),Math.sin(angle2));
+            var aimVec3 = v(Math.cos(angle3),Math.sin(angle3));
           
             //add a TRIPLE SHOT
             projectiles.push({
               sprite: new chem.Sprite(ani.soundwave, {
                 batch: levelBatch,
-                pos: aimVec.scaled(10).plus(playerPos.offset(0, 0)),
-                rotation: aimVec.angle(),
+                pos: aimVec2.scaled(10).plus(playerPos.offset(0, 0)),
+                rotation: aimVec2.angle(),
               }),
-              vel: aimVec.scaled(mikeProjectileSpeed*1.5).plus(playerVel),
+              vel: aimVec2.scaled(mikeProjectileSpeed).plus(playerVel),
             });
 
             projectiles.push({
               sprite: new chem.Sprite(ani.soundwave, {
                 batch: levelBatch,
-                pos: aimVec.scaled(10).plus(playerPos.offset(0, 0)),
-                rotation: aimVec.angle(),
+                pos: aimVec3.scaled(10).plus(playerPos.offset(0, 0)),
+                rotation: aimVec3.angle(),
               }),
-              vel: aimVec.scaled(mikeProjectileSpeed*1.5).plus(playerVel),
-            });
+              vel: aimVec3.scaled(mikeProjectileSpeed).plus(playerVel),
+            });/**/
           }
         }
         else if(currentWeapon == 'guitar'){
