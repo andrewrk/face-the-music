@@ -48,6 +48,7 @@ function startGame(map) {
   
   //Enemies
   var spikeBalls = [];
+  var weedClouds = [];
 
   var crowdSpeed = 2;
   var directionFacing = 1;
@@ -80,6 +81,14 @@ function startGame(map) {
       playerPos.x = 99999;
     }
     
+    for(var i=0;i<weedClouds.length;i++){
+      var cloud = weedClouds[i];
+      
+      if(rectCollision(player,cloud)){
+        //playerPos.x = 99999;
+      }
+    }
+    
     //spike balls
     for(var i=0;i<spikeBalls.length; i++){
       var ball = spikeBalls[i];
@@ -98,13 +107,10 @@ function startGame(map) {
       else{
         //move it!
         if(ball.type == "vertical"){
-          
         }
         else if(ball.type == "horizontal"){
-          
         }
         else if(ball.type == "rotate"){
-          
         }
         else if(ball.type == "attack"){
           if(ball.triggerOn){
@@ -283,6 +289,16 @@ function startGame(map) {
           range: parseInt(obj.properties.range),
           speed: parseInt(obj.properties.speed),
           triggerOn: false,
+        });
+        break;
+      case 'Weed':
+        weedClouds.push({
+          pos: pos,
+          size: size,
+          sprite: new chem.Sprite(ani.weedSmoke, {
+            batch: levelBatch,
+            pos: pos,
+          }),
         });
         break;
     }

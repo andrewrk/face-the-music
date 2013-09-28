@@ -76,6 +76,10 @@ exports.spritesheet = {
       anchor: {x:12,y:32},
       loop: true,
       delay: 0.2,
-    }
+    },
+    weedSmoke: {
+      frames: "smoke_weed_1.png",
+      //anchor: 'topleft',
+    },
   }
 };

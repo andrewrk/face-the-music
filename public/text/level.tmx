@@ -30,5 +30,6 @@
     <property name="speed" value="5"/>
    </properties>
   </object>
+  <object name="Weed" x="747" y="310" width="431" height="136"/>
  </objectgroup>
 </map>
