@@ -37,6 +37,7 @@ function startGame(map) {
 
   function onUpdate(dt, dx) {
     var newPlayerPos = player.pos.plus(playerVel);
+    grounded = false;
     for (var i = 0; i < platforms.length; i += 1) {
       var platform = platforms[i];
       if (rectCollision(player, platform)) {
