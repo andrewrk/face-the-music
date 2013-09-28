@@ -25,12 +25,6 @@ exports.spritesheet = {
         "roadie/roadie_run_6.png",
         "roadie/roadie_run_7.png",
         "roadie/roadie_run_8.png",
-        "roadie/roadie_run_7.png",
-        "roadie/roadie_run_6.png",
-        "roadie/roadie_run_5.png",
-        "roadie/roadie_run_4.png",
-        "roadie/roadie_run_3.png",
-        "roadie/roadie_run_2.png",
       ],
       anchor: {x: 25, y: 22},
       loop: true,
@@ -79,7 +73,7 @@ exports.spritesheet = {
     },
     weedSmoke: {
       frames: "smoke_weed_1.png",
-      //anchor: 'topleft',
+      anchor: 'topleft',
     },
   }
 };

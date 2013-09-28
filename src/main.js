@@ -36,22 +36,26 @@ function startGame(map) {
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
 
-  var playerMaxSpeed = 5;
+  var playerStartSpeed = 5;
+  var playerMaxSpeed = playerStartSpeed;
   var playerRunAcc = 0.25;
   var playerAirAcc = 0.15;
   var playerJumpVec = v(0,-6.5); //added ONCE
   var friction = 1.15;
   var grounded = false;
   var scroll = v(0, 0);
-  
-  var crowdSpeed = .2;
-  
+
+  var crowdSpeed = 0.2;
+
   //Enemies
   var spikeBalls = [];
   var weedClouds = [];
+  var decorations = [];
 
-  var crowdSpeed = 2;
   var directionFacing = 1;
+
+  var bgImg = chem.resources.images['background.png'];
+  var maxScrollX = null;
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -83,9 +87,14 @@ function startGame(map) {
     
     for(var i=0;i<weedClouds.length;i++){
       var cloud = weedClouds[i];
+      var cloudRect = {pos: cloud.pos.plus(v(100,30)), size: v(230,100)};
       
-      if(rectCollision(player,cloud)){
-        //playerPos.x = 99999;
+      if(rectCollision(player,cloudRect) && playerMaxSpeed == 5){
+        playerMaxSpeed = 2.5;
+      }
+      else{
+        if(playerMaxSpeed == 2.5)
+          playerMaxSpeed = playerStartSpeed;
       }
     }
     
@@ -156,6 +165,8 @@ function startGame(map) {
     scroll = playerPos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     scroll.y = 0;
+    maxScrollX = map.width - engine.size.x / 2;
+    if (scroll.x > maxScrollX) scroll.x = maxScrollX;
 
     if (left) {
       if(grounded)
@@ -232,11 +243,12 @@ function startGame(map) {
   }
 
   function onDraw(context) {
-    // clear canvas to black
-    context.fillStyle = '#000000';
-    context.fillRect(0, 0, engine.size.x, engine.size.y);
+    var offsetX = scroll.x / maxScrollX * (bgImg.width - engine.size.x);
+    context.drawImage(bgImg, offsetX, 0, engine.size.x, bgImg.height, 0, 0, engine.size.x, engine.size.y);
+
 
     // draw all sprites in batch
+    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     context.translate(-scroll.x, -scroll.y); // load identity
     levelBatch.draw(context);
 
@@ -261,12 +273,12 @@ function startGame(map) {
   function loadMapObject(obj) {
     var pos = v(obj.x, obj.y);
     var size = v(obj.width, obj.height);
+    var img = chem.resources.images[obj.properties.image];
     switch (obj.name) {
       case 'Start':
         playerPos = v(pos.x + size.x / 2, pos.y + size.y);
         break;
       case 'Platform':
-        var img = chem.resources.images[obj.properties.image];
         platforms.push({
           pos: pos,
           size: size,
@@ -286,8 +298,8 @@ function startGame(map) {
             pos: pos,
           }),
           type: obj.type,
-          range: parseInt(obj.properties.range),
-          speed: parseInt(obj.properties.speed),
+          range: parseInt(obj.properties.range, 10),
+          speed: parseInt(obj.properties.speed, 10),
           triggerOn: false,
         });
         break;
@@ -300,6 +312,13 @@ function startGame(map) {
             pos: pos,
           }),
         });
+        break;
+      case 'Decoration':
+        decorations.push(new chem.Sprite(chem.Animation.fromImage(img), {
+          batch: levelBatch,
+          pos: pos,
+          zOrder: parseInt(obj.properties.zOrder || 0, 10),
+        }));
         break;
     }
   }
