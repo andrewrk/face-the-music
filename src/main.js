@@ -3,6 +3,7 @@ var v = chem.vec2d;
 var ani = chem.resources.animations;
 var canvas = document.getElementById("game");
 var engine = new chem.Engine(canvas);
+var tmx = require('chem-tmx');
 
 engine.buttonCaptureExceptions[chem.button.KeyF5] = true;
 
@@ -10,49 +11,25 @@ engine.showLoadProgressBar();
 engine.start();
 canvas.focus();
 
-chem.resources.on('ready', function () {
+function startGame(map) {
   var batch = new chem.Batch();
-  var boom = new chem.Sound('sfx/boom.ogg');
-  var ship = new chem.Sprite(ani.ship, {
+  var player = new chem.Sprite(ani.ship, {
     batch: batch,
-    pos: v(200, 200),
-    rotation: Math.PI / 2
   });
-  var shipVel = v();
-  var rotationSpeed = Math.PI * 0.04;
-  var thrustAmt = 0.1;
+  var playerVel = v();
+  var platforms = [];
   var fpsLabel = engine.createFpsLabel();
-  engine.on('update', function (dt, dx) {
-    ship.pos.add(shipVel);
 
-    // rotate the ship with left and right arrow keys
-    if (engine.buttonState(chem.button.KeyLeft)) {
-      ship.rotation -= rotationSpeed * dx;
-    }
-    if (engine.buttonState(chem.button.KeyRight)) {
-      ship.rotation += rotationSpeed * dx;
-    }
+  engine.on('update', onUpdate);
+  engine.on('draw', onDraw);
 
-    // apply forward and backward thrust with up and down arrow keys
-    var thrust = v(Math.cos(ship.rotation), Math.sin(ship.rotation));
-    if (engine.buttonState(chem.button.KeyUp)) {
-      shipVel.add(thrust.scaled(thrustAmt * dx));
-    }
-    if (engine.buttonState(chem.button.KeyDown)) {
-      shipVel.sub(thrust.scaled(thrustAmt * dx));
-    }
+  loadMap();
 
-    // press space to blow yourself up
-    if (engine.buttonJustPressed(chem.button.KeySpace)) {
-      boom.play();
-      ship.setAnimation(ani.boom);
-      ship.setFrameIndex(0);
-      ship.on('animationend', function() {
-        ship.delete();
-      });
-    }
-  });
-  engine.on('draw', function (context) {
+  function onUpdate(dt, dx) {
+    player.pos.add(playerVel);
+  }
+
+  function onDraw(context) {
     // clear canvas to black
     context.fillStyle = '#000000'
     context.fillRect(0, 0, engine.size.x, engine.size.y);
@@ -62,5 +39,37 @@ chem.resources.on('ready', function () {
 
     // draw a little fps counter in the corner
     fpsLabel.draw(context);
+  }
+
+  function loadMap() {
+    map.layers.forEach(function(layer) {
+      if (layer.type === 'object') {
+        layer.objects.forEach(loadMapObject);
+      }
+    });
+  }
+
+  function loadMapObject(obj) {
+    var pos = v(obj.x, obj.y);
+    var size = v(obj.width, obj.height);
+    switch (obj.name) {
+      case 'Start':
+        player.pos = pos;
+        break;
+      case 'Platform':
+        platforms.push({
+          pos: pos,
+          size: size,
+        });
+        break;
+    }
+  }
+
+}
+
+chem.resources.on('ready', function() {
+  tmx.load(chem, "level.tmx", function(err, map) {
+    if (err) throw err;
+    startGame(map);
   });
 });
