@@ -14,6 +14,7 @@ engine.start();
 canvas.focus();
 
 var GRAVITY = 0.2;
+var MAX_CROWD_X_DIST = engine.size.x / 2 + 400;
 
 function startGame(map) {
   var levelBatch = new chem.Batch();
@@ -175,6 +176,10 @@ function startGame(map) {
     //Update crowd position
     crowd.pos.x += crowdSpeed;
     crowd.rotation += crowdRotationSpeed;
+
+    if (playerEntity.pos.x - crowd.pos.x > MAX_CROWD_X_DIST) {
+      crowd.pos.x = playerEntity.pos.x - MAX_CROWD_X_DIST;
+    }
 
     //crowd vs human
     if (playerEntity.pos.distance(crowd.pos) < crowdDeathRadius) {
