@@ -102,6 +102,57 @@ exports.spritesheet = {
       loop: false,
       delay: 0.2,
     },
+    enemyRun: {
+      frames: [
+        "enemy/enemy_run_1.png",
+        "enemy/enemy_run_2.png",
+        "enemy/enemy_run_3.png",
+        "enemy/enemy_run_4.png",
+        "enemy/enemy_run_5.png",
+        "enemy/enemy_run_6.png",
+        "enemy/enemy_run_7.png",
+        "enemy/enemy_run_8.png",
+      ],
+      anchor: {x: 25, y: 22},
+      loop: true,
+    },
+    enemyIdle: {
+      frames: [
+        "enemy/enemy_idle_1.png",
+      ],
+      anchor: {x: 25, y: 22},
+      loop: true,
+      delay: 0.2,
+    },
+    enemySlide: {
+      frames: [
+        "enemy/enemy_slide_1.png",
+        "enemy/enemy_slide_2.png",
+        "enemy/enemy_slide_3.png",
+        "enemy/enemy_slide_4.png",
+        "enemy/enemy_idle_1.png",
+      ],
+      anchor: {x: 25, y: 22},
+      loop: false,
+    },
+    enemyJumpUp: {
+      frames: [
+        "enemy/enemy_jump_1.png",
+        "enemy/enemy_jump_2.png",
+        "enemy/enemy_jump_3.png",
+      ],
+      anchor: {x: 25, y: 22},
+      loop: false,
+    },
+    enemyJumpDown: {
+      frames: [
+        "enemy/enemy_jump_4.png",
+        "enemy/enemy_jump_5.png",
+        "enemy/enemy_jump_6.png",
+      ],
+      anchor: {x: 25, y: 22},
+      loop: false,
+    },
     attack_mic: {},
     attack_drum: {},
     skullAttack: {
