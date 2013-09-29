@@ -22,7 +22,7 @@ function startGame(map) {
   var staticBatch = new chem.Batch();
   var foregroundBatch = new chem.Batch();
   var playerEntity = createPlayerEntity();
-  
+
   var timeSinceDeath = 0;
   var rockAniList = [
     ani.rockerHeadBanging,
@@ -58,11 +58,13 @@ function startGame(map) {
 
   var projectiles = [];
 
+  var mapWidth = null;
+  var maxScrollX = null;
+
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
   var groundImg = chem.resources.images['ground_dry_dirt.png'];
   var focusImg = chem.resources.images['black_rectangle_middle_focus.png'];
-  var maxScrollX = null;
   var groundY = engine.size.y - groundImg.height;
 
   var crowd = initCrowd();
@@ -213,7 +215,7 @@ function startGame(map) {
     scroll = playerEntity.pos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     scroll.y = 0;
-    maxScrollX = map.width*map.tileWidth - engine.size.x / 2;
+    maxScrollX = mapWidth - engine.size.x;
     if (scroll.x > maxScrollX) scroll.x = maxScrollX;
 
     doControlsAndPhysics(playerEntity, dt, dx);
@@ -957,6 +959,9 @@ function startGame(map) {
     switch (obj.name) {
       case 'Start':
         playerEntity.pos = v(pos.x + size.x / 2, pos.y + size.y);
+        break;
+      case 'End':
+        mapWidth = pos.x + size.x;
         break;
       case 'Platform':
         var platform = {
