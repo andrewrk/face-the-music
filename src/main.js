@@ -90,7 +90,7 @@ function startGame(map) {
   });
   var crowdLives = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
-  var crowdSpeed = 0.8;
+  var crowdSpeed = 0.01;//0.8;
   var crowdRotationSpeed = Math.PI / 400;
   var crowdDeathRadius = 320;
   var crowdPeople = [];

@@ -645,7 +645,6 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="REF - maxJumpHeight" x="6518" y="35" width="26" height="95"/>
   <object name="Platform" x="23835" y="400" width="103" height="61">
    <properties>
     <property name="image" value="portapotty_horizontal.png"/>
@@ -1805,36 +1804,285 @@
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="6940" y="111" width="69" height="333">
+  <object name="Platform" x="7019" y="60" width="58" height="383">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="6898" y="364" width="42" height="43">
+  <object name="Platform" x="6948" y="364" width="68" height="20">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="6807" y="278" width="42" height="43">
+  <object name="Platform" x="6820" y="278" width="85" height="22">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="6737" y="190" width="42" height="43">
+  <object name="Platform" x="6737" y="188" width="63" height="23">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Start" x="6589" y="361" width="75" height="61"/>
-  <object name="Platform" x="7013" y="112" width="374" height="55">
+  <object name="Platform" x="7081" y="60" width="527" height="48">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Skull" type="seek" x="7130" y="263" width="50" height="50">
+  <object name="Skull" type="seek" x="7296" y="291" width="50" height="50">
    <properties>
-    <property name="range" value="300"/>
+    <property name="range" value="200"/>
+    <property name="speed" value="2"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7707" y="6" width="45" height="373">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7177" y="197" width="526" height="44">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7177" y="245" width="39" height="131">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6956" y="189" width="63" height="17">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6843" y="102" width="64" height="24">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7408" y="355" width="43" height="85">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7219" y="356" width="67" height="22">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7336" y="357" width="67" height="22">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="7112" y="145" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="2"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="7334" y="135" width="50" height="50">
+   <properties>
+    <property name="range" value="250"/>
+    <property name="speed" value="2.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="horizontal" x="7646" y="133" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
     <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7603" y="355" width="102" height="25">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7455" y="358" width="93" height="22">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7605" y="309" width="44" height="45">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7500" y="308" width="44" height="45">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7338" y="311" width="44" height="45">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="7108" y="392" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="2.5"/>
+   </properties>
+  </object>
+  <object name="REF - maxJumpHeight" x="6606" y="58" width="26" height="95"/>
+  <object name="Skull" type="horizontal" x="7658" y="269" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="2.5"/>
+   </properties>
+  </object>
+  <object name="Start" x="8382" y="380" width="75" height="61"/>
+  <object name="Skull" type="rotate" x="8376" y="194" width="50" height="50">
+   <properties>
+    <property name="range" value="250"/>
+    <property name="speed" value="2"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7919" y="390" width="410" height="51">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="8322" y="194" width="50" height="50">
+   <properties>
+    <property name="range" value="200"/>
+    <property name="speed" value="-3.5"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7976" y="335" width="288" height="52">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="8026" y="286" width="164" height="46">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="8075" y="233" width="66" height="52">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="REF - maxJumpHeight" x="7809" y="28" width="26" height="95"/>
+  <object name="Skull" type="rotate" x="8267" y="194" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="8214" y="194" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="7772" y="388" width="50" height="50">
+   <properties>
+    <property name="range" value="180"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="8456" y="20" width="50" height="50">
+   <properties>
+    <property name="range" value="-180"/>
+    <property name="speed" value="5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="horizontal" x="7774" y="184" width="50" height="50">
+   <properties>
+    <property name="range" value="-325"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8109" y="123" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value="6.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8200" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8253" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8100" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8153" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8000" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8053" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="7900" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="7953" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8300" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8353" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8400" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="8453" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="7800" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="7853" y="-42" width="50" height="50">
+   <properties>
+    <property name="range" value="425"/>
+    <property name="speed" value="0.5"/>
    </properties>
   </object>
  </objectgroup>
