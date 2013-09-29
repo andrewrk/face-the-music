@@ -29,7 +29,7 @@ function startGame(map) {
     scale: v(50,900).divBy(ani.platform.frames[0].size)
   });
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
-  var crosshairSprite = new chem.Sprite(ani.crosshair, {
+  var crosshairSprite = new chem.Sprite(ani['cursor/mike'], {
     batch: staticBatch,
   });
   var playerVel = v(0,0);
@@ -68,6 +68,7 @@ function startGame(map) {
       projectileSpeed: 10,
       projectileLife: 1,
       tripleShot: false,
+      cursor: 'cursor/mike',
     },
     {
       name: "drums",
@@ -75,14 +76,22 @@ function startGame(map) {
       reloadAmt: 0.4,
       projectileSpeed: 9,
       projectileLife: 1,
+      cursor: 'cursor/drum',
     }
   ];
+
+  updateCursor();
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
   engine.on('mousemove', onMouseMove);
 
   loadMap();
+
+  function updateCursor() {
+    var currentWeapon = weapons[weaponIndex];
+    crosshairSprite.setAnimation(ani[currentWeapon.cursor]);
+  }
 
   function playerRect() {
     return {
@@ -100,7 +109,7 @@ function startGame(map) {
     //Switch Weapons
     if (engine.buttonJustPressed(chem.button.KeyShift) || engine.buttonJustPressed(chem.button.MouseRight)) {
       weaponIndex = (weaponIndex + 1) % weapons.length;
-
+      updateCursor();
     }
 
     //Update crowd position
