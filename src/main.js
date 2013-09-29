@@ -100,9 +100,9 @@ function startGame(map) {
       name: "bass",
       animation: ani.attack_bass,
       reload: 0,
-      reloadAmt: 0.75,
-      projectileSpeed: 6,
-      projectileLife: 1,
+      reloadAmt: 0.8,
+      projectileSpeed: 5,
+      projectileLife: .9,
       projectileDamage: 1.5,
       cursor: 'cursor/bass',
     },
@@ -561,13 +561,20 @@ function startGame(map) {
 
       //move it!
       if(ball.type == "vertical"){
+        var center = ball.startVec.y-ball.range;
+        ball.period += ball.speed*Math.PI/180;
+        
+        ball.pos.y = center + ball.range*Math.cos(ball.period);
       }
       else if(ball.type == "horizontal"){
+        var center = ball.startVec.x-ball.range;
+        ball.period += ball.speed*Math.PI/180;
+        
+        ball.pos.x = center + ball.range*Math.cos(ball.period);
       }
       else if(ball.type == "rotate"){
       
         var center = ball.startVec.plus(v(-ball.range,0));
-        //ball.period += ball.speed;//%(2*Math.PI);
         ball.period += ball.speed*Math.PI/180;
         
         ball.pos.x = center.x + ball.range*Math.cos(ball.period);

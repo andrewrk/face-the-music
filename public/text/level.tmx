@@ -1749,5 +1749,17 @@
     <property name="opacity" value=".85"/>
    </properties>
   </object>
+  <object name="Skull" type="horizontal" x="13491" y="60" width="50" height="50">
+   <properties>
+    <property name="range" value="80"/>
+    <property name="speed" value="1.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="13614" y="239" width="50" height="50">
+   <properties>
+    <property name="range" value="80"/>
+    <property name="speed" value="1.5"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
