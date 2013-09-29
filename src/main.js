@@ -70,7 +70,7 @@ function startGame(map) {
 
   var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
-    pos: v(0, groundY),
+    pos: v(190*100, groundY),
     zOrder: 1,
   });
   var crowdLives = 100;
@@ -761,15 +761,20 @@ function startGame(map) {
         playerEntity.pos = v(pos.x + size.x / 2, pos.y + size.y);
         break;
       case 'Platform':
-        platforms.push({
+        var platform = {
           pos: pos,
           size: size,
-          sprite: new chem.Sprite(chem.Animation.fromImage(img), {
+        };
+        if(img != null){
+          platform.sprite = new chem.Sprite(chem.Animation.fromImage(img), {
             batch: levelBatch,
             pos: pos,
             scale: size.divBy(v(img.width, img.height)),
-          }),
-        });
+          });
+        }else{
+          platform.sprite = null;
+        }
+        platforms.push(platform);
         break;
       case 'Skull':
         var animation = obj.type === 'attack' ? ani.skullAttack : ani.skullFloat;

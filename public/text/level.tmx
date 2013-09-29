@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="200" height="100" tilewidth="100" tileheight="100">
- <objectgroup name="Object Layer 1" width="200" height="100">
+<map version="1.0" orientation="orthogonal" width="199" height="100" tilewidth="100" tileheight="100">
+ <objectgroup name="Object Layer 1" width="199" height="100">
   <object name="Ground" x="-1" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
@@ -97,7 +97,7 @@
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
-  <object name="Ground" x="5909" y="445" width="15037" height="111">
+  <object name="Ground" x="5909" y="445" width="14080" height="101">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
@@ -1736,7 +1736,6 @@
     <property name="speed" value="1.5"/>
    </properties>
   </object>
-  <object name="Start" x="463" y="361" width="75" height="61"/>
   <object name="Skull" type="attack" x="13816" y="307" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
@@ -1767,5 +1766,19 @@
     <property name="speed" value="1.5"/>
    </properties>
   </object>
+  <object name="Decoration" x="19683" y="87" width="306" height="458">
+   <properties>
+    <property name="image" value="end_wall.png"/>
+    <property name="zOrder" value="0"/>
+   </properties>
+  </object>
+  <object name="Start" x="19399" y="380" width="75" height="61"/>
+  <object name="Decoration" x="19483" y="127" width="389" height="417">
+   <properties>
+    <property name="image" value="end_wall_spotlight.png"/>
+    <property name="zOrder" value="0"/>
+   </properties>
+  </object>
+  <object name="Platform" x="19826" y="96" width="231" height="457"/>
  </objectgroup>
 </map>
