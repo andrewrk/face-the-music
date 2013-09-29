@@ -59,6 +59,7 @@ function startGame(map) {
     batch: levelBatch,
     pos: v(20, groundY),
   });
+  var crowdLife = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 0.2;
   var crowdRotationSpeed = Math.PI / 400;
@@ -135,9 +136,15 @@ function startGame(map) {
     crowd.pos.x += crowdSpeed;
     crowd.rotation += crowdRotationSpeed;
 
+    //crowd vs human
     if (playerPos.distance(crowd.pos) < crowdDeathRadius) {
       playerDie();
     }
+    else if(crowdLife <= 0){
+      crowdLife = 0;
+      console.log("YOU WIN!!!");
+    }
+    
 
     //WEED cloud collision
     var inAnyWeedCloud = false;
@@ -160,6 +167,12 @@ function startGame(map) {
       var projectile = projectiles[i];
       projectile.sprite.pos.add(projectile.vel.scaled(dx));
       projectile.life -= dt;
+      
+      if(projectile.sprite.pos.distance(crowd.pos) < crowdDeathRadius){
+        crowdLife -= 1;
+        console.log(crowdLife);
+        projectile.life = -10;
+      }
 
       if (projectile.life <= 0) {
         projectiles[i].sprite.delete();
@@ -316,14 +329,6 @@ function startGame(map) {
         spikeBalls.splice(i,1);
         i--;
         continue;
-      }
-      
-      if(beamIsOn){
-        //if(rectCollision(beam,awefawef))
-        /*ball.sprite.delete();
-        spikeBalls.splice(i,1);
-        i--;
-        continue;*/
       }
       
       if(!ballColliding){
