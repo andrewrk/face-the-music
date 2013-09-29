@@ -49,6 +49,24 @@ exports.spritesheet = {
       anchor: {x: 25, y: 8},
       delay: 0.2,
     },
+    eargasmKneel: {
+      delay: 0.4,
+      frames: 'eargasm/eargasm_kneel',
+      anchor: {x: 27, y: 50},
+      loop: false,
+    },
+    eargasmText1: {
+      frames: 'eargasm/texta',
+    },
+    eargasmText2: {
+      frames: 'eargasm/textb',
+    },
+    eargasmText3: {
+      frames: 'eargasm/textc',
+    },
+    eargasmText4: {
+      frames: 'eargasm/textd',
+    },
     roadieDeath: {
       frames: [
         "roadie/roadie_death_1.png",

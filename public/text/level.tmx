@@ -1794,7 +1794,7 @@
     <property name="speed" value="4"/>
    </properties>
   </object>
-  <object name="Start" x="5169" y="163" width="75" height="61"/>
+  <object name="Start" x="438" y="323" width="75" height="61"/>
   <object name="Skull" type="rotate" x="6098" y="170" width="50" height="50">
    <properties>
     <property name="range" value="-125"/>
