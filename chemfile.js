@@ -95,8 +95,13 @@ exports.spritesheet = {
       anchor: 'topleft',
     },
     guitarBeam: {
-      frames: "scaffold_horizontal.png",
+      frames: [
+        "laser_beam_1.png",
+        "laser_beam_2.png",
+      ],
       anchor: {x:0,y:24},
+      loop: true,
+      //delay: 0.1,
     },
   }
 };

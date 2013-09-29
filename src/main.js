@@ -72,6 +72,13 @@ function startGame(map) {
       cursor: 'cursor/mike',
     },
     {
+      name: "guitar",
+      reload: 0,
+      reloadAmt: 1.0,
+      beam: {sprite: {},},
+      cursor: 'cursor/flyingv',
+    },
+    {
       name: "drums",
       reload: 0,
       reloadAmt: 0.4,
@@ -80,6 +87,7 @@ function startGame(map) {
       cursor: 'cursor/drum',
     }
   ];
+  var beamIsOn = false;
 
   updateCursor();
 
@@ -181,13 +189,21 @@ function startGame(map) {
               vel: aimVec3.scaled(currentWeapon.projectileSpeed).plus(playerVel),
             });
           }
-        } else if(currentWeapon.name === 'guitar'){
-          var beam = new chem.Sprite(ani.guitarBeam, {
-                batch: levelBatch,
-                pos: aimVec.scaled(10).plus(origPoint),
-                rotation: aimVec.angle(),
-          });        
-        } else if(currentWeapon.name === 'drums'){
+        }else if(currentWeapon.name === 'guitar'){
+          //GUITAR
+          currentWeapon.beam = {
+            sprite: new chem.Sprite(ani.guitarBeam, {
+                  batch: levelBatch,
+                  pos: aimVec.scaled(10).plus(origPoint),
+                  rotation: aimVec.angle(),
+            }),
+          };
+          beamisOn = true;
+          setTimeout(function(){
+            currentWeapon.beam.sprite.delete();
+            beamIsOn = false;
+          },750);
+        }else if(currentWeapon.name === 'drums'){
           //var aimVec = v(1,-1).normalize();
           var angle = 0;
 
@@ -225,14 +241,23 @@ function startGame(map) {
       var ballColliding = false;
       
       
-      
+      //check against player
       if(rectCollision(player,ballRect)){
         ball.sprite.delete();
         spikeBalls.splice(i,1);
         i--;
-        ballColliding = true;
+        continue;
       }
-      else{
+      
+      if(beamIsOn){
+        //if(rectCollision(currentWeapon.beam.sprite,))
+        ball.sprite.delete();
+        spikeBalls.splice(i,1);
+        i--;
+        continue;
+      }
+      
+      if(!ballColliding){
         //move it!
         if(ball.type == "vertical"){
         }
@@ -495,6 +520,10 @@ function rectCollision(rect1, rect2) {
            rect2.pos.x >= rect1.pos.x + rect1.size.x || rect2.pos.y >= rect1.pos.y + rect1.size.y ||
            rect1.pos.x + rect1.size.x < rect2.pos.x || rect1.pos.y + rect1.size.y < rect2.pos.y ||
            rect2.pos.x + rect2.size.x < rect1.pos.x || rect2.pos.y + rect2.size.y < rect1.pos.y);
+}
+
+function rotateRectangle(rect1,angle){
+  
 }
 
 function resolveX(xSign, dynamicRect, staticRect) {
