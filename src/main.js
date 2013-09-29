@@ -80,6 +80,10 @@ function startGame(map) {
   var maxScrollX = null;
 
 
+  var bgCrowdImgList = getBgCrowdImgList();
+  var bgCrowdInstances = null;
+  var bgCrowdScrollRatio = 0.8;
+
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
   var groundImg = chem.resources.images['ground_dry_dirt.png'];
@@ -235,7 +239,6 @@ function startGame(map) {
       });
     }
     else if(powerUps[i].type === "drums"){
-      console.log("POWERING UP!!");
       weapons.push({
         name: "drums",
         animation: ani.attack_drum,
@@ -286,6 +289,9 @@ function startGame(map) {
     }
     if (engine.buttonJustPressed(chem.button.KeyH)) {
       getAllPowerUps();
+    }
+    if (engine.buttonState(chem.button.Key9)) {
+      playerEntity.pos.x += 50;
     }
 
     //Switch Weapons
@@ -999,21 +1005,24 @@ function startGame(map) {
   function onDraw(context) {
     var bgOffsetX = scroll.x / maxScrollX * (bgImg.width - engine.size.x);
     context.drawImage(bgImg, bgOffsetX, 0, engine.size.x, bgImg.height, 0, 0, engine.size.x, bgImg.height);
-
-    var crowdOffsetX = (scroll.x * 0.8) % bgCrowd.width;
+    for (var i = 0; i < bgCrowdInstances.length; i += 1) {
+      var bgCrowdInst = bgCrowdInstances[i];
+      context.drawImage(bgCrowdInst.img, bgCrowdInst.x - scroll.x * bgCrowdScrollRatio, engine.size.y - groundImg.height - bgCrowdInst.img.height);
+    }
+    var crowdOffsetX = (scroll.x * bgCrowdScrollRatio) % bgCrowd.width;
     context.translate(-crowdOffsetX, 0);
     context.drawImage(bgCrowd, 0, engine.size.y - groundImg.height - bgCrowd.height);
     context.drawImage(bgCrowd, bgCrowd.width, engine.size.y - groundImg.height - bgCrowd.height);
-
-    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
-    context.translate(-scroll.x, -scroll.y);
-    levelBatch.draw(context);
 
     var groundOffsetX = scroll.x % groundImg.width;
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     context.translate(-groundOffsetX, 0);
     context.drawImage(groundImg, 0, engine.size.y - groundImg.height);
     context.drawImage(groundImg, groundImg.width, engine.size.y - groundImg.height);
+
+    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    context.translate(-scroll.x, -scroll.y);
+    levelBatch.draw(context);
 
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     context.translate(-scroll.x, -scroll.y);
@@ -1169,11 +1178,26 @@ function startGame(map) {
     crosshairSprite.pos = pos.clone();
   }
 
+  function addBgCrowdInstances(bgCrowdThing) {
+    var startX = bgCrowdThing.min * (mapWidth / bgCrowdScrollRatio);
+    var endX = bgCrowdThing.max * (mapWidth / bgCrowdScrollRatio);
+    for (var i = 0; i < bgCrowdThing.count; i += 1) {
+      bgCrowdInstances.push({
+        x: startX + (endX - startX) * Math.random(),
+        img: bgCrowdThing.img,
+      });
+    }
+  }
+
   function loadMap() {
     map.layers.forEach(function(layer) {
       if (layer.type === 'object') {
         layer.objects.forEach(loadMapObject);
       }
+    });
+    bgCrowdInstances = [];
+    bgCrowdImgList.forEach(function(bgCrowdThing) {
+      addBgCrowdInstances(bgCrowdThing);
     });
   }
 
@@ -1330,8 +1354,85 @@ function startGame(map) {
     return new chem.Sprite(ani.mobCloud1, {
       batch: levelBatch,
       pos: v(0*100, groundY),
-      zOrder: 3,
+      zOrder: 4,
     });
+  }
+  function getBgCrowdImgList() {
+    return [
+      {
+        count: 10,
+        min: 0,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background_marquee_tent.png'],
+      },
+      {
+        count: 10,
+        min: 0,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background_spotlight_scaffold.png'],
+      },
+      {
+        count: 10,
+        min: 0,
+        max: 1,
+        img: chem.resources.images['bgcrowd/backround_sound_booth.png'],
+      },
+      {
+        count: 1,
+        min: 0.10,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background_jumbotron_avn.png'],
+      },
+      {
+        count: 1,
+        min: 0.10,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background_jumbotron_chem.png'],
+      },
+      {
+        count: 1,
+        min: 0.05,
+        max: 0.05,
+        img: chem.resources.images['bgcrowd/background_jumbotron_indie.png'],
+      },
+      {
+        count: 10,
+        min: 0.5,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background__tree_1.png'],
+      },
+      {
+        count: 10,
+        min: 0.5,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background__tree_2.png'],
+      },
+      {
+        count: 10,
+        min: 0.5,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background__tree_3.png'],
+      },
+      {
+        count: 10,
+        min: 0.5,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background_smoke_1.png'],
+      },
+      {
+        count: 10,
+        min: 0.5,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background_smoke_2.png'],
+      },
+      {
+        count: 10,
+        min: 0.5,
+        max: 1,
+        img: chem.resources.images['bgcrowd/background_smoke_3.png'],
+      },
+    ];
+
   }
 }
 

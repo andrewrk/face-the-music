@@ -1718,17 +1718,10 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="18428" y="86" width="306" height="458">
+  <object name="Decoration" x="17883" y="71" width="885" height="482">
    <properties>
-    <property name="image" value="end_wall.png"/>
+    <property name="image" value="end_wall_red_ground.png"/>
     <property name="zOrder" value="0"/>
-   </properties>
-  </object>
-  <object name="Decoration" x="18202" y="141" width="389" height="417">
-   <properties>
-    <property name="fg" value="true"/>
-    <property name="image" value="end_wall_spotlight.png"/>
-    <property name="zOrder" value="3"/>
    </properties>
   </object>
   <object name="Platform" x="18571" y="95" width="227" height="348"/>
@@ -2322,6 +2315,6 @@
     <property name="image" value="weapon_drums.png"/>
    </properties>
   </object>
-  <object name="Start" x="6803" y="341" width="75" height="61"/>
+  <object name="Start" x="448" y="360" width="75" height="61"/>
  </objectgroup>
 </map>
