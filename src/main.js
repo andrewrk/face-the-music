@@ -582,6 +582,11 @@ function startGame(map) {
         
         //ball.pos = center;//.plus(v.unit(ball.period).scale(ball.range/2));*/
       }
+      else if(ball.type === "seek"){
+        var directionVec = playerEntity.pos.minus(ball.pos);
+        
+        ball.pos.add(directionVec.normalize().scaled(ball.speed));
+      }
       else if(ball.type == "attack"){
         if(ball.triggerOn){
           ball.pos.x -= ball.speed;
