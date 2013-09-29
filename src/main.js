@@ -151,7 +151,220 @@ function startGame(map) {
     }
     playerMaxSpeed = inAnyWeedCloud ? 2.5 : 5;
 
+    weaponUpdate(dt);
 
+    spikeBallUpdate(dt, dx);
+
+    //bullet movement
+    for (i = 0; i < projectiles.length; i += 1) {
+      var projectile = projectiles[i];
+      projectile.sprite.pos.add(projectile.vel.scaled(dx));
+      projectile.life -= dt;
+
+      if (projectile.life <= 0) {
+        projectiles[i].sprite.delete();
+        projectiles.splice(i,1);
+        i--;
+      }
+    }
+
+    // rotate the beam
+    if(beamIsOn){
+      var origPoint = playerPos.offset(6, 10);
+      var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
+
+      beam.pos = origPoint;//aimVec.scaled(10).plus(origPoint);
+
+      var angleDiff = angleSubtract(aimVec.angle(),beam.rotation);
+
+      //console.log("angleToMouse: " + aimVec.angle());
+      if(angleDiff >Math.PI/90){
+        beam.rotation += 0.005;
+      }else if(angleDiff<-Math.PI/90){
+        beam.rotation -= 0.005;
+      }
+    }
+
+    //Player COLISION
+    var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
+    grounded = false;
+    var newPr = {pos: newPlayerPos, size: playerSize};
+    for (i = 0; i < platforms.length; i += 1) {
+      var platform = platforms[i];
+      if (rectCollision(newPr, platform)) {
+        var outVec = resolveMinDist(newPr, platform);
+        if (Math.abs(outVec.x) > Math.abs(outVec.y)) {
+          var xDiff = resolveX(outVec.x, newPr, platform);
+          newPlayerPos.x += xDiff;
+          playerVel.x = 0;
+        } else {
+          var yDiff = resolveY(outVec.y, newPr, platform);
+          newPlayerPos.y += yDiff;
+          playerVel.y = 0;
+        }
+        newPr = {pos: newPlayerPos, size: playerSize};
+        if (outVec.y < 0) {
+          grounded = true;
+        }
+      }
+    }
+    if (newPlayerPos.y + playerSize.y >= groundY) {
+      newPlayerPos.y = groundY - playerSize.y;
+      playerVel.y = 0;
+      grounded = true;
+    }
+    playerPos = newPlayerPos;
+
+    scroll = playerPos.minus(engine.size.scaled(0.5));
+    if (scroll.x < 0) scroll.x = 0;
+    scroll.y = 0;
+    maxScrollX = map.width - engine.size.x / 2;
+    if (scroll.x > maxScrollX) scroll.x = maxScrollX;
+
+    if (left && !dying) {
+      if(grounded)
+        playerVel.x -= playerRunAcc;
+      else
+        playerVel.x -= playerAirAcc;
+    }
+    if (right && !dying) {
+      if(grounded)
+        playerVel.x += playerRunAcc;
+      else
+        playerVel.x += playerAirAcc;
+    }
+    if (jump && !dying) {
+      if(grounded){
+        playerVel.add(playerJumpVec);
+        grounded = false;
+      }
+    }
+
+    //check MAX SPEED
+    if(playerVel.x < -playerMaxSpeed){
+        playerVel.x = -playerMaxSpeed;
+    }
+    if(playerVel.x > playerMaxSpeed){
+      playerVel.x = playerMaxSpeed;
+    }
+    
+    //Apply FRICTION
+    if(grounded && ((!left && !right) || dying)){
+      if(Math.abs(playerVel.x) < 0.25){
+        playerVel.x = 0;
+      } else{
+        playerVel.scale(1/friction);
+      }
+    }
+
+    // gravity
+    playerVel.y += GRAVITY * dx;
+
+    var wantedAni = getPlayerAnimation();
+    if (player.animation !== wantedAni) {
+      player.setAnimation(wantedAni);
+      player.setFrameIndex(0);
+    }
+
+    directionFacing = sign(playerVel.x) || directionFacing;
+    player.scale.x = directionFacing;
+    player.pos = playerPos.clone();
+    // compensate for offset
+    if (directionFacing < 0) {
+      player.pos.x += playerSize.x;
+    }
+
+    function getPlayerAnimation() {
+      if (dying) {
+        return ani.roadieDeath;
+      } else if (grounded) {
+        if (Math.abs(playerVel.x) > 0) {
+          if (left&&playerVel.x<=0 || right&&playerVel.x>=0) {
+            return ani.roadieRun;
+          } else {
+            return ani.roadieSlide;
+          }
+        } else {
+          return ani.roadieIdle;
+        }
+      } else if (playerVel.y < 0) {
+        return ani.roadieJumpUp;
+      } else {
+        return ani.roadieJumpDown;
+      }
+    }
+
+  }
+
+  function spikeBallUpdate(dt, dx) {
+    //spike balls
+    var i;
+    for(i=0;i<spikeBalls.length; i++){
+      var ball = spikeBalls[i];
+
+      var ballRect = {
+            pos: ball.pos.plus(v(-12,-32)),
+            size: v(24,65)
+      }
+      
+      var ballColliding = false;
+      
+      
+      //check against player
+      if(rectCollision(player,ballRect)){
+        ball.sprite.delete();
+        spikeBalls.splice(i,1);
+        i--;
+        continue;
+      }
+      
+      if(beamIsOn){
+        //if(rectCollision(beam,awefawef))
+        /*ball.sprite.delete();
+        spikeBalls.splice(i,1);
+        i--;
+        continue;*/
+      }
+      
+      if(!ballColliding){
+        //move it!
+        if(ball.type == "vertical"){
+        }
+        else if(ball.type == "horizontal"){
+        }
+        else if(ball.type == "rotate"){
+        }
+        else if(ball.type == "attack"){
+          if(ball.triggerOn){
+            ball.pos.x -= ball.speed;
+          }
+          else{
+            var xDist = Math.abs(ball.pos.x - playerPos.x);
+            var yDist = Math.abs(ball.pos.y - playerPos.y);
+
+            if(xDist < engine.size.x) //&& yDist < 50)
+              ball.triggerOn = true;
+          }
+        }
+      }
+
+      if(!ballColliding){
+        for (j = 0; j < projectiles.length; j += 1) {
+          if(rectCollision(ballRect,projectiles[j].sprite)){
+            ball.sprite.delete();
+            spikeBalls.splice(i,1);
+            i--;
+
+            projectiles[j].sprite.delete();
+            projectiles.splice(j,1);
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  function weaponUpdate(dt) {
     var currentWeapon = weapons[weaponIndex];
     if (currentWeapon.reload <= 0) {
       if (engine.buttonState(chem.button.MouseLeft) && !dying) {
@@ -226,221 +439,12 @@ function startGame(map) {
             });
           }
         }
-        
+
         currentWeapon.reload = currentWeapon.reloadAmt;
       }
     } else {
       currentWeapon.reload -= dt;
     }
-
-    //spike balls
-    var i;
-    for(i=0;i<spikeBalls.length; i++){
-      var ball = spikeBalls[i];
-
-      var ballRect = {
-            pos: ball.pos.plus(v(-12,-32)),
-            size: v(24,65)
-      }
-      
-      var ballColliding = false;
-      
-      
-      //check against player
-      if(rectCollision(player,ballRect)){
-        ball.sprite.delete();
-        spikeBalls.splice(i,1);
-        i--;
-        continue;
-      }
-      
-      if(beamIsOn){
-        //if(rectCollision(beam,awefawef))
-        /*ball.sprite.delete();
-        spikeBalls.splice(i,1);
-        i--;
-        continue;*/
-      }
-      
-      if(!ballColliding){
-        //move it!
-        if(ball.type == "vertical"){
-        }
-        else if(ball.type == "horizontal"){
-        }
-        else if(ball.type == "rotate"){
-        }
-        else if(ball.type == "attack"){
-          if(ball.triggerOn){
-            ball.pos.x -= ball.speed;
-          }
-          else{
-            var xDist = Math.abs(ball.pos.x - playerPos.x);
-            var yDist = Math.abs(ball.pos.y - playerPos.y);
-
-            if(xDist < engine.size.x) //&& yDist < 50)
-              ball.triggerOn = true;
-          }
-        }
-      }
-
-      if(!ballColliding){
-        for (j = 0; j < projectiles.length; j += 1) {
-          if(rectCollision(ballRect,projectiles[j].sprite)){
-            ball.sprite.delete();
-            spikeBalls.splice(i,1);
-            i--;
-
-            projectiles[j].sprite.delete();
-            projectiles.splice(j,1);
-            break;
-          }
-        }
-      }
-    }
-    
-    //bullet movement
-    for (i = 0; i < projectiles.length; i += 1) {
-      var projectile = projectiles[i];
-      projectile.sprite.pos.add(projectile.vel.scaled(dx));
-      projectile.life -= dt;
-
-      if (projectile.life <= 0) {
-        projectiles[i].sprite.delete();
-        projectiles.splice(i,1);
-        i--;
-      }
-    }
-    
-    if(beamIsOn){
-      var origPoint = playerPos.offset(6, 10);
-      var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
-      
-      beam.pos = origPoint;//aimVec.scaled(10).plus(origPoint);
-      
-      var angleDiff = angleSubtract(aimVec.angle(),beam.rotation);
-      
-      //console.log("angleToMouse: " + aimVec.angle());
-      if(angleDiff >Math.PI/90){
-        beam.rotation += .005;
-      }else if(angleDiff<-Math.PI/90){
-        beam.rotation -= .005;
-      }
-    }
-
-    //Player COLISION
-    var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
-    grounded = false;
-    var newPr = {pos: newPlayerPos, size: playerSize};
-    for (i = 0; i < platforms.length; i += 1) {
-      var platform = platforms[i];
-      if (rectCollision(newPr, platform)) {
-        var outVec = resolveMinDist(newPr, platform);
-        if (Math.abs(outVec.x) > Math.abs(outVec.y)) {
-          var xDiff = resolveX(outVec.x, newPr, platform);
-          newPlayerPos.x += xDiff;
-          playerVel.x = 0;
-        } else {
-          var yDiff = resolveY(outVec.y, newPr, platform);
-          newPlayerPos.y += yDiff;
-          playerVel.y = 0;
-        }
-        newPr = {pos: newPlayerPos, size: playerSize};
-        if (outVec.y < 0) {
-          grounded = true;
-        }
-      }
-    }
-    if (newPlayerPos.y + playerSize.y >= groundY) {
-      newPlayerPos.y = groundY - playerSize.y;
-      playerVel.y = 0;
-      grounded = true;
-    }
-    playerPos = newPlayerPos;
-
-    scroll = playerPos.minus(engine.size.scaled(0.5));
-    if (scroll.x < 0) scroll.x = 0;
-    scroll.y = 0;
-    maxScrollX = map.width - engine.size.x / 2;
-    if (scroll.x > maxScrollX) scroll.x = maxScrollX;
-
-    if (left && !dying) {
-      if(grounded)
-        playerVel.x -= playerRunAcc;
-      else
-        playerVel.x -= playerAirAcc;
-    }
-    if (right && !dying) {
-      if(grounded)
-        playerVel.x += playerRunAcc;
-      else
-        playerVel.x += playerAirAcc;
-    }
-    if (jump && !dying) {
-      if(grounded){
-        playerVel.add(playerJumpVec);
-        grounded = false;
-      }
-    }
-
-    //check MAX SPEED
-    if(playerVel.x < -playerMaxSpeed){
-        playerVel.x = -playerMaxSpeed;
-    }
-    if(playerVel.x > playerMaxSpeed){
-      playerVel.x = playerMaxSpeed;
-    }
-    
-    if(beamIsOn){
-      //playerVel.x = 0;
-    }
-
-    //Apply FRICTION
-    if(grounded && ((!left && !right) || dying)){
-      if(Math.abs(playerVel.x) < 0.25){
-        playerVel.x = 0;
-      } else{
-        playerVel.scale(1/friction);
-      }
-    }
-
-    // gravity
-    playerVel.y += GRAVITY * dx;
-
-    var wantedAni = getPlayerAnimation();
-    if (player.animation !== wantedAni) {
-      player.setAnimation(wantedAni);
-      player.setFrameIndex(0);
-    }
-
-    directionFacing = sign(playerVel.x) || directionFacing;
-    player.scale.x = directionFacing;
-    player.pos = playerPos.clone();
-    // compensate for offset
-    if (directionFacing < 0) {
-      player.pos.x += playerSize.x;
-    }
-
-    function getPlayerAnimation() {
-      if (dying) {
-        return ani.roadieDeath;
-      } else if (grounded) {
-        if (Math.abs(playerVel.x) > 0) {
-          if (left&&playerVel.x<=0 || right&&playerVel.x>=0) {
-            return ani.roadieRun;
-          } else {
-            return ani.roadieSlide;
-          }
-        } else {
-          return ani.roadieIdle;
-        }
-      } else if (playerVel.y < 0) {
-        return ani.roadieJumpUp;
-      } else {
-        return ani.roadieJumpDown;
-      }
-    }
-
   }
 
   function onDraw(context) {
