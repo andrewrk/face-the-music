@@ -311,15 +311,15 @@ function startGame(map) {
       var origPoint = playerPos.offset(6, 10);
       var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
       
-      beam.pos = aimVec.scaled(10).plus(origPoint);
-      //beam.rotation = aimVec.angle();
+      beam.pos = origPoint;//aimVec.scaled(10).plus(origPoint);
       
-      var angleDiff = aimVec.angle()-beam.rotation;
+      var angleDiff = angleSubtract(aimVec.angle(),beam.rotation);
       
-      if(angleDiff >0){
-        beam.rotation += .01;
-      }else if(angleDiff<0){
-        beam.rotation -= .01;
+      //console.log("angleToMouse: " + aimVec.angle());
+      if(angleDiff >Math.PI/90){
+        beam.rotation += .005;
+      }else if(angleDiff<-Math.PI/90){
+        beam.rotation -= .005;
       }
     }
 
@@ -552,8 +552,13 @@ function rectCollision(rect1, rect2) {
            rect2.pos.x + rect2.size.x < rect1.pos.x || rect2.pos.y + rect2.size.y < rect1.pos.y);
 }
 
-function rotateRectangle(rect1,angle){
+function rotateRectangle(rect1, rect2, rotation){
+  //find 4 relative corner points of rect2
+//  var relPosX = rect2.pos.minus(
   
+  //rotate 4 points of rect2 around rect1 anchor
+  
+  //test 4 points against rotated rectangle.
 }
 
 function resolveX(xSign, dynamicRect, staticRect) {
@@ -570,6 +575,13 @@ function resolveY(ySign, dynamicRect, staticRect) {
   } else {
     return staticRect.pos.y + staticRect.size.y - dynamicRect.pos.y + 1;
   }
+}
+
+function angleSubtract(left, right){
+  var delta = left - right;
+  if(delta > Math.PI) delta -= 2*Math.PI;
+  if(delta < -Math.PI) delta += 2*Math.PI;
+  return delta;
 }
 
 function resolveMinDist(rect1, rect2) {
