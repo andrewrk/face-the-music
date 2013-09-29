@@ -127,7 +127,7 @@ function startGame(map) {
 
   var beam = null;
   var beamLife = 0;
-  var beamDamage = 0.05;
+  var beamDamage = 0.1//0.05;
 
   updateCursor();
 
@@ -780,6 +780,13 @@ function startGame(map) {
             startVec: pos.clone(),
             period: 0,
         };
+        if(obj.type === 'seek'){
+          spikeBall.health = 3;
+        }else if(obj.type === 'idle'){
+          spikeBall.health = 1;
+        }else{
+          spikeBall.health = 1.5;
+        }
         spikeBalls.push(spikeBall);
         break;
       case 'Weed':
