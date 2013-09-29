@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="4000" height="554" tilewidth="1" tileheight="1">
- <objectgroup name="Object Layer 1" width="4000" height="554">
-  <object name="Start" x="550" y="381" width="75" height="61"/>
+<map version="1.0" orientation="orthogonal" width="9999" height="554" tilewidth="1" tileheight="1">
+ <objectgroup name="Object Layer 1" width="9999" height="554">
+  <object name="Start" x="2478" y="378" width="75" height="61"/>
   <object name="Ground" x="-1" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
@@ -18,7 +18,7 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="attack" x="2677" y="109" width="50" height="50">
+  <object name="Skull" type="attack" x="2500" y="130" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
@@ -47,7 +47,7 @@
   </object>
   <object name="Weed" x="1018" y="7" width="189" height="132"/>
   <object name="REFERENCE - player square" x="460" y="12" width="30" height="57"/>
-  <object name="Platform" x="2151" y="185" width="194" height="256">
+  <object name="Platform" x="2185" y="186" width="232" height="256">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
@@ -88,9 +88,37 @@
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="1952" y="188" width="114" height="38">
+  <object name="Platform" x="1974" y="183" width="114" height="38">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Ground" x="4921" y="445" width="984" height="106">
+   <properties>
+    <property name="image" value="ground_dry_dirt.png"/>
+   </properties>
+  </object>
+  <object name="Ground" x="5909" y="445" width="4087" height="111">
+   <properties>
+    <property name="image" value="ground_dry_dirt.png"/>
+   </properties>
+  </object>
+  <object name="Skull" type="attack" x="3325" y="403" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="attack" x="3324" y="316" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="attack" x="3324" y="359" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
    </properties>
   </object>
  </objectgroup>

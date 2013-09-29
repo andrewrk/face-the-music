@@ -419,7 +419,7 @@ function startGame(map) {
           var xDist = Math.abs(ball.pos.x - playerPos.x);
           var yDist = Math.abs(ball.pos.y - playerPos.y);
 
-          if(xDist < engine.size.x) //&& yDist < 50)
+          if(xDist < engine.size.x/2 + 20) //&& yDist < 50)
             ball.triggerOn = true;
         }
       }
