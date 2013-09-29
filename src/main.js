@@ -72,6 +72,9 @@ function startGame(map) {
   var godBeam2Img = chem.resources.images['god_beam_2.png'];
   var godText1 = chem.resources.images['rock_god_testament.png'];
   var godText2 = chem.resources.images['rock_god_text.png'];
+  var leftSideHudImg = chem.resources.images['leftside_hud.png'];
+  var barNormalImg = chem.resources.images['progress_bar_normal.png'];
+  var barCautionImg = chem.resources.images['progress_bar_caution.png'];
   var groundY = engine.size.y - groundImg.height;
 
   var loseMsgImgList = [
@@ -990,6 +993,11 @@ function startGame(map) {
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     staticBatch.draw(context);
 
+    context.drawImage(leftSideHudImg, 0, 0);
+    var crowdPercentLeft = 1 - crowd.pos.x / mapWidth;
+    var barImg = crowdPercentLeft > 0.50 ? barNormalImg : barCautionImg;
+    var height = crowdPercentLeft * barImg.height;
+    context.drawImage(barImg, 0, 0, barImg.width, barImg.height, 16, engine.size.y - height - 16, barImg.width, height);
 
     if (playerEntity.dying) {
       var percentRed = timeSinceGameOver / 1.5;
