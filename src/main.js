@@ -14,7 +14,7 @@ engine.start();
 canvas.focus();
 
 var GRAVITY = 0.2;
-var MAX_CROWD_X_DIST = engine.size.x / 2 + 400;
+var MAX_CROWD_X_DIST = engine.size.x / 2 + 800;
 var crowdBehaviors = ['idle', 'hug'];
 
 function startGame(map) {
@@ -55,6 +55,7 @@ function startGame(map) {
   var spikeBalls = [];
   var weedClouds = [];
   var decorations = [];
+  var powerUps = [];
 
   var projectiles = [];
 
@@ -71,7 +72,7 @@ function startGame(map) {
   
   var crowdLives = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
-  var crowdSpeed = 0.01;//0.8;
+  var crowdSpeed = 0.8;
   var crowdRotationSpeed = Math.PI / 400;
   var crowdDeathRadius = 320;
   var crowdPeople = [];
@@ -87,6 +88,7 @@ function startGame(map) {
   var beam = null;
   var beamLife = 0;
   var beamDamage = 0.1//0.05;
+  var tripleShot = false;
 
   updateCursor();
 
@@ -599,6 +601,52 @@ function startGame(map) {
       entity.grounded = true;
     }
     entity.pos = newPos;
+    
+    //check against POWER UPS
+    for(var i=0;i<powerUps.length;i++){
+      if(rectCollision(entity,powerUps[i])){
+        if(powerUps[i].type === "bass"){
+          weapons.push({
+            name: "bass",
+            animation: ani.attack_bass,
+            reload: 0,
+            reloadAmt: 0.75,
+            projectileSpeed: 6,
+            projectileLife: 0.9,
+            projectileDamage: 1.5,
+            cursor: 'cursor/bass',
+          });
+        }
+        else if(powerUps[i].type === "guitar"){
+          weapons.push({
+            name: "guitar",
+            reload: 0,
+            reloadAmt: 1.0,
+            cursor: 'cursor/flyingv',
+          });
+        }
+        else if(powerUps[i].type === "drums"){
+          console.log("POWERING UP!!");
+          weapons.push({
+            name: "drums",
+            animation: ani.attack_drum,
+            reload: 0,
+            reloadAmt: 0.4,
+            projectileSpeed: 9,
+            projectileLife: 1,
+            projectileDamage: 1,
+            cursor: 'cursor/drum',
+          });
+        }
+        else if(powerUps[i].type === "microphone"){
+          tripleShot = true;
+        }
+        
+        powerUps[i].sprite.delete();
+        powerUps.splice(i,1);
+        i--;
+      }
+    }
   }
 
   function testYouWin() {
@@ -790,7 +838,7 @@ function startGame(map) {
             bulletType: "microphone",
           });
 
-          if(currentWeapon.tripleShot){
+          if(tripleShot){
             var angle2 = aimVec.angle()+Math.PI/8;
             var angle3 = angle2-Math.PI/4;
             var aimVec2 = v.unit(angle2);
@@ -1028,6 +1076,17 @@ function startGame(map) {
           scale: size.divBy(v(img.width, img.height)),
         }));
         break;
+      case 'Powerup':
+        powerUps.push({
+          pos: pos,
+          size: size,
+          type: obj.type,
+          sprite: new chem.Sprite(chem.Animation.fromImage(img), {
+            batch: levelBatch,
+            pos: pos,
+          }),
+        });
+        break;
     }
   }
 
@@ -1066,35 +1125,8 @@ function startGame(map) {
         projectileSpeed: 10,
         projectileLife: 1,
         projectileDamage: 1,
-        tripleShot: false,
         cursor: 'cursor/mike',
       },
-      {
-        name: "bass",
-        animation: ani.attack_bass,
-        reload: 0,
-        reloadAmt: 0.75,
-        projectileSpeed: 6,
-        projectileLife: 0.9,
-        projectileDamage: 1.5,
-        cursor: 'cursor/bass',
-      },
-      {
-        name: "guitar",
-        reload: 0,
-        reloadAmt: 1.0,
-        cursor: 'cursor/flyingv',
-      },
-      {
-        name: "drums",
-        animation: ani.attack_drum,
-        reload: 0,
-        reloadAmt: 0.4,
-        projectileSpeed: 9,
-        projectileLife: 1,
-        projectileDamage: 1,
-        cursor: 'cursor/drum',
-      }
     ];
   }
   function initCrowd() {
