@@ -44,6 +44,13 @@ function startGame(map) {
   });
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
+  var crowdLivesLabel = new chem.Label("crowd lives: 100", {
+    pos: v(10, engine.size.y - 10),
+    batch: staticBatch,
+    font: "16px sans-serif",
+    textAlign: "start",
+    fillStyle: "#ffffff",
+  });
 
   var friction = 1.15;
   var scroll = v(0, 0);
@@ -66,7 +73,7 @@ function startGame(map) {
     pos: v(115*50, groundY),
     zOrder: 1,
   });
-  var crowdLife = 100;
+  var crowdLives = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 0.8;
   var crowdRotationSpeed = Math.PI / 400;
@@ -82,9 +89,10 @@ function startGame(map) {
       name: "microphone",
       animation: ani.attack_mic,
       reload: 0,
-      reloadAmt: 0.5,//0.4,
+      reloadAmt: 0.5,
       projectileSpeed: 10,
       projectileLife: 1,
+      projectileDamage: 1,
       tripleShot: false,
       cursor: 'cursor/mike',
     },
@@ -101,6 +109,7 @@ function startGame(map) {
       reloadAmt: 0.4,
       projectileSpeed: 9,
       projectileLife: 1,
+      projectileDamage: 1,
       cursor: 'cursor/drum',
     }
   ];
@@ -108,6 +117,7 @@ function startGame(map) {
 
   var beam = null;
   var beamLife = 0;
+  var beamDamage = 0.05;
 
   updateCursor();
 
@@ -160,10 +170,6 @@ function startGame(map) {
     if (playerEntity.pos.distance(crowd.pos) < crowdDeathRadius) {
       playerDie();
     }
-    else if(crowdLife <= 0){
-      crowdLife = 0;
-      console.log("YOU WIN!!!");
-    }
 
 
     //WEED cloud collision
@@ -194,6 +200,7 @@ function startGame(map) {
 
     doControlsAndPhysics(playerEntity, dt, dx);
 
+    crowdLivesLabel.text = "Crowd lives: " + Math.floor(crowdLives);
   }
 
   function getCrowdPersonAnimation(crowdPerson) {
@@ -263,17 +270,17 @@ function startGame(map) {
       };
       if (rectCollision(projectileRect, rect)) {
         projectile.life = 0;
-        return true;
+        return projectile.damage;
       }
-      return false;
+      return 0;
     }
     function checkHitCircle(circle) {
       if (projectile.life <= 0) return false;
       if (circle.pos.distance(projectile.sprite.pos) < circle.radius) {
         projectile.life = 0;
-        return true;
+        return projectile.damage;
       }
-      return false;
+      return 0;
     }
   }
 
@@ -305,11 +312,11 @@ function startGame(map) {
     }
 
     function checkHitRect(rect) {
-      return lineIntersectsRect(origPoint, endPoint, rect);
+      return lineIntersectsRect(origPoint, endPoint, rect) ? beamDamage : 0;
     }
 
     function checkHitCircle(circle) {
-      return lineIntersectsCircle(origPoint, endPoint, circle);
+      return lineIntersectsCircle(origPoint, endPoint, circle) ? beamDamage : 0;
     }
   }
 
@@ -472,10 +479,19 @@ function startGame(map) {
     entity.pos = newPos;
   }
 
+  function youWin() {
+    console.log("you win");
+  }
+
   function forEachHittableThing(checkRect, checkCircle) {
-    if (checkCircle({pos: crowd.pos, radius: crowdDeathRadius})) {
-      crowdLife -= 1;
-      console.log(crowdLife);
+    var damage = checkCircle({pos: crowd.pos, radius: crowdDeathRadius});
+    if (damage) {
+      crowdLives -= damage;
+      if (crowdLives <= 0) {
+        crowdLives = 0;
+        youWin();
+        return;
+      }
     }
 
     for (var i = 0; i < spikeBalls.length; i += 1) {
@@ -485,10 +501,14 @@ function startGame(map) {
         pos: ball.pos.plus(v(-12,-32)),
         size: v(24,65),
       };
-      if (checkRect(ballRect)) {
-        ball.sprite.delete();
-        spikeBalls.splice(i,1);
-        i--;
+      damage = checkRect(ballRect);
+      if (damage) {
+        ball.health -= damage;
+        if (ball.health <= 0) {
+          ball.sprite.delete();
+          spikeBalls.splice(i,1);
+          i--;
+        }
       }
     }
   }
@@ -558,6 +578,7 @@ function startGame(map) {
             }),
             vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
             life: currentWeapon.projectileLife,
+            damage: currentWeapon.projectileDamage,
           });
 
           if(currentWeapon.tripleShot){
@@ -575,6 +596,7 @@ function startGame(map) {
               }),
               vel: aimVec2.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
               life: currentWeapon.projectileLife,
+              damage: currentWeapon.projectileDamage,
             });
 
             projectiles.push({
@@ -584,6 +606,7 @@ function startGame(map) {
                 rotation: aimVec3.angle(),
               }),
               vel: aimVec3.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
+              damage: currentWeapon.projectileDamage,
             });
           }
         }else if(currentWeapon.name === 'guitar' && !beam){
@@ -609,6 +632,7 @@ function startGame(map) {
               }),
               vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
               life: currentWeapon.projectileLife,
+              damage: currentWeapon.projectileDamage,
             });
           }
         }
@@ -681,11 +705,12 @@ function startGame(map) {
         });
         break;
       case 'Skull':
-        if(obj.type == "attack"){
-          spikeBalls.push({
+        var animation = obj.type === 'attack' ? ani.skullAttack : ani.skullFloat;
+        var spikeBall = {
             pos: pos,
+            health: 1,
             size: size,
-            sprite: new chem.Sprite(ani.skullAttack, {
+            sprite: new chem.Sprite(animation, {
               batch: levelBatch,
               pos: pos,
             }),
@@ -693,22 +718,8 @@ function startGame(map) {
             range: parseInt(obj.properties.range, 10),
             speed: parseInt(obj.properties.speed, 10),
             triggerOn: false,
-          });
-        }
-        else{
-          spikeBalls.push({
-            pos: pos,
-            size: size,
-            sprite: new chem.Sprite(ani.skullFloat, {
-              batch: levelBatch,
-              pos: pos,
-            }),
-            type: obj.type,
-            range: parseInt(obj.properties.range, 10),
-            speed: parseInt(obj.properties.speed, 10),
-            triggerOn: false,
-          });
-        }
+        };
+        spikeBalls.push(spikeBall);
         break;
       case 'Weed':
         weedClouds.push({
@@ -726,6 +737,8 @@ function startGame(map) {
           batch: levelBatch,
           pos: pos,
           zOrder: parseInt(obj.properties.zOrder || 0, 10),
+          alpha: parseFloat(obj.properties.opacity || 1, 10),
+          scale: size.divBy(v(img.width, img.height)),
         }));
         break;
     }
