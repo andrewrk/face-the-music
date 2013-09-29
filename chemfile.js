@@ -95,7 +95,6 @@ exports.spritesheet = {
     },
     attack_mic: {},
     attack_drum: {},
-    soundwave: {},
     skullAttack: {
       frames: [
         "skull/flaming_skull_1.png",
