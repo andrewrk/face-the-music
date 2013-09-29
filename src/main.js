@@ -43,6 +43,7 @@ function startGame(map) {
     knockBackTime: 0,
     hugs: 0, // how many are dragging you down
   };
+  var timeSinceDeath = 0;
   var rockAniList = [
     ani.rockerHeadBanging,
     ani.rockerWaving,
@@ -80,6 +81,7 @@ function startGame(map) {
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
   var groundImg = chem.resources.images['ground_dry_dirt.png'];
+  var focusImg = chem.resources.images['black_rectangle_middle_focus.png'];
   var maxScrollX = null;
   var groundY = engine.size.y - groundImg.height;
 
@@ -232,6 +234,10 @@ function startGame(map) {
     doControlsAndPhysics(playerEntity, dt, dx);
 
     crowdLivesLabel.text = "Crowd lives: " + Math.floor(crowdLives);
+
+    if (playerEntity.dying) {
+      timeSinceDeath += dt;
+    }
   }
 
   function getCrowdPersonAnimation(crowdPerson) {
@@ -901,11 +907,50 @@ function startGame(map) {
     // static
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     staticBatch.draw(context);
+
+
+    if (playerEntity.dying) {
+      var percentRed = timeSinceDeath / 1.5;
+      if (percentRed > 1) percentRed = 1;
+      var maxRed = 0.50;
+
+      context.globalAlpha = percentRed * maxRed;
+      context.fillStyle = "#ff0000";
+      context.fillRect(0, 0, engine.size.x, engine.size.y);
+      context.globalAlpha = 1;
+
+      var percentBlack = (timeSinceDeath - 0.5) / 2.0;
+      if (percentBlack >= 0) {
+        if (percentBlack > 1) percentBlack = 1;
+        var focusPos = playerEntity.pos.minus(scroll).offset(-470, -236);
+        context.globalAlpha = percentBlack;
+        context.drawImage(focusImg, focusPos.x, focusPos.y);
+        context.fillStyle = "#000000";
+        if (focusPos.y > 0) {
+          context.fillRect(0, 0, engine.size.x, focusPos.y);
+        }
+        if (focusPos.x > 0 && engine.size.y - focusPos.y > 0) {
+          context.fillRect(0, focusPos.y, focusPos.x, engine.size.y);
+        }
+      }
+
+      context.globalAlpha = 1;
+
+      context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+      context.translate(-scroll.x, -scroll.y);
+      playerEntity.sprite.draw(context);
+
+      context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    }
+
     fpsLabel.draw(context);
   }
 
   function playerDie() {
+    if (playerEntity.dying) return;
     playerEntity.dying = true;
+    timeSinceDeath = 0;
+
   }
 
   function onMouseMove(pos, button) {
