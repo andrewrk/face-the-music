@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="4000" height="554" tilewidth="1" tileheight="1">
  <objectgroup name="Object Layer 1" width="4000" height="554">
-  <object name="Start" x="300" y="378" width="75" height="61"/>
+  <object name="Start" x="350" y="378" width="75" height="61"/>
   <object name="Ground" x="-1" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
