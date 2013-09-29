@@ -396,7 +396,7 @@ function startGame(map) {
     }
 
     //Apply FRICTION
-    if(grounded && !left && !right){
+    if(grounded && ((!left && !right) || dying)){
       if(Math.abs(playerVel.x) < 0.25){
         playerVel.x = 0;
       } else{
