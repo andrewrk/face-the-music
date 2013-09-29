@@ -73,6 +73,16 @@ function startGame(map) {
   var godText2 = chem.resources.images['rock_god_text.png'];
   var groundY = engine.size.y - groundImg.height;
 
+  var loseMsgImgList = [
+    chem.resources.images['message_1.png'],
+    chem.resources.images['message_2.png'],
+    chem.resources.images['message_3.png'],
+    chem.resources.images['message_4.png'],
+    chem.resources.images['message_5.png'],
+  ];
+  var retryBtnImg = chem.resources.images['retry_button.png'];
+  var chosenLoseMsg = null;
+
   var winSparkle = new chem.Sprite(ani.ascension_sparkle);
   var beamSmoke1 = new chem.Sprite(ani.beamSmoke1, {
     visible: false,
@@ -132,6 +142,8 @@ function startGame(map) {
   }
 
   function cleanupAndRestart() {
+    canvas.style.cursor = "none";
+
     crowdPeople.forEach(deleteItsSprite);
     fxList.forEach(deleteItsSprite);
     projectiles.forEach(deleteItsSprite);
@@ -200,7 +212,7 @@ function startGame(map) {
     if (engine.buttonJustPressed(chem.button.KeyY)) {
       spawnCrowdPerson();
     }
-    if (engine.buttonJustPressed(chem.button.KeyW)) {
+    if (engine.buttonJustPressed(chem.button.KeyV)) {
       youWin();
     }
 
@@ -447,7 +459,7 @@ function startGame(map) {
           doSpritePos(person);
         }
       } else {
-        checkCollidePersonWithPlayer(person);
+        if (!playerEntity.dying) checkCollidePersonWithPlayer(person);
         doCollision(person, dt, dx);
         doControlsAndPhysics(person, dt, dx);
       }
@@ -943,6 +955,14 @@ function startGame(map) {
       var percentBlack = (timeSinceGameOver - 0.5) / 2.0;
       drawFocus(percentBlack);
 
+      var textAmt = (timeSinceGameOver - 2.5) / 0.5;
+      if (textAmt < 0) textAmt = 0;
+      if (textAmt > 1) textAmt = 1;
+      context.globalAlpha = textAmt;
+      context.drawImage(chosenLoseMsg, engine.size.x / 2 - chosenLoseMsg.width / 2, engine.size.y / 2 - chosenLoseMsg.height / 2);
+      context.drawImage(retryBtnImg, engine.size.x / 2 - retryBtnImg.width / 2, engine.size.y / 2 + chosenLoseMsg.height / 2 + 20);
+      context.globalAlpha = 1;
+
       context.setTransform(1, 0, 0, 1, 0, 0); // load identity
       context.translate(-scroll.x, -scroll.y);
       playerEntity.sprite.draw(context);
@@ -965,8 +985,6 @@ function startGame(map) {
       context.drawImage(godBeam2Img, beamX, beamY);
 
       if (beamDescendAmt === 1) {
-        winSparkle.pos = relPlayerPos.offset(0, 20);
-        winSparkle.draw(context);
         beamSmoke1.setVisible(true);
         beamSmoke1.pos = v(relPlayerPos.x, groundY);
         beamSmoke1.draw(context);
@@ -977,9 +995,12 @@ function startGame(map) {
         playerEntity.sprite.setAnimation(ani.roadie_ascending);
 
         startAscendPos = startAscendPos || playerEntity.pos;
-        var ascendAmt = (timeSinceGameOver - 3.5) / 35.0;
+        var ascendAmt = (timeSinceGameOver - 3.5) / 70.0;
         if (ascendAmt > 2) ascendAmt = 2.0;
         playerEntity.sprite.pos.y = startAscendPos.y - ascendAmt * startAscendPos.y;
+
+        winSparkle.pos = relPlayerPos.offset(0, 20 - ascendAmt * startAscendPos.y);
+        winSparkle.draw(context);
 
         var godAmt = (timeSinceGameOver - 3.5) / 5.0;
         if (godAmt < 0) godAmt = 0;
@@ -1017,7 +1038,7 @@ function startGame(map) {
     function drawFocus(percentBlack) {
       if (percentBlack > 1) percentBlack = 1;
       if (percentBlack <= 0) return;
-      var focusPos = playerEntity.pos.minus(scroll).offset(-470, -236);
+      var focusPos = playerEntity.pos.minus(scroll).offset(-470, -236).floor();
       context.globalAlpha = percentBlack;
       context.drawImage(focusImg, focusPos.x, focusPos.y);
       context.fillStyle = "#000000";
@@ -1037,8 +1058,21 @@ function startGame(map) {
   function playerDie() {
     if (playerEntity.dying || winning) return;
     playerEntity.dying = true;
+    canvas.style.cursor = "auto";
     timeSinceGameOver = 0;
+    chosenLoseMsg = loseMsgImgList[Math.floor(Math.random() * loseMsgImgList.length)];
 
+    // give the player a chance to pressing buttons
+    setTimeout(function() {
+      engine.on('buttondown', onBtnDown);
+
+      function onBtnDown(button) {
+        if (button === chem.button.MouseLeft) {
+          engine.removeListener('buttondown', onBtnDown);
+          cleanupAndRestart();
+        }
+      }
+    }, 2000);
   }
 
   function onMouseMove(pos, button) {
