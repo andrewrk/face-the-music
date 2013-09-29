@@ -69,6 +69,8 @@ function startGame(map) {
   var focusImg = chem.resources.images['black_rectangle_middle_focus.png'];
   var godBeam1Img = chem.resources.images['god_beam_1.png'];
   var godBeam2Img = chem.resources.images['god_beam_2.png'];
+  var godText1 = chem.resources.images['rock_god_testament.png'];
+  var godText2 = chem.resources.images['rock_god_text.png'];
   var groundY = engine.size.y - groundImg.height;
 
   var winSparkle = new chem.Sprite(ani.ascension_sparkle);
@@ -987,6 +989,20 @@ function startGame(map) {
         zeus.alpha = godAmt;
         zeus.pos = v(relPlayerPos.x, 0);
         zeus.draw(context);
+
+        var text1Amt = (timeSinceGameOver - 5) / 2;
+        if (text1Amt > 1) text1Amt = 1;
+        if (text1Amt < 0) text1Amt = 0;
+        context.globalAlpha = text1Amt;
+        context.drawImage(godText1, 50, 100);
+
+        var text2Amt = (timeSinceGameOver - 10) / 2;
+        if (text2Amt > 1) text2Amt = 1;
+        if (text2Amt < 0) text2Amt = 0;
+        context.globalAlpha = text2Amt;
+        context.drawImage(godText2, 50, 300);
+
+        context.globalAlpha = 1;
       }
 
       context.setTransform(1, 0, 0, 1, 0, 0); // load identity
