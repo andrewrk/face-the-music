@@ -77,7 +77,6 @@ function startGame(map) {
       name: "guitar",
       reload: 0,
       reloadAmt: 1.0,
-      beam: {sprite: {},},
       cursor: 'cursor/flyingv',
     },
     {
@@ -89,7 +88,10 @@ function startGame(map) {
       cursor: 'cursor/drum',
     }
   ];
+  
+  
   var beamIsOn = false;
+  var beam = null;
 
   updateCursor();
 
@@ -191,16 +193,14 @@ function startGame(map) {
           }
         }else if(currentWeapon.name === 'guitar'){
           //GUITAR
-          currentWeapon.beam = {
-            sprite: new chem.Sprite(ani.guitarBeam, {
+          beam = new chem.Sprite(ani.guitarBeam, {
                   batch: levelBatch,
                   pos: aimVec.scaled(10).plus(origPoint),
                   rotation: aimVec.angle(),
-            }),
-          };
-          beamisOn = true;
+          });
+          beamIsOn = true;
           setTimeout(function(){
-            currentWeapon.beam.sprite.delete();
+            beam.delete();
             beamIsOn = false;
           },750);
         }else if(currentWeapon.name === 'drums'){
@@ -250,11 +250,11 @@ function startGame(map) {
       }
       
       if(beamIsOn){
-        //if(rectCollision(currentWeapon.beam.sprite,))
-        ball.sprite.delete();
+        //if(rectCollision(beam,awefawef))
+        /*ball.sprite.delete();
         spikeBalls.splice(i,1);
         i--;
-        continue;
+        continue;*/
       }
       
       if(!ballColliding){
@@ -293,7 +293,8 @@ function startGame(map) {
         }
       }
     }
-
+    
+    //bullet movement
     for (i = 0; i < projectiles.length; i += 1) {
       var projectile = projectiles[i];
       projectile.sprite.pos.add(projectile.vel.scaled(dx));
@@ -305,9 +306,22 @@ function startGame(map) {
         i--;
       }
     }
-
-
-
+    
+    if(beamIsOn){
+      var origPoint = playerPos.offset(6, 10);
+      var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
+      
+      beam.pos = aimVec.scaled(10).plus(origPoint);
+      //beam.rotation = aimVec.angle();
+      
+      var angleDiff = aimVec.angle()-beam.rotation;
+      
+      if(angleDiff >0){
+        beam.rotation += .01;
+      }else if(angleDiff<0){
+        beam.rotation -= .01;
+      }
+    }
 
     //Player COLISION
     var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
@@ -370,6 +384,10 @@ function startGame(map) {
     }
     if(playerVel.x > playerMaxSpeed){
       playerVel.x = playerMaxSpeed;
+    }
+    
+    if(beamIsOn){
+      //playerVel.x = 0;
     }
 
     //Apply FRICTION
