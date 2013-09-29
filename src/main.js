@@ -372,7 +372,8 @@ function startGame(map) {
     var rand = Math.random();
     if (rand < 0.3333) {
       crowdPerson.target = randomNpc();
-    } else {
+    }
+    if (!crowdPerson.target) {
       crowdPerson.target = playerEntity;
     }
   }
