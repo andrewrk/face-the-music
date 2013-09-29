@@ -604,7 +604,8 @@ function startGame(map) {
   }
 
   function applyKnockBack() {
-    playerEntity.vel.add(v(-6, -1));
+    playerEntity.vel.x = sign(playerEntity.vel.x) * -6;
+    playerEntity.vel.y = -1;
     playerEntity.knockBackTime = 0.4;
   }
 
