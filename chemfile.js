@@ -11,6 +11,9 @@ exports.spritesheet = {
     anchor: "center"
   },
   animations: {
+    mobCloud1: {
+      frames: "mob/mob_cloud_1.png",
+    },
     "cursor/bass": {
       anchor: {x: 6, y: 2},
     },
@@ -23,10 +26,6 @@ exports.spritesheet = {
     "cursor/mike": {
       anchor: {x: 6, y: 2},
     },
-    platform: {
-      anchor: 'topleft',
-    },
-    crosshair: {},
     roadieRun: {
       frames: [
         "roadie/roadie_run_1.png",

@@ -23,10 +23,9 @@ function startGame(map) {
   });
   var playerPos = v();
   var playerSize = v(15, 57);
-  var crowd = new chem.Sprite(ani.platform,{
+  var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
-    pos: v(20,0),
-    scale: v(50,900).divBy(ani.platform.frames[0].size)
+    pos: v(20, 0),
   });
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crosshairSprite = new chem.Sprite(ani['cursor/mike'], {
@@ -58,7 +57,10 @@ function startGame(map) {
 
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
+  var groundImg = chem.resources.images['ground_dry_dirt.png'];
   var maxScrollX = null;
+  var groundY = engine.size.y - groundImg.height;
+
 
   var weaponIndex = 0;
   var weapons = [
@@ -124,25 +126,23 @@ function startGame(map) {
     //Update crowd position
     crowd.pos.x += crowdSpeed;
 
-    var pr = playerRect();
-    if(rectCollision(pr,crowdRect)){
+    if(rectCollision(playerRect(),crowdRect)){
       //kill it
       playerPos.x = 99999;
       return;
     }
 
     //WEED cloud collision
+    var inAnyWeedCloud = false;
     for(var i=0;i<weedClouds.length;i++){
       var cloud = weedClouds[i];
       var cloudRect = {pos: cloud.pos.plus(v(100,30)), size: v(230,100)};
 
-      if(rectCollision(player,cloudRect) && playerMaxSpeed === 5){
-        playerMaxSpeed = 2.5;
-      } else{
-        if(playerMaxSpeed === 2.5)
-          playerMaxSpeed = playerStartSpeed;
+      if(rectCollision(player,cloudRect)) {
+        inAnyWeedCloud = true;
       }
     }
+    playerMaxSpeed = inAnyWeedCloud ? 2.5 : 5;
 
 
     var currentWeapon = weapons[weaponIndex];
@@ -312,23 +312,30 @@ function startGame(map) {
     //Player COLISION
     var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
     grounded = false;
+    var newPr = {pos: newPlayerPos, size: playerSize};
     for (i = 0; i < platforms.length; i += 1) {
       var platform = platforms[i];
-      if (rectCollision(pr, platform)) {
-        var outVec = resolveMinDist(pr, platform);
+      if (rectCollision(newPr, platform)) {
+        var outVec = resolveMinDist(newPr, platform);
         if (Math.abs(outVec.x) > Math.abs(outVec.y)) {
-          var xDiff = resolveX(outVec.x, pr, platform);
+          var xDiff = resolveX(outVec.x, newPr, platform);
           newPlayerPos.x += xDiff;
           playerVel.x = 0;
         } else {
-          var yDiff = resolveY(outVec.y, pr, platform);
+          var yDiff = resolveY(outVec.y, newPr, platform);
           newPlayerPos.y += yDiff;
           playerVel.y = 0;
         }
+        newPr = {pos: newPlayerPos, size: playerSize};
         if (outVec.y < 0) {
           grounded = true;
         }
       }
+    }
+    if (newPlayerPos.y + playerSize.y >= groundY) {
+      newPlayerPos.y = groundY - playerSize.y;
+      playerVel.y = 0;
+      grounded = true;
     }
     playerPos = newPlayerPos;
 
@@ -418,12 +425,17 @@ function startGame(map) {
 
     var crowdOffsetX = (scroll.x * 0.8) % bgCrowd.width;
     context.translate(-crowdOffsetX, 0);
-    context.drawImage(bgCrowd, 0, bgImg.height - bgCrowd.height);
-    context.drawImage(bgCrowd, bgCrowd.width, bgImg.height - bgCrowd.height);
+    context.drawImage(bgCrowd, 0, engine.size.y - groundImg.height - bgCrowd.height);
+    context.drawImage(bgCrowd, bgCrowd.width, engine.size.y - groundImg.height - bgCrowd.height);
 
-    // draw all sprites in batch
+    var groundOffsetX = scroll.x % groundImg.width;
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
-    context.translate(-scroll.x, -scroll.y); // load identity
+    context.translate(-groundOffsetX, 0);
+    context.drawImage(groundImg, 0, engine.size.y - groundImg.height);
+    context.drawImage(groundImg, groundImg.width, engine.size.y - groundImg.height);
+
+    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    context.translate(-scroll.x, -scroll.y);
     levelBatch.draw(context);
 
     // static

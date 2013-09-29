@@ -2,12 +2,12 @@
 <map version="1.0" orientation="orthogonal" width="4000" height="554" tilewidth="1" tileheight="1">
  <objectgroup name="Object Layer 1" width="4000" height="554">
   <object name="Start" x="300" y="378" width="75" height="61"/>
-  <object name="Platform" x="-1" y="445" width="984" height="106">
+  <object name="Ground" x="-1" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
-  <object name="Platform" x="983" y="445" width="984" height="106">
+  <object name="Ground" x="983" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
@@ -30,17 +30,17 @@
     <property name="speed" value="5"/>
    </properties>
   </object>
-  <object name="Platform" x="1967" y="445" width="984" height="106">
+  <object name="Ground" x="1967" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
-  <object name="Platform" x="2951" y="445" width="984" height="106">
+  <object name="Ground" x="2951" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
-  <object name="Platform" x="3934" y="445" width="984" height="106">
+  <object name="Ground" x="3934" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
