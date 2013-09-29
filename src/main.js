@@ -57,6 +57,7 @@ function startGame(map) {
   var directionFacing = 1;
 
   var bgImg = chem.resources.images['background.png'];
+  var bgCrowd = chem.resources.images['background_crowd_loop.png'];
   var maxScrollX = null;
 
   var weaponIndex = 0;
@@ -247,7 +248,7 @@ function startGame(map) {
           }
         }
       }
-      
+
       if(!ballColliding){
         for (j = 0; j < projectiles.length; j += 1) {
           if(rectCollision(ballRect,projectiles[j].sprite)){
@@ -382,9 +383,13 @@ function startGame(map) {
   }
 
   function onDraw(context) {
-    var offsetX = scroll.x / maxScrollX * (bgImg.width - engine.size.x);
-    context.drawImage(bgImg, offsetX, 0, engine.size.x, bgImg.height, 0, 0, engine.size.x, engine.size.y);
+    var bgOffsetX = scroll.x / maxScrollX * (bgImg.width - engine.size.x);
+    context.drawImage(bgImg, bgOffsetX, 0, engine.size.x, bgImg.height, 0, 0, engine.size.x, bgImg.height);
 
+    var crowdOffsetX = (scroll.x * 0.8) % bgCrowd.width;
+    context.translate(-crowdOffsetX, 0);
+    context.drawImage(bgCrowd, 0, bgImg.height - bgCrowd.height);
+    context.drawImage(bgCrowd, bgCrowd.width, bgImg.height - bgCrowd.height);
 
     // draw all sprites in batch
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
