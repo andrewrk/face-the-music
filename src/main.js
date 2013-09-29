@@ -18,27 +18,34 @@ var GRAVITY = 0.2;
 function startGame(map) {
   var levelBatch = new chem.Batch();
   var staticBatch = new chem.Batch();
-  var player = new chem.Sprite(ani.roadieIdle, {
-    batch: levelBatch,
-    zOrder: 1,
-  });
-  var playerPos = v();
-  var playerSize = v(15, 57);
+  var playerEntity = {
+    getWantedAnimation: getPlayerAnimation,
+    pos: v(),
+    vel: v(),
+    size: v(15, 57),
+    sprite: new chem.Sprite(ani.roadieIdle, {
+      batch: levelBatch,
+      zOrder: 2,
+    }),
+    grounded: false,
+    left: false,
+    right: false,
+    jump: false,
+    dying: false,
+    maxSpeed: 5,
+    runAcc: 0.25,
+    airAcc: 0.15,
+    jumpVec: v(0, -6.8),
+    directionFacing: 1,
+    knockBackTime: 0,
+  };
   var crosshairSprite = new chem.Sprite(ani['cursor/mike'], {
     batch: staticBatch,
   });
-  var playerVel = v(0,0);
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
 
-  var playerStartSpeed = 5;
-  var playerMaxSpeed = playerStartSpeed;
-  var playerRunAcc = 0.25;
-  var playerAirAcc = 0.15;
-  var playerJumpVec = v(0,-6.8); //added ONCE
-  var playerKnockBackTime = 0;
   var friction = 1.15;
-  var grounded = false;
   var scroll = v(0, 0);
 
   //Enemies
@@ -47,8 +54,6 @@ function startGame(map) {
   var decorations = [];
 
   var projectiles = [];
-
-  var directionFacing = 1;
 
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
@@ -59,14 +64,17 @@ function startGame(map) {
   var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
     pos: v(115*50, groundY),
+    zOrder: 1,
   });
   var crowdLife = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 0.8;
   var crowdRotationSpeed = Math.PI / 400;
   var crowdDeathRadius = 320;
-
-  var dying = false;
+  var crowdPeople = [];
+  var maxCrowdPeople = 5;
+  var crowdPeopleCooldown = 5;
+  var crowdPeopleCooldownAmt = 5;
 
   var weaponIndex = 0;
   var weapons = [
@@ -96,8 +104,8 @@ function startGame(map) {
       cursor: 'cursor/drum',
     }
   ];
-  
-  
+
+
   var beam = null;
   var beamLife = 0;
 
@@ -116,23 +124,27 @@ function startGame(map) {
 
   function playerRect() {
     return {
-      pos: playerPos,
-      size: playerSize,
+      pos: playerEntity.pos,
+      size: playerEntity.size,
     };
   }
-  
+
   function playerHeadRect() {
     return{
-      pos: playerPos,
+      pos: playerEntity.pos,
       size: v(15,15),
     }
   }
 
   function onUpdate(dt, dx) {
     //CONTROLS
-    var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
-    var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
-    var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
+    playerEntity.left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
+    playerEntity.right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
+    playerEntity.jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
+
+    if (engine.buttonJustPressed(chem.button.KeyY)) {
+      spawnCrowdPerson();
+    }
 
     //Switch Weapons
     if (engine.buttonJustPressed(chem.button.KeyShift) || engine.buttonJustPressed(chem.button.MouseRight)) {
@@ -145,14 +157,14 @@ function startGame(map) {
     crowd.rotation += crowdRotationSpeed;
 
     //crowd vs human
-    if (playerPos.distance(crowd.pos) < crowdDeathRadius) {
+    if (playerEntity.pos.distance(crowd.pos) < crowdDeathRadius) {
       playerDie();
     }
     else if(crowdLife <= 0){
       crowdLife = 0;
       console.log("YOU WIN!!!");
     }
-    
+
 
     //WEED cloud collision
     var inAnyWeedCloud = false;
@@ -164,130 +176,68 @@ function startGame(map) {
         inAnyWeedCloud = true;
       }
     }
-    playerMaxSpeed = inAnyWeedCloud ? 2.5 : 5;
+    playerEntity.maxSpeed = inAnyWeedCloud ? 2.5 : 5;
 
     weaponUpdate(dt);
-
     spikeBallUpdate(dt, dx);
-
     updateProjectiles(dt, dx);
-
     updateBeam(dt, dx);
+    updateCrowdPeople(dt, dx);
 
-    //Player COLISION
-    var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
-    grounded = false;
-    var newPr = {pos: newPlayerPos, size: playerSize};
-    for (i = 0; i < platforms.length; i += 1) {
-      var platform = platforms[i];
-      if (rectCollision(newPr, platform)) {
-        var outVec = resolveMinDist(newPr, platform);
-        if (Math.abs(outVec.x) > Math.abs(outVec.y)) {
-          var xDiff = resolveX(outVec.x, newPr, platform);
-          newPlayerPos.x += xDiff;
-          playerVel.x = 0;
-        } else {
-          var yDiff = resolveY(outVec.y, newPr, platform);
-          newPlayerPos.y += yDiff;
-          playerVel.y = 0;
-        }
-        newPr = {pos: newPlayerPos, size: playerSize};
-        if (outVec.y < 0) {
-          grounded = true;
-        }
-      }
-    }
-    if (newPlayerPos.y + playerSize.y >= groundY) {
-      newPlayerPos.y = groundY - playerSize.y;
-      playerVel.y = 0;
-      grounded = true;
-    }
-    playerPos = newPlayerPos;
+    doCollision(playerEntity, dt, dx);
 
-    scroll = playerPos.minus(engine.size.scaled(0.5));
+    scroll = playerEntity.pos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     scroll.y = 0;
     maxScrollX = map.width*map.tileWidth - engine.size.x / 2;
     if (scroll.x > maxScrollX) scroll.x = maxScrollX;
 
-    if (left && !dying) {
-      if(grounded)
-        playerVel.x -= playerRunAcc;
-      else
-        playerVel.x -= playerAirAcc;
-    }
-    if (right && !dying) {
-      if(grounded)
-        playerVel.x += playerRunAcc;
-      else
-        playerVel.x += playerAirAcc;
-    }
-    if (jump && !dying) {
-      if(grounded){
-        playerVel.add(playerJumpVec);
-        grounded = false;
-      }
-    }
+    doControlsAndPhysics(playerEntity, dt, dx);
 
-    //check MAX SPEED
-    if(playerVel.x < -playerMaxSpeed){
-        playerVel.x = -playerMaxSpeed;
-    }
-    if(playerVel.x > playerMaxSpeed){
-      playerVel.x = playerMaxSpeed;
-    }
-    
-    //Apply FRICTION
-    if(grounded && ((!left && !right) || dying)){
-      if(Math.abs(playerVel.x) < 0.25){
-        playerVel.x = 0;
-      } else{
-        playerVel.scale(1/friction);
-      }
-    }
+  }
 
-    // gravity
-    playerVel.y += GRAVITY * dx;
-
-    playerKnockBackTime -= dt;
-    var wantedAni = getPlayerAnimation();
-    if (player.animation !== wantedAni) {
-      player.setAnimation(wantedAni);
-      player.setFrameIndex(0);
-    }
-
-    if (playerKnockBackTime <= 0) {
-      directionFacing = sign(playerVel.x) || directionFacing;
-    }
-    player.scale.x = directionFacing;
-    player.pos = playerPos.clone();
-    // compensate for offset
-    if (directionFacing < 0) {
-      player.pos.x += playerSize.x;
-    }
-
-    function getPlayerAnimation() {
-      if (dying) {
-        return ani.roadieDeath;
-      } else if (playerKnockBackTime > 0) {
-        return ani.roadieHit;
-      } else if (grounded) {
-        if (Math.abs(playerVel.x) > 0) {
-          if (left&&playerVel.x<=0 || right&&playerVel.x>=0) {
-            return ani.roadieRun;
-          } else {
-            return ani.roadieSlide;
-          }
+  function getCrowdPersonAnimation(crowdPerson) {
+    if (crowdPerson.eargasm) {
+      debugger
+    } else if (crowdPerson.knockBackTime > 0) {
+      debugger
+    } else if (crowdPerson.grounded) {
+      if (Math.abs(crowdPerson.vel.x) > 0) {
+        if (crowdPerson.left && crowdPerson.vel.x <= 0 || crowdPerson.right && crowdPerson.vel.x >= 0) {
+          return ani.enemyRun;
         } else {
-          return ani.roadieIdle;
+          return ani.enemySlide;
         }
-      } else if (playerVel.y < 0) {
-        return ani.roadieJumpUp;
       } else {
-        return ani.roadieJumpDown;
+        return ani.enemyIdle;
       }
+    } else if (playerEntity.vel.y < 0) {
+      return ani.enemyJumpUp;
+    } else {
+      return ani.enemyJumpDown;
     }
+  }
 
+  function getPlayerAnimation() {
+    if (playerEntity.dying) {
+      return ani.roadieDeath;
+    } else if (playerEntity.knockBackTime > 0) {
+      return ani.roadieHit;
+    } else if (playerEntity.grounded) {
+      if (Math.abs(playerEntity.vel.x) > 0) {
+        if (playerEntity.left&&playerEntity.vel.x<=0 || playerEntity.right&&playerEntity.vel.x>=0) {
+          return ani.roadieRun;
+        } else {
+          return ani.roadieSlide;
+        }
+      } else {
+        return ani.roadieIdle;
+      }
+    } else if (playerEntity.vel.y < 0) {
+      return ani.roadieJumpUp;
+    } else {
+      return ani.roadieJumpDown;
+    }
   }
 
   function updateProjectiles(dt, dx) {
@@ -337,7 +287,7 @@ function startGame(map) {
       return;
     }
 
-    var origPoint = playerPos.offset(6, 10);
+    var origPoint = playerEntity.pos.offset(6, 10);
     var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
 
     beam.pos = origPoint;
@@ -363,6 +313,164 @@ function startGame(map) {
     }
   }
 
+  function updateCrowdPeople(dt, dx) {
+    if (crowdPeopleCooldown <= 0) {
+      if (crowdPeople.length < maxCrowdPeople) {
+        spawnCrowdPerson();
+        crowdPeopleCooldown = crowdPeopleCooldownAmt;
+      }
+    } else {
+      crowdPeopleCooldown -= dt;
+    }
+
+    crowdPeople.forEach(function(person) {
+      var target = person.target;
+      person.right = target.pos.x > person.pos.x;
+      person.left = target.pos.x < person.pos.x;
+      if (person.jumper) {
+        person.jump = person.pos.y - target.pos.y > 50;
+      }
+
+      doCollision(person, dt, dx);
+      doControlsAndPhysics(person, dt, dx);
+    });
+  }
+
+
+  function spawnCrowdPerson() {
+    var crowdPerson = {
+      getWantedAnimation: getCrowdPersonAnimation,
+      sprite: new chem.Sprite(ani.enemyIdle, {
+        batch: levelBatch,
+        zOrder: 0,
+        pos: crowd.pos.clone(),
+      }),
+      maxSpeed: 2 + Math.random() * 4,
+      pos: crowd.pos.clone(),
+      vel: v(),
+      left: false,
+      right: false,
+      jump: false,
+      jumper: !!Math.floor(Math.random() * 2),
+      grounded: false,
+      target: null,
+      size: playerEntity.size,
+      dying: false,
+      runAcc: 0.25,
+      airAcc: 0.15,
+      jumpVec: v(0, -1 * (3 + Math.random() * 4)),
+      directionFacing: 1,
+      knockBackTime: 0,
+    };
+
+    assignCrowdPersonTarget(crowdPerson);
+
+    crowdPeople.push(crowdPerson);
+  }
+
+  function assignCrowdPersonTarget(crowdPerson) {
+    var rand = Math.random();
+    if (rand < 0.3333) {
+      crowdPerson.target = randomNpc();
+    } else {
+      crowdPerson.target = playerEntity;
+    }
+  }
+
+  function randomNpc() {
+    var randIndex = Math.floor(Math.random() * crowdPeople.length);
+    return crowdPeople[randIndex];
+  }
+
+  function doControlsAndPhysics(entity, dt, dx) {
+    if (entity.left && !entity.dying) {
+      if(entity.grounded)
+        entity.vel.x -= entity.runAcc;
+      else
+        entity.vel.x -= entity.airAcc;
+    }
+    if (entity.right && !entity.dying) {
+      if(entity.grounded)
+        entity.vel.x += entity.runAcc;
+      else
+        entity.vel.x += entity.airAcc;
+    }
+    if (entity.jump && !entity.dying) {
+      if(entity.grounded){
+        entity.vel.add(entity.jumpVec);
+        entity.grounded = false;
+      }
+    }
+
+    //check MAX SPEED
+    if(entity.vel.x < -entity.maxSpeed){
+        entity.vel.x = -entity.maxSpeed;
+    }
+    if(entity.vel.x > entity.maxSpeed){
+      entity.vel.x = entity.maxSpeed;
+    }
+
+    //Apply FRICTION
+    if(entity.grounded && ((!entity.left && !entity.right) || entity.dying)){
+      if(Math.abs(entity.vel.x) < 0.25){
+        entity.vel.x = 0;
+      } else{
+        entity.vel.scale(1/friction);
+      }
+    }
+
+    // gravity
+    entity.vel.y += GRAVITY * dx;
+
+    entity.knockBackTime -= dt;
+    var wantedAni = entity.getWantedAnimation(entity);
+    if (entity.sprite.animation !== wantedAni) {
+      entity.sprite.setAnimation(wantedAni);
+      entity.sprite.setFrameIndex(0);
+    }
+
+    if (entity.knockBackTime <= 0) {
+      entity.directionFacing = sign(entity.vel.x) || entity.directionFacing;
+    }
+    entity.sprite.scale.x = entity.directionFacing;
+    entity.sprite.pos = entity.pos.clone();
+    // compensate for offset
+    if (entity.directionFacing < 0) {
+      entity.sprite.pos.x += entity.size.x;
+    }
+  }
+
+  function doCollision(entity, dt, dx) {
+    var newPos = entity.pos.plus(entity.vel.scaled(dx));
+    entity.grounded = false;
+    var newPr = {pos: newPos, size: entity.size};
+    for (var i = 0; i < platforms.length; i += 1) {
+      var platform = platforms[i];
+      if (rectCollision(newPr, platform)) {
+        var outVec = resolveMinDist(newPr, platform);
+        if (Math.abs(outVec.x) > Math.abs(outVec.y)) {
+          var xDiff = resolveX(outVec.x, newPr, platform);
+          newPos.x += xDiff;
+          entity.vel.x = 0;
+        } else {
+          var yDiff = resolveY(outVec.y, newPr, platform);
+          newPos.y += yDiff;
+          entity.vel.y = 0;
+        }
+        newPr = {pos: newPos, size: entity.size};
+        if (outVec.y < 0) {
+          entity.grounded = true;
+        }
+      }
+    }
+    if (newPos.y + entity.size.y >= groundY) {
+      newPos.y = groundY - entity.size.y;
+      entity.vel.y = 0;
+      entity.grounded = true;
+    }
+    entity.pos = newPos;
+  }
+
   function forEachHittableThing(checkRect, checkCircle) {
     if (checkCircle({pos: crowd.pos, radius: crowdDeathRadius})) {
       crowdLife -= 1;
@@ -375,7 +483,7 @@ function startGame(map) {
       var ballRect = {
         pos: ball.pos.plus(v(-12,-32)),
         size: v(24,65),
-      }
+      };
       if (checkRect(ballRect)) {
         ball.sprite.delete();
         spikeBalls.splice(i,1);
@@ -416,8 +524,8 @@ function startGame(map) {
           ball.pos.x -= ball.speed;
         }
         else{
-          var xDist = Math.abs(ball.pos.x - playerPos.x);
-          var yDist = Math.abs(ball.pos.y - playerPos.y);
+          var xDist = Math.abs(ball.pos.x - playerEntity.pos.x);
+          var yDist = Math.abs(ball.pos.y - playerEntity.pos.y);
 
           if(xDist < engine.size.x/2 + 20) //&& yDist < 50)
             ball.triggerOn = true;
@@ -428,15 +536,15 @@ function startGame(map) {
   }
 
   function applyKnockBack() {
-    playerVel.add(v(-6, -1));
-    playerKnockBackTime = 0.4;
+    playerEntity.vel.add(v(-6, -1));
+    playerEntity.knockBackTime = 0.4;
   }
 
   function weaponUpdate(dt) {
     var currentWeapon = weapons[weaponIndex];
     if (currentWeapon.reload <= 0) {
-      if (engine.buttonState(chem.button.MouseLeft) && !dying) {
-        var origPoint = playerPos.offset(6, 10);
+      if (engine.buttonState(chem.button.MouseLeft) && !playerEntity.dying) {
+        var origPoint = playerEntity.pos.offset(6, 10);
         var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
 
         if(currentWeapon.name === 'microphone'){
@@ -447,7 +555,7 @@ function startGame(map) {
               pos: aimVec.scaled(10).plus(origPoint),
               rotation: aimVec.angle(),
             }),
-            vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerVel),
+            vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
             life: currentWeapon.projectileLife,
           });
 
@@ -464,7 +572,7 @@ function startGame(map) {
                 pos: aimVec2.scaled(10).plus(origPoint),
                 rotation: aimVec2.angle(),
               }),
-              vel: aimVec2.scaled(currentWeapon.projectileSpeed).plus(playerVel),
+              vel: aimVec2.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
               life: currentWeapon.projectileLife,
             });
 
@@ -474,7 +582,7 @@ function startGame(map) {
                 pos: aimVec3.scaled(10).plus(origPoint),
                 rotation: aimVec3.angle(),
               }),
-              vel: aimVec3.scaled(currentWeapon.projectileSpeed).plus(playerVel),
+              vel: aimVec3.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
             });
           }
         }else if(currentWeapon.name === 'guitar' && !beam){
@@ -498,7 +606,7 @@ function startGame(map) {
                 pos: aimVec.scaled(10).plus(origPoint),
                 rotation: aimVec.angle(),
               }),
-              vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerVel),
+              vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
               life: currentWeapon.projectileLife,
             });
           }
@@ -537,7 +645,7 @@ function startGame(map) {
   }
 
   function playerDie() {
-    dying = true;
+    playerEntity.dying = true;
   }
 
   function onMouseMove(pos, button) {
@@ -558,7 +666,7 @@ function startGame(map) {
     var img = chem.resources.images[obj.properties.image];
     switch (obj.name) {
       case 'Start':
-        playerPos = v(pos.x + size.x / 2, pos.y + size.y);
+        playerEntity.pos = v(pos.x + size.x / 2, pos.y + size.y);
         break;
       case 'Platform':
         platforms.push({
