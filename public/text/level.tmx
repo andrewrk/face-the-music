@@ -1826,5 +1826,16 @@
    </properties>
   </object>
   <object name="Start" x="6589" y="361" width="75" height="61"/>
+  <object name="Platform" x="7013" y="112" width="374" height="55">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="7130" y="263" width="50" height="50">
+   <properties>
+    <property name="range" value="300"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

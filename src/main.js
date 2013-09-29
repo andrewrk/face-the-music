@@ -744,9 +744,16 @@ function startGame(map) {
         //ball.pos = center;//.plus(v.unit(ball.period).scale(ball.range/2));*/
       }
       else if(ball.type === "seek"){
-        var directionVec = playerEntity.pos.minus(ball.pos);
-        
-        ball.pos.add(directionVec.normalize().scaled(ball.speed));
+        if(ball.triggerOn){
+          var directionVec = playerEntity.pos.minus(ball.pos);
+          ball.pos.add(directionVec.normalize().scaled(ball.speed));
+        }
+        else{
+          var distFromPlayer = playerEntity.pos.minus(ball.pos).length();
+
+          if(distFromPlayer < ball.range) //&& yDist < 50)
+            ball.triggerOn = true;
+        }
       }
       else if(ball.type == "attack"){
         if(ball.triggerOn){
@@ -754,7 +761,6 @@ function startGame(map) {
         }
         else{
           var xDist = Math.abs(ball.pos.x - playerEntity.pos.x);
-          var yDist = Math.abs(ball.pos.y - playerEntity.pos.y);
 
           if(xDist < engine.size.x/2 + 20) //&& yDist < 50)
             ball.triggerOn = true;
