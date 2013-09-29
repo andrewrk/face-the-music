@@ -82,5 +82,9 @@ exports.spritesheet = {
       frames: "smoke_weed_1.png",
       anchor: 'topleft',
     },
+    guitarBeam: {
+      frames: "scaffold_horizontal.png",
+      anchor: {x:0,y:24},
+    },
   }
 };

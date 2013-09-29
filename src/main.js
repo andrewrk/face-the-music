@@ -86,8 +86,12 @@ function startGame(map) {
     var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
     var shift = engine.buttonJustPressed(chem.button.KeyShift);
     
+    //Switch Weapons
     if(shift){
       if(currentWeapon == 'microphone'){
+        currentWeapon = 'guitar';
+      }
+      else if(currentWeapon == 'guitar'){
         currentWeapon = 'drums';
       }
       else if(currentWeapon == 'drums'){
@@ -158,14 +162,19 @@ function startGame(map) {
                 rotation: aimVec3.angle(),
               }),
               vel: aimVec3.scaled(mikeProjectileSpeed).plus(playerVel),
-            });/**/
+            });
           }
         }
         else if(currentWeapon == 'guitar'){
-          
+          /*projectiles.push({
+            sprite: new chem.Sprite(ani.guitarBeam, {
+              batch: levelBatch,
+              pos: aimVec2.scaled(10).plus(playerPos.offset(0, 0)),
+              rotation: aimVec2.angle(),
+            }),
+          });*/
         }
         else if(currentWeapon == 'drums'){
-          //var aimVec = v(1,-1).normalize();
           var angle = 0;
           
           for(var i=0;i<16;i++){
