@@ -289,13 +289,16 @@ function startGame(map) {
       }
     }
 
-    function checkHitRect(rect) {
+    function checkHitRect(rect, isPlatform) {
       if (projectile.life <= 0) return false;
       var projectileRect = {
         pos: projectile.sprite.pos.minus(projectile.sprite.size.scaled(0.5)),
         size: projectile.sprite.size,
       };
-      if (rectCollision(projectileRect, rect)) {
+      
+      if(isPlatform && projectile.bulletType === "bass"){
+        
+      }else if (rectCollision(projectileRect, rect)) {
         projectile.life = 0;
         return projectile.damage;
       }
@@ -598,7 +601,8 @@ function startGame(map) {
         spawnCrowdPerson();
       }
     }
-
+    
+    //skulls
     for (i = 0; i < spikeBalls.length; i += 1) {
       var ball = spikeBalls[i];
 
@@ -616,7 +620,8 @@ function startGame(map) {
         }
       }
     }
-
+    
+    //crowd
     for(i=0; i<crowdPeople.length;i++){
       var person = crowdPeople[i];
 
@@ -630,6 +635,11 @@ function startGame(map) {
         crowdPeople.splice(i,1);
         i--;
       }
+    }
+    
+    //platforms
+    for(i=0; i<platforms.length;i++){
+       checkRect(platforms[i], true);
     }
   }
 
@@ -721,6 +731,7 @@ function startGame(map) {
             vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
             life: currentWeapon.projectileLife,
             damage: currentWeapon.projectileDamage,
+            bulletType: "microphone",
           });
 
           if(currentWeapon.tripleShot){
@@ -739,6 +750,7 @@ function startGame(map) {
               vel: aimVec2.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
               life: currentWeapon.projectileLife,
               damage: currentWeapon.projectileDamage,
+              bulletType: "microphone",
             });
 
             projectiles.push({
@@ -749,6 +761,7 @@ function startGame(map) {
               }),
               vel: aimVec3.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
               damage: currentWeapon.projectileDamage,
+              bulletType: "microphone",
             });
           }
         }else if(currentWeapon.name === 'bass'){
@@ -761,6 +774,7 @@ function startGame(map) {
             vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
             life: currentWeapon.projectileLife,
             damage: currentWeapon.projectileDamage,
+            bulletType: "bass",
           });
         }else if(currentWeapon.name === 'guitar' && !beam && playerEntity.hugs === 0){
           //GUITAR
@@ -786,6 +800,7 @@ function startGame(map) {
               vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
               life: currentWeapon.projectileLife,
               damage: currentWeapon.projectileDamage,
+              bulletType: "drums",
             });
           }
         }

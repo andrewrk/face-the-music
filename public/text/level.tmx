@@ -270,1492 +270,1492 @@
    </properties>
   </object>
   <object name="Something Awesome." x="6168" y="78" width="147" height="83"/>
-  <object name="Platform" x="6574" y="355" width="107" height="88">
+  <object name="Platform" x="21933" y="355" width="107" height="88">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="6829" y="307" width="150" height="150">
+  <object name="Platform" x="22188" y="307" width="150" height="150">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="7389" y="347" width="235" height="84">
+  <object name="Platform" x="22748" y="347" width="235" height="84">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6650" y="300" width="50" height="50">
+  <object name="Skull" type="idle" x="22009" y="300" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6750" y="300" width="50" height="50">
+  <object name="Skull" type="idle" x="22109" y="300" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6700" y="300" width="50" height="50">
+  <object name="Skull" type="idle" x="22059" y="300" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="300" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="300" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6750" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22109" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6700" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22059" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6650" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22009" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6600" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="21959" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6850" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22209" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6900" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22259" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6950" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22309" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6750" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22109" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6700" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22059" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6650" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22009" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6600" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="21959" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6650" y="150" width="50" height="50">
+  <object name="Skull" type="idle" x="22009" y="150" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6650" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22009" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="150" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="150" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="50" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6600" y="150" width="50" height="50">
+  <object name="Skull" type="idle" x="21959" y="150" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6700" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22059" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6750" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22109" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6700" y="50" width="50" height="50">
+  <object name="Skull" type="idle" x="22059" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6750" y="50" width="50" height="50">
+  <object name="Skull" type="idle" x="22109" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7000" y="150" width="50" height="50">
+  <object name="Skull" type="idle" x="22359" y="150" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6850" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22209" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7050" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22409" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6900" y="150" width="50" height="50">
+  <object name="Skull" type="idle" x="22259" y="150" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6950" y="150" width="50" height="50">
+  <object name="Skull" type="idle" x="22309" y="150" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6900" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22259" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6850" y="50" width="50" height="50">
+  <object name="Skull" type="idle" x="22209" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7050" y="150" width="50" height="50">
+  <object name="Skull" type="idle" x="22409" y="150" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6900" y="50" width="50" height="50">
+  <object name="Skull" type="idle" x="22259" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6850" y="150" width="50" height="50">
+  <object name="Skull" type="idle" x="22209" y="150" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6950" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22309" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7000" y="100" width="50" height="50">
+  <object name="Skull" type="idle" x="22359" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6950" y="50" width="50" height="50">
+  <object name="Skull" type="idle" x="22309" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7000" y="50" width="50" height="50">
+  <object name="Skull" type="idle" x="22359" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7000" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22359" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7050" y="200" width="50" height="50">
+  <object name="Skull" type="idle" x="22409" y="200" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7050" y="300" width="50" height="50">
+  <object name="Skull" type="idle" x="22409" y="300" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7050" y="400" width="50" height="50">
+  <object name="Skull" type="idle" x="22409" y="400" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7000" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22359" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7050" y="350" width="50" height="50">
+  <object name="Skull" type="idle" x="22409" y="350" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7000" y="300" width="50" height="50">
+  <object name="Skull" type="idle" x="22359" y="300" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7000" y="400" width="50" height="50">
+  <object name="Skull" type="idle" x="22359" y="400" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7050" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22409" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="7000" y="350" width="50" height="50">
+  <object name="Skull" type="idle" x="22359" y="350" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6750" y="350" width="50" height="50">
+  <object name="Skull" type="idle" x="22109" y="350" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6700" y="350" width="50" height="50">
+  <object name="Skull" type="idle" x="22059" y="350" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="350" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="350" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6750" y="400" width="50" height="50">
+  <object name="Skull" type="idle" x="22109" y="400" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6700" y="400" width="50" height="50">
+  <object name="Skull" type="idle" x="22059" y="400" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="400" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="400" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6950" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22309" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6850" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22209" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6900" y="250" width="50" height="50">
+  <object name="Skull" type="idle" x="22259" y="250" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="REF - maxJumpHeight" x="6430" y="65" width="26" height="95"/>
-  <object name="Platform" x="8476" y="400" width="103" height="61">
+  <object name="REF - maxJumpHeight" x="6518" y="35" width="26" height="95"/>
+  <object name="Platform" x="23835" y="400" width="103" height="61">
    <properties>
     <property name="image" value="portapotty_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="7900" y="359" width="191" height="94">
+  <object name="Platform" x="23259" y="359" width="191" height="94">
    <properties>
     <property name="image" value="portapotty_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8291" y="365" width="191" height="94">
+  <object name="Platform" x="23650" y="365" width="191" height="94">
    <properties>
     <property name="image" value="portapotty_3.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8097" y="365" width="191" height="94">
+  <object name="Platform" x="23456" y="365" width="191" height="94">
    <properties>
     <property name="image" value="portapotty_2.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8728" y="275" width="47" height="200">
+  <object name="Platform" x="24087" y="275" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8886" y="95" width="47" height="200">
+  <object name="Platform" x="24245" y="95" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8729" y="274" width="286" height="48">
+  <object name="Platform" x="24088" y="274" width="286" height="48">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9007" y="97" width="47" height="200">
+  <object name="Platform" x="24366" y="97" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9052" y="274" width="286" height="48">
+  <object name="Platform" x="24411" y="274" width="286" height="48">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9290" y="277" width="47" height="200">
+  <object name="Platform" x="24649" y="277" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8616" y="367" width="191" height="94">
+  <object name="Platform" x="23975" y="367" width="191" height="94">
    <properties>
     <property name="image" value="portapotty_3.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9151" y="360" width="38" height="101">
+  <object name="Platform" x="24510" y="360" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9187" y="360" width="38" height="101">
+  <object name="Platform" x="24546" y="360" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9079" y="359" width="38" height="101">
+  <object name="Platform" x="24438" y="359" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_2.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9043" y="360" width="38" height="101">
+  <object name="Platform" x="24402" y="360" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9115" y="359" width="38" height="101">
+  <object name="Platform" x="24474" y="359" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9226" y="360" width="38" height="101">
+  <object name="Platform" x="24585" y="360" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8868" y="360" width="38" height="101">
+  <object name="Platform" x="24227" y="360" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8904" y="360" width="38" height="101">
+  <object name="Platform" x="24263" y="360" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8796" y="359" width="38" height="101">
+  <object name="Platform" x="24155" y="359" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_2.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8760" y="360" width="38" height="101">
+  <object name="Platform" x="24119" y="360" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8832" y="359" width="38" height="101">
+  <object name="Platform" x="24191" y="359" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8943" y="360" width="38" height="101">
+  <object name="Platform" x="24302" y="360" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8885" y="96" width="286" height="48">
+  <object name="Platform" x="24244" y="96" width="286" height="48">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9009" y="292" width="47" height="200">
+  <object name="Platform" x="24368" y="292" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8880" y="186" width="38" height="101">
+  <object name="Platform" x="24239" y="186" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8808" y="185" width="38" height="101">
+  <object name="Platform" x="24167" y="185" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_2.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8916" y="186" width="38" height="101">
+  <object name="Platform" x="24275" y="186" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8772" y="186" width="38" height="101">
+  <object name="Platform" x="24131" y="186" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8844" y="185" width="38" height="101">
+  <object name="Platform" x="24203" y="185" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="8955" y="186" width="38" height="101">
+  <object name="Platform" x="24314" y="186" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9124" y="96" width="47" height="200">
+  <object name="Platform" x="24483" y="96" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9158" y="189" width="38" height="101">
+  <object name="Platform" x="24517" y="189" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9077" y="186" width="38" height="101">
+  <object name="Platform" x="24436" y="186" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_2.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9115" y="189" width="38" height="101">
+  <object name="Platform" x="24474" y="189" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="9257" y="-289" width="54" height="460">
+  <object name="Decoration" x="24616" y="-289" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="8752" y="-304" width="54" height="460">
+  <object name="Decoration" x="24111" y="-304" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9321" y="-223" width="54" height="460">
+  <object name="Decoration" x="24680" y="-223" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="8686" y="-240" width="54" height="460">
+  <object name="Decoration" x="24045" y="-240" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Platform" x="9544" y="278" width="286" height="48">
+  <object name="Platform" x="24903" y="278" width="286" height="48">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9546" y="278" width="47" height="200">
+  <object name="Platform" x="24905" y="278" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="10106" y="278" width="47" height="200">
+  <object name="Platform" x="25465" y="278" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9866" y="278" width="286" height="48">
+  <object name="Platform" x="25225" y="278" width="286" height="48">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9822" y="278" width="47" height="200">
+  <object name="Platform" x="25181" y="278" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9409" y="364" width="38" height="101">
+  <object name="Platform" x="24768" y="364" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9444" y="364" width="38" height="101">
+  <object name="Platform" x="24803" y="364" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9478" y="364" width="38" height="101">
+  <object name="Platform" x="24837" y="364" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9373" y="363" width="38" height="101">
+  <object name="Platform" x="24732" y="363" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9461" y="281" width="38" height="101">
+  <object name="Platform" x="24820" y="281" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9391" y="280" width="38" height="101">
+  <object name="Platform" x="24750" y="280" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Platform" x="9426" y="276" width="38" height="101">
+  <object name="Platform" x="24785" y="276" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="9581" y="362" width="45" height="100">
-   <properties>
-    <property name="image" value="scaffold_vertical.png"/>
-    <property name="opacity" value=".5"/>
-   </properties>
-  </object>
-  <object name="Decoration" x="9592" y="360" width="143" height="24">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-    <property name="opacity" value=".5"/>
-   </properties>
-  </object>
-  <object name="Decoration" x="9699" y="362" width="45" height="100">
+  <object name="Decoration" x="24940" y="362" width="45" height="100">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9744" y="362" width="45" height="100">
-   <properties>
-    <property name="image" value="scaffold_vertical.png"/>
-    <property name="opacity" value=".5"/>
-   </properties>
-  </object>
-  <object name="Decoration" x="9862" y="362" width="45" height="100">
-   <properties>
-    <property name="image" value="scaffold_vertical.png"/>
-    <property name="opacity" value=".5"/>
-   </properties>
-  </object>
-  <object name="Decoration" x="9755" y="360" width="143" height="24">
+  <object name="Decoration" x="24951" y="360" width="143" height="24">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9903" y="362" width="45" height="100">
+  <object name="Decoration" x="25058" y="362" width="45" height="100">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="10020" y="362" width="45" height="100">
+  <object name="Decoration" x="25103" y="362" width="45" height="100">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9914" y="360" width="143" height="24">
+  <object name="Decoration" x="25221" y="362" width="45" height="100">
+   <properties>
+    <property name="image" value="scaffold_vertical.png"/>
+    <property name="opacity" value=".5"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="25114" y="360" width="143" height="24">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="9527" y="393" width="50" height="50">
+  <object name="Decoration" x="25262" y="362" width="45" height="100">
+   <properties>
+    <property name="image" value="scaffold_vertical.png"/>
+    <property name="opacity" value=".5"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="25379" y="362" width="45" height="100">
+   <properties>
+    <property name="image" value="scaffold_vertical.png"/>
+    <property name="opacity" value=".5"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="25273" y="360" width="143" height="24">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+    <property name="opacity" value=".5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="24886" y="393" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="9355" y="392" width="50" height="50">
+  <object name="Skull" type="idle" x="24714" y="392" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="9969" y="384" width="50" height="50">
+  <object name="Skull" type="idle" x="25328" y="384" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="9671" y="240" width="50" height="50">
+  <object name="Skull" type="idle" x="25030" y="240" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="9967" y="239" width="50" height="50">
+  <object name="Skull" type="idle" x="25326" y="239" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="9440" y="-268" width="54" height="460">
+  <object name="Decoration" x="24799" y="-268" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9567" y="-270" width="54" height="460">
+  <object name="Decoration" x="24926" y="-270" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9504" y="-270" width="54" height="460">
+  <object name="Decoration" x="24863" y="-270" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9691" y="-271" width="54" height="460">
+  <object name="Decoration" x="25050" y="-271" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9753" y="-271" width="54" height="460">
+  <object name="Decoration" x="25112" y="-271" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9814" y="-272" width="54" height="460">
+  <object name="Decoration" x="25173" y="-272" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9628" y="-271" width="54" height="460">
+  <object name="Decoration" x="24987" y="-271" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9938" y="-272" width="54" height="460">
+  <object name="Decoration" x="25297" y="-272" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="10251" y="-275" width="54" height="460">
+  <object name="Decoration" x="25610" y="-275" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="10002" y="-274" width="54" height="460">
+  <object name="Decoration" x="25361" y="-274" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="10065" y="-274" width="54" height="460">
+  <object name="Decoration" x="25424" y="-274" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="10312" y="-276" width="54" height="460">
+  <object name="Decoration" x="25671" y="-276" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="9874" y="-272" width="54" height="460">
+  <object name="Decoration" x="25233" y="-272" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="10188" y="-275" width="54" height="460">
+  <object name="Decoration" x="25547" y="-275" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="10126" y="-275" width="54" height="460">
+  <object name="Decoration" x="25485" y="-275" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Decoration" x="10398" y="274" width="47" height="200">
+  <object name="Decoration" x="25757" y="274" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="10399" y="81" width="47" height="200">
+  <object name="Decoration" x="25758" y="81" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="10399" y="-114" width="47" height="200">
+  <object name="Decoration" x="25758" y="-114" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="10461" y="-115" width="47" height="200">
+  <object name="Decoration" x="25820" y="-115" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="10461" y="275" width="47" height="200">
+  <object name="Decoration" x="25820" y="275" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="10460" y="80" width="47" height="200">
+  <object name="Decoration" x="25819" y="80" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="11003" y="-189" width="54" height="460">
+  <object name="Decoration" x="26362" y="-189" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11128" y="-110" width="47" height="200">
+  <object name="Decoration" x="26487" y="-110" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="11127" y="278" width="47" height="200">
+  <object name="Decoration" x="26486" y="278" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="11128" y="85" width="47" height="200">
+  <object name="Decoration" x="26487" y="85" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="11189" y="84" width="47" height="200">
+  <object name="Decoration" x="26548" y="84" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="11190" y="-111" width="47" height="200">
+  <object name="Decoration" x="26549" y="-111" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="11569" y="262" width="47" height="200">
+  <object name="Decoration" x="26928" y="262" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="10192" y="411" width="160" height="35">
+  <object name="Decoration" x="25551" y="411" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="10351" y="411" width="160" height="35">
+  <object name="Decoration" x="25710" y="411" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="10672" y="411" width="160" height="35">
+  <object name="Decoration" x="26031" y="411" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="10513" y="411" width="160" height="35">
+  <object name="Decoration" x="25872" y="411" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="10992" y="411" width="160" height="35">
+  <object name="Decoration" x="26351" y="411" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="10833" y="411" width="160" height="35">
+  <object name="Decoration" x="26192" y="411" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="11313" y="409" width="160" height="35">
+  <object name="Decoration" x="26672" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="10584" y="-185" width="54" height="460">
+  <object name="Decoration" x="25943" y="-185" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10518" y="-117" width="54" height="460">
+  <object name="Decoration" x="25877" y="-117" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11066" y="-118" width="54" height="460">
+  <object name="Decoration" x="26425" y="-118" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10665" y="-270" width="54" height="460">
+  <object name="Decoration" x="26024" y="-270" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10729" y="-270" width="54" height="460">
+  <object name="Decoration" x="26088" y="-270" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10791" y="-270" width="54" height="460">
+  <object name="Decoration" x="26150" y="-270" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10915" y="-269" width="54" height="460">
+  <object name="Decoration" x="26274" y="-269" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10853" y="-269" width="54" height="460">
+  <object name="Decoration" x="26212" y="-269" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10698" y="291" width="38" height="101">
+  <object name="Decoration" x="26057" y="291" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10737" y="292" width="38" height="101">
+  <object name="Decoration" x="26096" y="292" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10777" y="291" width="38" height="101">
+  <object name="Decoration" x="26136" y="291" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10816" y="291" width="38" height="101">
+  <object name="Decoration" x="26175" y="291" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10855" y="291" width="38" height="101">
+  <object name="Decoration" x="26214" y="291" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10894" y="291" width="38" height="101">
+  <object name="Decoration" x="26253" y="291" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10579" y="329" width="160" height="121">
+  <object name="Decoration" x="25938" y="329" width="160" height="121">
    <properties>
     <property name="image" value="stage_lights_on.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10895" y="330" width="160" height="121">
+  <object name="Decoration" x="26254" y="330" width="160" height="121">
    <properties>
     <property name="image" value="stage_lights_on.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="10737" y="330" width="160" height="121">
+  <object name="Decoration" x="26096" y="330" width="160" height="121">
    <properties>
     <property name="image" value="stage_lights_on.png"/>
    </properties>
   </object>
-  <object name="Platform" x="11916" y="260" width="47" height="200">
+  <object name="Platform" x="27275" y="260" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Platform" x="11568" y="262" width="256" height="48">
+  <object name="Platform" x="26927" y="262" width="256" height="48">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="11568" y="109" width="47" height="200">
+  <object name="Platform" x="26927" y="109" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Platform" x="11916" y="66" width="47" height="200">
+  <object name="Platform" x="27275" y="66" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Platform" x="11687" y="65" width="276" height="48">
+  <object name="Platform" x="27046" y="65" width="276" height="48">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="11618" y="172" width="38" height="101">
+  <object name="Platform" x="26977" y="172" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11616" y="229" width="160" height="35">
+  <object name="Decoration" x="26975" y="229" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Platform" x="11568" y="-85" width="47" height="200">
+  <object name="Platform" x="26927" y="-85" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Platform" x="11876" y="346" width="38" height="101">
+  <object name="Platform" x="27235" y="346" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11635" y="409" width="160" height="35">
+  <object name="Decoration" x="26994" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="11888" y="131" width="50" height="50">
+  <object name="Skull" type="idle" x="27247" y="131" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12233" y="76" width="50" height="50">
+  <object name="Skull" type="idle" x="27592" y="76" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12235" y="147" width="50" height="50">
+  <object name="Skull" type="idle" x="27594" y="147" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12236" y="213" width="50" height="50">
+  <object name="Skull" type="idle" x="27595" y="213" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12268" y="276" width="50" height="50">
+  <object name="Skull" type="idle" x="27627" y="276" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12331" y="263" width="50" height="50">
+  <object name="Skull" type="idle" x="27690" y="263" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12390" y="225" width="50" height="50">
+  <object name="Skull" type="idle" x="27749" y="225" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12360" y="160" width="50" height="50">
+  <object name="Skull" type="idle" x="27719" y="160" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12298" y="157" width="50" height="50">
+  <object name="Skull" type="idle" x="27657" y="157" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12293" y="34" width="50" height="50">
+  <object name="Skull" type="idle" x="27652" y="34" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12350" y="53" width="50" height="50">
+  <object name="Skull" type="idle" x="27709" y="53" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12619" y="216" width="50" height="50">
+  <object name="Skull" type="idle" x="27978" y="216" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12497" y="267" width="50" height="50">
+  <object name="Skull" type="idle" x="27856" y="267" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12527" y="148" width="50" height="50">
+  <object name="Skull" type="idle" x="27886" y="148" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12589" y="151" width="50" height="50">
+  <object name="Skull" type="idle" x="27948" y="151" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12560" y="254" width="50" height="50">
+  <object name="Skull" type="idle" x="27919" y="254" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12464" y="138" width="50" height="50">
+  <object name="Skull" type="idle" x="27823" y="138" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12579" y="44" width="50" height="50">
+  <object name="Skull" type="idle" x="27938" y="44" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12465" y="204" width="50" height="50">
+  <object name="Skull" type="idle" x="27824" y="204" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12462" y="67" width="50" height="50">
+  <object name="Skull" type="idle" x="27821" y="67" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12522" y="25" width="50" height="50">
+  <object name="Skull" type="idle" x="27881" y="25" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12850" y="213" width="50" height="50">
+  <object name="Skull" type="idle" x="28209" y="213" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12727" y="264" width="50" height="50">
+  <object name="Skull" type="idle" x="28086" y="264" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12758" y="145" width="50" height="50">
+  <object name="Skull" type="idle" x="28117" y="145" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12820" y="148" width="50" height="50">
+  <object name="Skull" type="idle" x="28179" y="148" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12791" y="251" width="50" height="50">
+  <object name="Skull" type="idle" x="28150" y="251" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12694" y="135" width="50" height="50">
+  <object name="Skull" type="idle" x="28053" y="135" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12809" y="41" width="50" height="50">
+  <object name="Skull" type="idle" x="28168" y="41" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12695" y="201" width="50" height="50">
+  <object name="Skull" type="idle" x="28054" y="201" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12692" y="64" width="50" height="50">
+  <object name="Skull" type="idle" x="28051" y="64" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="12752" y="22" width="50" height="50">
+  <object name="Skull" type="idle" x="28111" y="22" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="11688" y="29" width="160" height="35">
+  <object name="Decoration" x="27047" y="29" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="11474" y="409" width="160" height="35">
+  <object name="Decoration" x="26833" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="11795" y="409" width="160" height="35">
+  <object name="Decoration" x="27154" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="11956" y="409" width="160" height="35">
+  <object name="Decoration" x="27315" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="11189" y="279" width="47" height="200">
+  <object name="Decoration" x="26548" y="279" width="47" height="200">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Decoration" x="11152" y="410" width="160" height="35">
+  <object name="Decoration" x="26511" y="410" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Decoration" x="11323" y="50" width="38" height="101">
+  <object name="Decoration" x="26682" y="50" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11463" y="52" width="38" height="101">
+  <object name="Decoration" x="26822" y="52" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11263" y="195" width="38" height="101">
+  <object name="Decoration" x="26622" y="195" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11308" y="234" width="38" height="101">
+  <object name="Decoration" x="26667" y="234" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11354" y="255" width="38" height="101">
+  <object name="Decoration" x="26713" y="255" width="38" height="101">
    <properties>
     <property name="image" value="speaker_stack_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="11965" y="362" width="254" height="132">
+  <object name="Decoration" x="27324" y="362" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="11847" y="384" width="254" height="132">
+  <object name="Decoration" x="27206" y="384" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="11727" y="350" width="254" height="132">
+  <object name="Decoration" x="27086" y="350" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="12122" y="359" width="254" height="132">
+  <object name="Decoration" x="27481" y="359" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="12360" y="371" width="254" height="132">
+  <object name="Decoration" x="27719" y="371" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="12242" y="393" width="254" height="132">
+  <object name="Decoration" x="27601" y="393" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12508" y="355" width="254" height="132">
+  <object name="Decoration" x="27867" y="355" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="12746" y="367" width="254" height="132">
+  <object name="Decoration" x="28105" y="367" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="12628" y="389" width="254" height="132">
+  <object name="Decoration" x="27987" y="389" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="12744" y="351" width="254" height="132">
+  <object name="Decoration" x="28103" y="351" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="12982" y="363" width="254" height="132">
+  <object name="Decoration" x="28341" y="363" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
     <property name="opacity" value=".75"/>
    </properties>
   </object>
-  <object name="Decoration" x="12864" y="385" width="254" height="132">
+  <object name="Decoration" x="28223" y="385" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_1.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12105" y="384" width="254" height="132">
+  <object name="Decoration" x="27464" y="384" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12429" y="390" width="254" height="132">
+  <object name="Decoration" x="27788" y="390" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12967" y="386" width="254" height="132">
+  <object name="Decoration" x="28326" y="386" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12791" y="404" width="254" height="132">
+  <object name="Decoration" x="28150" y="404" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12657" y="428" width="254" height="132">
+  <object name="Decoration" x="28016" y="428" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12285" y="422" width="254" height="132">
+  <object name="Decoration" x="27644" y="422" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12083" y="422" width="254" height="132">
+  <object name="Decoration" x="27442" y="422" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12423" y="418" width="254" height="132">
+  <object name="Decoration" x="27782" y="418" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="12455" y="394" width="254" height="132">
+  <object name="Decoration" x="27814" y="394" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6950" y="0" width="50" height="50">
+  <object name="Skull" type="idle" x="22309" y="0" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6800" y="0" width="50" height="50">
+  <object name="Skull" type="idle" x="22159" y="0" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6900" y="0" width="50" height="50">
+  <object name="Skull" type="idle" x="22259" y="0" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6850" y="0" width="50" height="50">
+  <object name="Skull" type="idle" x="22209" y="0" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="rotate" x="13392" y="209" width="50" height="50">
+  <object name="Skull" type="rotate" x="28751" y="209" width="50" height="50">
    <properties>
     <property name="range" value="80"/>
     <property name="speed" value="1.5"/>
    </properties>
   </object>
-  <object name="Skull" type="attack" x="13816" y="307" width="50" height="50">
+  <object name="Skull" type="attack" x="29175" y="307" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="6"/>
    </properties>
   </object>
-  <object name="Platform" x="13346" y="216" width="29" height="32">
+  <object name="Platform" x="28705" y="216" width="29" height="32">
    <properties>
     <property name="image" value="scaffold_vertical.png"/>
     <property name="opacity" value=".85"/>
    </properties>
   </object>
-  <object name="Skull" type="horizontal" x="13491" y="60" width="50" height="50">
+  <object name="Skull" type="horizontal" x="28850" y="60" width="50" height="50">
    <properties>
     <property name="range" value="80"/>
     <property name="speed" value="1.5"/>
    </properties>
   </object>
-  <object name="Skull" type="vertical" x="13614" y="239" width="50" height="50">
+  <object name="Skull" type="vertical" x="28973" y="239" width="50" height="50">
    <properties>
     <property name="range" value="80"/>
     <property name="speed" value="1.5"/>
    </properties>
   </object>
-  <object name="Skull" type="seek" x="13831" y="96" width="50" height="50">
+  <object name="Skull" type="seek" x="29190" y="96" width="50" height="50">
    <properties>
     <property name="range" value="80"/>
     <property name="speed" value="1.5"/>
@@ -1794,11 +1794,36 @@
     <property name="speed" value="4"/>
    </properties>
   </object>
-  <object name="Start" x="5169" y="163" width="75" height="61"/>
   <object name="Skull" type="rotate" x="6098" y="170" width="50" height="50">
    <properties>
     <property name="range" value="-125"/>
     <property name="speed" value="4"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6680" y="-2" width="54" height="347">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6940" y="111" width="69" height="333">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Start" x="6593" y="363" width="75" height="61"/>
+  <object name="Platform" x="6898" y="364" width="42" height="43">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6807" y="278" width="42" height="43">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6737" y="190" width="42" height="43">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
  </objectgroup>
