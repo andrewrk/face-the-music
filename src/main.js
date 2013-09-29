@@ -154,7 +154,7 @@ function startGame(map) {
 
     var currentWeapon = weapons[weaponIndex];
     if (currentWeapon.reload <= 0) {
-      if (engine.buttonState(chem.button.MouseLeft)) {
+      if (engine.buttonState(chem.button.MouseLeft) && !dying) {
         var origPoint = playerPos.offset(6, 10);
         var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
 
