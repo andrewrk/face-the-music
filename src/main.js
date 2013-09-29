@@ -62,9 +62,12 @@ function startGame(map) {
   var mikeReloadAmt = 0.3//0.1;
   var mikeReload = 0;
   var mikeProjectileSpeed = 10;//6;
-  
-  var tripleShot = true;
-  var currentWeapon = 'drums';
+
+  var mikeProjectileLife = 1;
+  var drumProjectileLife = 1;
+
+  var tripleShot = false;
+  var currentWeapon = 'microphone';
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
@@ -108,17 +111,16 @@ function startGame(map) {
       playerPos.x = 99999;
       return;
     }
-    
+
     //WEED cloud collision
     for(var i=0;i<weedClouds.length;i++){
       var cloud = weedClouds[i];
       var cloudRect = {pos: cloud.pos.plus(v(100,30)), size: v(230,100)};
-      
-      if(rectCollision(player,cloudRect) && playerMaxSpeed == 5){
+
+      if(rectCollision(player,cloudRect) && playerMaxSpeed === 5){
         playerMaxSpeed = 2.5;
-      }
-      else{
-        if(playerMaxSpeed == 2.5)
+      } else{
+        if(playerMaxSpeed === 2.5)
           playerMaxSpeed = playerStartSpeed;
       }
     }
@@ -128,7 +130,7 @@ function startGame(map) {
       if (engine.buttonState(chem.button.MouseLeft)) {
         var aimVec = engine.mousePos.plus(scroll).minus(playerPos).normalize();
 
-        if(currentWeapon == 'microphone'){
+        if(currentWeapon === 'microphone'){
           //Microphone        
           projectiles.push({
             sprite: new chem.Sprite(ani.soundwave, {
@@ -137,14 +139,15 @@ function startGame(map) {
               rotation: aimVec.angle(),
             }),
             vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
+            life: mikeProjectileLife,
           });
-          
+
           if(tripleShot){
             var angle2 = aimVec.angle()+Math.PI/8;
             var angle3 = angle2-Math.PI/4;
-            var aimVec2 = v(Math.cos(angle2),Math.sin(angle2));
-            var aimVec3 = v(Math.cos(angle3),Math.sin(angle3));
-          
+            var aimVec2 = v.unit(angle2);
+            var aimVec3 = v.unit(angle3);
+
             //add a TRIPLE SHOT
             projectiles.push({
               sprite: new chem.Sprite(ani.soundwave, {
@@ -153,6 +156,7 @@ function startGame(map) {
                 rotation: aimVec2.angle(),
               }),
               vel: aimVec2.scaled(mikeProjectileSpeed).plus(playerVel),
+              life: mikeProjectileLife,
             });
 
             projectiles.push({
@@ -173,13 +177,13 @@ function startGame(map) {
               rotation: aimVec2.angle(),
             }),
           });*/
-        }
-        else if(currentWeapon == 'drums'){
+        }else if(currentWeapon === 'drums'){
+          //var aimVec = v(1,-1).normalize();
           var angle = 0;
-          
+
           for(var i=0;i<16;i++){
             angle = i*Math.PI/8
-            aimVec = v(Math.cos(angle),Math.sin(angle));
+            aimVec = v.unit(angle);
             projectiles.push({
               sprite: new chem.Sprite(ani.soundwave, {
                 batch: levelBatch,
@@ -187,6 +191,7 @@ function startGame(map) {
                 rotation: aimVec.angle(),
               }),
               vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
+              life: drumProjectileLife,
             });
           }
         }
@@ -196,7 +201,7 @@ function startGame(map) {
     } else {
       mikeReload -= dt;
     }
-    
+
     //spike balls
     var i;
     for(i=0;i<spikeBalls.length; i++){
@@ -245,7 +250,7 @@ function startGame(map) {
             ball.sprite.delete();
             spikeBalls.splice(i,1);
             i--;
-            
+
             projectiles[j].sprite.delete();
             projectiles.splice(j,1);
             break;
@@ -253,19 +258,18 @@ function startGame(map) {
         }
       }
     }
-    
+
     for (i = 0; i < projectiles.length; i += 1) {
       var projectile = projectiles[i];
       projectile.sprite.pos.add(projectile.vel.scaled(dx));
-      
-      /*if(projectile.sprite.pos.minus(playerPos).length > 1){
+      projectile.life -= dt;
+
+      if (projectile.life <= 0) {
         projectiles[i].sprite.delete();
         projectiles.splice(i,1);
         i--;
-      }*/
+      }
     }
-    
-    console.log(projectiles);
 
 
 
