@@ -67,6 +67,19 @@ exports.spritesheet = {
     eargasmText4: {
       frames: 'eargasm/textd',
     },
+    ascension_sparkle: {},
+    beamSmoke1: {
+      frames: 'god_beam_smoke_1.png',
+    },
+    beamSmoke2: {
+      frames: 'god_beam_smoke_2.png',
+    },
+    roadie_ascending: {
+      anchor: {x: 10, y: 0}
+    },
+    zeus: {
+      anchor: 'top',
+    },
     roadieDeath: {
       frames: [
         "roadie/roadie_death_1.png",
