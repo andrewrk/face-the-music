@@ -70,7 +70,7 @@ function startGame(map) {
 
   var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
-    pos: v(150*50, groundY),
+    pos: v(150*50-2000, groundY),
     zOrder: 1,
   });
   var crowdLives = 100;
@@ -743,6 +743,7 @@ function startGame(map) {
           sprite: new chem.Sprite(ani.weedSmoke, {
             batch: levelBatch,
             pos: pos,
+            zOrder: 3,
             scale: size.divBy(v(ani.weedSmoke.frames[0].size.x, ani.weedSmoke.frames[0].size.y)),//v(2,2),
           }),
         });
