@@ -114,7 +114,7 @@ exports.spritesheet = {
       delay: 0.2,
     },
     weedSmoke: {
-      frames: "smoke_weed_1.png",
+      frames: "smoke_weed_alt.png",
       anchor: 'topleft',
     },
     guitarBeam: {

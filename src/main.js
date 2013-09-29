@@ -160,7 +160,7 @@ function startGame(map) {
       var cloud = weedClouds[i];
       var cloudRect = {pos: cloud.pos.plus(v(100,30)), size: v(230,100)};
 
-      if(rectCollision(playerHeadRect(),cloudRect)) {
+      if(rectCollision(playerHeadRect(),cloud)) {
         inAnyWeedCloud = true;
       }
     }
@@ -551,6 +551,7 @@ function startGame(map) {
           sprite: new chem.Sprite(ani.weedSmoke, {
             batch: levelBatch,
             pos: pos,
+            scale: size.divBy(v(ani.weedSmoke.frames[0].size.x, ani.weedSmoke.frames[0].size.y)),//v(2,2),
           }),
         });
         break;
