@@ -98,8 +98,8 @@ function startGame(map) {
   ];
   
   
-  var beamIsOn = false;
   var beam = null;
+  var beamLife = 0;
 
   updateCursor();
 
@@ -170,41 +170,9 @@ function startGame(map) {
 
     spikeBallUpdate(dt, dx);
 
-    //bullet movement
-    for (i = 0; i < projectiles.length; i += 1) {
-      var projectile = projectiles[i];
-      projectile.sprite.pos.add(projectile.vel.scaled(dx));
-      projectile.life -= dt;
-      
-      if(projectile.sprite.pos.distance(crowd.pos) < crowdDeathRadius){
-        crowdLife -= 1;
-        console.log(crowdLife);
-        projectile.life = -10;
-      }
+    updateProjectiles(dt, dx);
 
-      if (projectile.life <= 0) {
-        projectiles[i].sprite.delete();
-        projectiles.splice(i,1);
-        i--;
-      }
-    }
-
-    // rotate the beam
-    if(beamIsOn){
-      var origPoint = playerPos.offset(6, 10);
-      var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
-
-      beam.pos = origPoint;//aimVec.scaled(10).plus(origPoint);
-
-      var angleDiff = angleSubtract(aimVec.angle(),beam.rotation);
-
-      //console.log("angleToMouse: " + aimVec.angle());
-      if(angleDiff >Math.PI/90){
-        beam.rotation += 0.005;
-      }else if(angleDiff<-Math.PI/90){
-        beam.rotation -= 0.005;
-      }
-    }
+    updateBeam(dt, dx);
 
     //Player COLISION
     var newPlayerPos = playerPos.plus(playerVel.scaled(dx));
@@ -322,6 +290,100 @@ function startGame(map) {
 
   }
 
+  function updateProjectiles(dt, dx) {
+    for (var i = 0; i < projectiles.length; i += 1) {
+      var projectile = projectiles[i];
+      projectile.sprite.pos.add(projectile.vel.scaled(dx));
+      projectile.life -= dt;
+
+      forEachHittableThing(checkHitRect, checkHitCircle);
+
+      if (projectile.life <= 0) {
+        projectiles[i].sprite.delete();
+        projectiles.splice(i,1);
+        i--;
+      }
+    }
+
+    function checkHitRect(rect) {
+      if (projectile.life <= 0) return false;
+      var projectileRect = {
+        pos: projectile.sprite.pos.minus(projectile.sprite.size.scaled(0.5)),
+        size: projectile.sprite.size,
+      };
+      if (rectCollision(projectileRect, rect)) {
+        projectile.life = 0;
+        return true;
+      }
+      return false;
+    }
+    function checkHitCircle(circle) {
+      if (projectile.life <= 0) return false;
+      if (circle.pos.distance(projectile.sprite.pos) < circle.radius) {
+        projectile.life = 0;
+        return true;
+      }
+      return false;
+    }
+  }
+
+  function updateBeam(dt, dx) {
+    if (!beam) return;
+
+    beamLife -= dt;
+    if (beamLife <= 0) {
+      beam.delete();
+      beam = null;
+      return;
+    }
+
+    var origPoint = playerPos.offset(6, 10);
+    var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
+
+    beam.pos = origPoint;
+
+    var beamLength = 1024;
+    var endPoint = origPoint.plus(aimVec.scaled(beamLength));
+    forEachHittableThing(checkHitRect, checkHitCircle);
+
+    var angleDiff = angleSubtract(aimVec.angle(),beam.rotation);
+
+    if(angleDiff > Math.PI/90){
+      beam.rotation += 0.005 * dx;
+    }else if(angleDiff < -Math.PI/90){
+      beam.rotation -= 0.005 * dx;
+    }
+
+    function checkHitRect(rect) {
+      return lineIntersectsRect(origPoint, endPoint, rect);
+    }
+
+    function checkHitCircle(circle) {
+      return lineIntersectsCircle(origPoint, endPoint, circle);
+    }
+  }
+
+  function forEachHittableThing(checkRect, checkCircle) {
+    if (checkCircle({pos: crowd.pos, radius: crowdDeathRadius})) {
+      crowdLife -= 1;
+      console.log(crowdLife);
+    }
+
+    for (var i = 0; i < spikeBalls.length; i += 1) {
+      var ball = spikeBalls[i];
+
+      var ballRect = {
+        pos: ball.pos.plus(v(-12,-32)),
+        size: v(24,65),
+      }
+      if (checkRect(ballRect)) {
+        ball.sprite.delete();
+        spikeBalls.splice(i,1);
+        i--;
+      }
+    }
+  }
+
   function spikeBallUpdate(dt, dx) {
     //spike balls
     for(var i=0;i<spikeBalls.length; i++){
@@ -331,8 +393,6 @@ function startGame(map) {
             pos: ball.pos.plus(v(-12,-32)),
             size: v(24,65)
       }
-
-      var ballColliding = false;
 
 
       //check against player
@@ -344,41 +404,26 @@ function startGame(map) {
         continue;
       }
 
-      if (!ballColliding) {
-        //move it!
-        if(ball.type == "vertical"){
+      //move it!
+      if(ball.type == "vertical"){
+      }
+      else if(ball.type == "horizontal"){
+      }
+      else if(ball.type == "rotate"){
+      }
+      else if(ball.type == "attack"){
+        if(ball.triggerOn){
+          ball.pos.x -= ball.speed;
         }
-        else if(ball.type == "horizontal"){
-        }
-        else if(ball.type == "rotate"){
-        }
-        else if(ball.type == "attack"){
-          if(ball.triggerOn){
-            ball.pos.x -= ball.speed;
-          }
-          else{
-            var xDist = Math.abs(ball.pos.x - playerPos.x);
-            var yDist = Math.abs(ball.pos.y - playerPos.y);
+        else{
+          var xDist = Math.abs(ball.pos.x - playerPos.x);
+          var yDist = Math.abs(ball.pos.y - playerPos.y);
 
-            if(xDist < engine.size.x) //&& yDist < 50)
-              ball.triggerOn = true;
-          }
+          if(xDist < engine.size.x) //&& yDist < 50)
+            ball.triggerOn = true;
         }
       }
 
-      if(!ballColliding){
-        for (j = 0; j < projectiles.length; j += 1) {
-          if(rectCollision(ballRect,projectiles[j].sprite)){
-            ball.sprite.delete();
-            spikeBalls.splice(i,1);
-            i--;
-
-            projectiles[j].sprite.delete();
-            projectiles.splice(j,1);
-            break;
-          }
-        }
-      }
     }
   }
 
@@ -432,18 +477,14 @@ function startGame(map) {
               vel: aimVec3.scaled(currentWeapon.projectileSpeed).plus(playerVel),
             });
           }
-        }else if(currentWeapon.name === 'guitar'){
+        }else if(currentWeapon.name === 'guitar' && !beam){
           //GUITAR
           beam = new chem.Sprite(ani.guitarBeam, {
                   batch: levelBatch,
                   pos: aimVec.scaled(10).plus(origPoint),
                   rotation: aimVec.angle(),
           });
-          beamIsOn = true;
-          setTimeout(function(){
-            beam.delete();
-            beamIsOn = false;
-          },750);
+          beamLife = 0.750;
         }else if(currentWeapon.name === 'drums'){
           //var aimVec = v(1,-1).normalize();
           var angle = 0;
@@ -590,15 +631,6 @@ function rectCollision(rect1, rect2) {
            rect2.pos.x + rect2.size.x < rect1.pos.x || rect2.pos.y + rect2.size.y < rect1.pos.y);
 }
 
-function rotateRectangle(rect1, rect2, rotation){
-  //find 4 relative corner points of rect2
-//  var relPosX = rect2.pos.minus(
-  
-  //rotate 4 points of rect2 around rect1 anchor
-  
-  //test 4 points against rotated rectangle.
-}
-
 function resolveX(xSign, dynamicRect, staticRect) {
   if (xSign < 0) {
     return staticRect.pos.x - (dynamicRect.pos.x + dynamicRect.size.x);
@@ -651,4 +683,50 @@ function resolveMinDist(rect1, rect2) {
   }
 
   return outVec;
+}
+
+
+function lineIntersectsRect(startPt, endPt, rect) {
+  var x1 = startPt.x;
+  var y1 = startPt.y;
+  var x2 = endPt.x;
+  var y2 = endPt.y;
+  var minX = rect.pos.x;
+  var minY = rect.pos.y;
+  var maxX = rect.pos.x + rect.size.x;
+  var maxY = rect.pos.y + rect.size.y;
+
+  // Completely outside.
+  if ((x1 <= minX && x2 <= minX) || (y1 <= minY && y2 <= minY) ||
+      (x1 >= maxX && x2 >= maxX) || (y1 >= maxY && y2 >= maxY))
+  {
+    return false;
+  }
+
+
+  var m = (y2 - y1) / (x2 - x1);
+
+  var y = m * (minX - x1) + y1;
+  if (y > minY && y < maxY) return true;
+
+  y = m * (maxX - x1) + y1;
+  if (y > minY && y < maxY) return true;
+
+  var x = (minY - y1) / m + x1;
+  if (x > minX && x < maxX) return true;
+
+  x = (maxY - y1) / m + x1;
+  if (x > minX && x < maxX) return true;
+
+  return false;
+}
+
+function lineIntersectsCircle(startPos, endPos, circle) {
+  var d = endPos.minus(startPos);
+  var f = endPos.minus(circle.pos);
+  var a = d.dot(d);
+  var b = 2 * f.dot(d);
+  var c = f.dot(f) - circle.radius * circle.radius;
+  var discriminant = b * b - 4 * a * c;
+  return (discriminant >= 0);
 }
