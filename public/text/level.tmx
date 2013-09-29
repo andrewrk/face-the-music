@@ -41,7 +41,7 @@
   <object name="Decoration" x="549" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
-    <property name="zOrder" value="1"/>
+    <property name="zOrder" value="3"/>
    </properties>
   </object>
   <object name="Weed" x="1018" y="7" width="189" height="132"/>
@@ -55,25 +55,25 @@
   <object name="Decoration" x="710" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
-    <property name="zOrder" value="1"/>
+    <property name="zOrder" value="3"/>
    </properties>
   </object>
   <object name="Decoration" x="873" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
-    <property name="zOrder" value="1"/>
+    <property name="zOrder" value="3"/>
    </properties>
   </object>
   <object name="Decoration" x="1037" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
-    <property name="zOrder" value="1"/>
+    <property name="zOrder" value="3"/>
    </properties>
   </object>
   <object name="Decoration" x="1199" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
-    <property name="zOrder" value="1"/>
+    <property name="zOrder" value="3"/>
    </properties>
   </object>
   <object name="Platform" x="1934" y="354" width="114" height="38">

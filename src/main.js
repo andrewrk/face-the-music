@@ -23,7 +23,7 @@ function startGame(map) {
   var foregroundBatch = new chem.Batch();
   var playerEntity = createPlayerEntity();
 
-  var timeSinceDeath = 0;
+  var timeSinceGameOver = 0;
   var rockAniList = [
     ani.rockerHeadBanging,
     ani.rockerWaving,
@@ -50,6 +50,7 @@ function startGame(map) {
 
   var friction = 1.15;
   var scroll = v(0, 0);
+  var winning = false;
 
   //Enemies
   var spikeBalls = [];
@@ -62,19 +63,45 @@ function startGame(map) {
   var mapWidth = null;
   var maxScrollX = null;
 
+
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
   var groundImg = chem.resources.images['ground_dry_dirt.png'];
   var focusImg = chem.resources.images['black_rectangle_middle_focus.png'];
+  var godBeam1Img = chem.resources.images['god_beam_1.png'];
+  var godBeam2Img = chem.resources.images['god_beam_2.png'];
+  var godText1 = chem.resources.images['rock_god_testament.png'];
+  var godText2 = chem.resources.images['rock_god_text.png'];
   var groundY = engine.size.y - groundImg.height;
 
+  var loseMsgImgList = [
+    chem.resources.images['message_1.png'],
+    chem.resources.images['message_2.png'],
+    chem.resources.images['message_3.png'],
+    chem.resources.images['message_4.png'],
+    chem.resources.images['message_5.png'],
+  ];
+  var retryBtnImg = chem.resources.images['retry_button.png'];
+  var chosenLoseMsg = null;
+
+  var winSparkle = new chem.Sprite(ani.ascension_sparkle);
+  var beamSmoke1 = new chem.Sprite(ani.beamSmoke1, {
+    visible: false,
+  });
+  var beamSmoke2 = new chem.Sprite(ani.beamSmoke2, {
+    visible: false,
+  });
+  var zeus = new chem.Sprite(ani.zeus);
+  var startAscendPos = null;
+
   var crowd = initCrowd();
-  
-  var crowdLives = 100;
+
+  var crowdLives;
+  initCrowdLives();
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 0.8;
   var crowdRotationSpeed = Math.PI / 400;
-  var crowdDeathRadius = 320;
+  var crowdDeathRadius = 280;
   var crowdPeople = [];
   var maxCrowdPeople = 5;
   var crowdPeopleCooldown = 5;
@@ -118,6 +145,8 @@ function startGame(map) {
   }
 
   function cleanupAndRestart() {
+    canvas.style.cursor = "none";
+
     crowdPeople.forEach(deleteItsSprite);
     fxList.forEach(deleteItsSprite);
     projectiles.forEach(deleteItsSprite);
@@ -141,6 +170,7 @@ function startGame(map) {
 
     deleteItsSprite(playerEntity);
     playerEntity = createPlayerEntity();
+    winning = false;
 
     weaponIndex = 0;
     weapons = initializeWeapons();
@@ -163,14 +193,30 @@ function startGame(map) {
       cleanupAndRestart();
       return;
     }
+    if (beamSmoke1.visible) {
+      var newAlpha = beamSmoke1.alpha - 0.001 * dx;
+      if (newAlpha < 0) newAlpha = 0;
+      beamSmoke1.alpha = newAlpha;
+      beamSmoke1.scale.x += 0.01 * dx;
+      beamSmoke1.scale.y += 0.001 * dx;
+
+      beamSmoke2.alpha = newAlpha;
+      beamSmoke2.scale.x += 0.005 * dx;
+      beamSmoke2.scale.y += 0.005 * dx;
+    }
+    winSparkle.rotation += Math.PI / 100 * dx;
 
     //CONTROLS
     playerEntity.left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
     playerEntity.right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
     playerEntity.jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
 
+    // cheats
     if (engine.buttonJustPressed(chem.button.KeyY)) {
       spawnCrowdPerson();
+    }
+    if (engine.buttonJustPressed(chem.button.KeyV)) {
+      youWin();
     }
 
     //Switch Weapons
@@ -224,8 +270,8 @@ function startGame(map) {
 
     crowdLivesLabel.text = "Crowd lives: " + Math.floor(crowdLives);
 
-    if (playerEntity.dying) {
-      timeSinceDeath += dt;
+    if (playerEntity.dying || winning) {
+      timeSinceGameOver += dt;
     }
   }
 
@@ -403,12 +449,12 @@ function startGame(map) {
       }
 
       if (person.behavior === 'hug' && person.pos.distance(playerEntity.pos) < 25 &&
-          !playerEntity.dying)
+          !playerEntity.dying && !winning)
       {
         startHug(person);
       }
       if (person.hugging) {
-        if (playerEntity.dying) {
+        if (playerEntity.dying || winning) {
           person.hugging = false;
           person.sprite.setZOrder(0);
         } else {
@@ -416,7 +462,7 @@ function startGame(map) {
           doSpritePos(person);
         }
       } else {
-        checkCollidePersonWithPlayer(person);
+        if (!playerEntity.dying) checkCollidePersonWithPlayer(person);
         doCollision(person, dt, dx);
         doControlsAndPhysics(person, dt, dx);
       }
@@ -510,19 +556,19 @@ function startGame(map) {
     var hugCount = entity.hugs || 0;
     var hugDrag = Math.pow(0.5, hugCount);
 
-    if (entity.left && !entity.dying) {
+    if (entity.left && !entity.dying && !winning) {
       if(entity.grounded)
         entity.vel.x -= entity.runAcc * hugDrag;
       else
         entity.vel.x -= entity.airAcc * hugDrag;
     }
-    if (entity.right && !entity.dying) {
+    if (entity.right && !entity.dying && !winning) {
       if(entity.grounded)
         entity.vel.x += entity.runAcc * hugDrag;
       else
         entity.vel.x += entity.airAcc * hugDrag;
     }
-    if (entity.jump && !entity.dying) {
+    if (entity.jump && !entity.dying && !winning) {
       if(entity.grounded){
         entity.vel.add(entity.jumpVec.scaled(hugDrag));
         entity.grounded = false;
@@ -538,7 +584,7 @@ function startGame(map) {
     }
 
     //Apply FRICTION
-    if(entity.grounded && ((!entity.left && !entity.right) || entity.dying)){
+    if(entity.grounded && ((!entity.left && !entity.right) || winning || entity.dying)){
       if(Math.abs(entity.vel.x) < 0.25){
         entity.vel.x = 0;
       } else{
@@ -650,13 +696,14 @@ function startGame(map) {
   }
 
   function testYouWin() {
-    if (crowdLives <= 0 && crowdPeople.length === 0) {
+    if (crowdLives <= 0 && crowdPeople.length === 0 && !winning && !playerEntity.dying) {
       youWin();
     }
   }
 
   function youWin() {
-    console.log("you win");
+    winning = true;
+    timeSinceGameOver = 0;
   }
 
   function forEachHittableThing(checkRect, checkCircle) {
@@ -820,7 +867,7 @@ function startGame(map) {
   function weaponUpdate(dt) {
     var currentWeapon = weapons[weaponIndex];
     if (currentWeapon.reload <= 0) {
-      if (engine.buttonState(chem.button.MouseLeft) && !playerEntity.dying) {
+      if (engine.buttonState(chem.button.MouseLeft) && !playerEntity.dying && !winning) {
         var origPoint = playerEntity.pos.offset(6, 10);
         var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
 
@@ -945,7 +992,7 @@ function startGame(map) {
 
 
     if (playerEntity.dying) {
-      var percentRed = timeSinceDeath / 1.5;
+      var percentRed = timeSinceGameOver / 1.5;
       if (percentRed > 1) percentRed = 1;
       var maxRed = 0.50;
 
@@ -954,22 +1001,79 @@ function startGame(map) {
       context.fillRect(0, 0, engine.size.x, engine.size.y);
       context.globalAlpha = 1;
 
-      var percentBlack = (timeSinceDeath - 0.5) / 2.0;
-      if (percentBlack >= 0) {
-        if (percentBlack > 1) percentBlack = 1;
-        var focusPos = playerEntity.pos.minus(scroll).offset(-470, -236);
-        context.globalAlpha = percentBlack;
-        context.drawImage(focusImg, focusPos.x, focusPos.y);
-        context.fillStyle = "#000000";
-        if (focusPos.y > 0) {
-          context.fillRect(0, 0, engine.size.x, focusPos.y);
-        }
-        if (focusPos.x > 0 && engine.size.y - focusPos.y > 0) {
-          context.fillRect(0, focusPos.y, focusPos.x, engine.size.y);
-        }
-      }
+      var percentBlack = (timeSinceGameOver - 0.5) / 2.0;
+      drawFocus(percentBlack);
 
+      var textAmt = (timeSinceGameOver - 2.5) / 0.5;
+      if (textAmt < 0) textAmt = 0;
+      if (textAmt > 1) textAmt = 1;
+      context.globalAlpha = textAmt;
+      context.drawImage(chosenLoseMsg, engine.size.x / 2 - chosenLoseMsg.width / 2, engine.size.y / 2 - chosenLoseMsg.height / 2);
+      context.drawImage(retryBtnImg, engine.size.x / 2 - retryBtnImg.width / 2, engine.size.y / 2 + chosenLoseMsg.height / 2 + 20);
       context.globalAlpha = 1;
+
+      context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+      context.translate(-scroll.x, -scroll.y);
+      playerEntity.sprite.draw(context);
+
+      context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    } else if (winning) {
+      drawFocus(timeSinceGameOver / 3.0);
+
+      var beamDescendAmt = timeSinceGameOver / 3.0;
+      if (beamDescendAmt > 1) beamDescendAmt = 1;
+      var beamX = playerEntity.pos.x - scroll.x - godBeam1Img.width / 2;
+      var beamY = (1-beamDescendAmt) * -godBeam1Img.height;
+      context.drawImage(godBeam1Img, beamX, beamY);
+
+      beamDescendAmt = (timeSinceGameOver - 3.0) / 0.5;
+      if (beamDescendAmt > 1) beamDescendAmt = 1;
+      var relPlayerPos = playerEntity.pos.minus(scroll);
+      beamX = relPlayerPos.x - godBeam2Img.width / 2;
+      beamY = (1 - beamDescendAmt) * -godBeam2Img.height;
+      context.drawImage(godBeam2Img, beamX, beamY);
+
+      if (beamDescendAmt === 1) {
+        beamSmoke1.setVisible(true);
+        beamSmoke1.pos = v(relPlayerPos.x, groundY);
+        beamSmoke1.draw(context);
+        beamSmoke2.setVisible(true);
+        beamSmoke2.pos = v(relPlayerPos.x, groundY - 50);
+        beamSmoke2.draw(context);
+
+        playerEntity.sprite.setAnimation(ani.roadie_ascending);
+
+        startAscendPos = startAscendPos || playerEntity.pos;
+        var ascendAmt = (timeSinceGameOver - 3.5) / 70.0;
+        if (ascendAmt > 2) ascendAmt = 2.0;
+        playerEntity.sprite.pos.y = startAscendPos.y - ascendAmt * startAscendPos.y;
+
+        winSparkle.pos = relPlayerPos.offset(0, 20 - ascendAmt * startAscendPos.y);
+        winSparkle.draw(context);
+
+        var godAmt = (timeSinceGameOver - 3.5) / 5.0;
+        if (godAmt < 0) godAmt = 0;
+        if (godAmt > 1) godAmt = 1;
+        var minGodScaleX = 0.5;
+        zeus.scale.x = 0.5 + godAmt * 0.5;
+        zeus.alpha = godAmt;
+        zeus.pos = v(relPlayerPos.x, 0);
+        zeus.draw(context);
+
+        var text1Amt = (timeSinceGameOver - 5) / 2;
+        if (text1Amt > 1) text1Amt = 1;
+        if (text1Amt < 0) text1Amt = 0;
+        context.globalAlpha = text1Amt;
+        context.drawImage(godText1, 50, 100);
+
+        var text2Amt = (timeSinceGameOver - 10) / 2;
+        if (text2Amt > 1) text2Amt = 1;
+        if (text2Amt < 0) text2Amt = 0;
+        context.globalAlpha = text2Amt;
+        context.drawImage(godText2, 50, 300);
+
+        context.globalAlpha = 1;
+      }
 
       context.setTransform(1, 0, 0, 1, 0, 0); // load identity
       context.translate(-scroll.x, -scroll.y);
@@ -979,13 +1083,45 @@ function startGame(map) {
     }
 
     fpsLabel.draw(context);
+
+    function drawFocus(percentBlack) {
+      if (percentBlack > 1) percentBlack = 1;
+      if (percentBlack <= 0) return;
+      var focusPos = playerEntity.pos.minus(scroll).offset(-470, -236).floor();
+      context.globalAlpha = percentBlack;
+      context.drawImage(focusImg, focusPos.x, focusPos.y);
+      context.fillStyle = "#000000";
+      if (focusPos.y > 0) {
+        context.fillRect(0, 0, engine.size.x, focusPos.y);
+      }
+      if (focusPos.x > 0 && engine.size.y - focusPos.y > 0) {
+        context.fillRect(0, focusPos.y, focusPos.x, engine.size.y);
+      }
+      if (engine.size.x > focusPos.x + focusImg.width && engine.size.y  > focusPos.y) {
+        context.fillRect(focusPos.x + focusImg.width, focusPos.y, engine.size.x, engine.size.y);
+      }
+      context.globalAlpha = 1;
+    }
   }
 
   function playerDie() {
-    if (playerEntity.dying) return;
+    if (playerEntity.dying || winning) return;
     playerEntity.dying = true;
-    timeSinceDeath = 0;
+    canvas.style.cursor = "auto";
+    timeSinceGameOver = 0;
+    chosenLoseMsg = loseMsgImgList[Math.floor(Math.random() * loseMsgImgList.length)];
 
+    // give the player a chance to pressing buttons
+    setTimeout(function() {
+      engine.on('buttondown', onBtnDown);
+
+      function onBtnDown(button) {
+        if (button === chem.button.MouseLeft) {
+          engine.removeListener('buttondown', onBtnDown);
+          cleanupAndRestart();
+        }
+      }
+    }, 2000);
   }
 
   function onMouseMove(pos, button) {
@@ -1097,7 +1233,7 @@ function startGame(map) {
       vel: v(),
       size: v(15, 57),
       sprite: new chem.Sprite(ani.roadieIdle, {
-        batch: foregroundBatch,//levelBatch,
+        batch: levelBatch,
         zOrder: 2,
       }),
       grounded: false,
@@ -1133,8 +1269,11 @@ function startGame(map) {
     return new chem.Sprite(ani.mobCloud1, {
       batch: levelBatch,
       pos: v(0*100, groundY),
-      zOrder: 1,
+      zOrder: 3,
     });
+  }
+  function initCrowdLives() {
+    crowdLives = 100;
   }
 }
 
