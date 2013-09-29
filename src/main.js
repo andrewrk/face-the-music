@@ -19,13 +19,14 @@ var MAX_CROWD_X_DIST = engine.size.x / 2 + 400;
 function startGame(map) {
   var levelBatch = new chem.Batch();
   var staticBatch = new chem.Batch();
+  var foregroundBatch = new chem.Batch();
   var playerEntity = {
     getWantedAnimation: getPlayerAnimation,
     pos: v(),
     vel: v(),
     size: v(15, 57),
     sprite: new chem.Sprite(ani.roadieIdle, {
-      batch: levelBatch,
+      batch: foregroundBatch,//levelBatch,
       zOrder: 2,
     }),
     grounded: false,
@@ -71,7 +72,7 @@ function startGame(map) {
 
   var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
-    pos: v(190*100, groundY),
+    pos: v(0*100, groundY),
     zOrder: 1,
   });
   var crowdLives = 100;
@@ -733,6 +734,10 @@ function startGame(map) {
     context.translate(-groundOffsetX, 0);
     context.drawImage(groundImg, 0, engine.size.y - groundImg.height);
     context.drawImage(groundImg, groundImg.width, engine.size.y - groundImg.height);
+    
+    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    context.translate(-scroll.x, -scroll.y);
+    foregroundBatch.draw(context);
 
     // static
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
@@ -819,8 +824,10 @@ function startGame(map) {
         });
         break;
       case 'Decoration':
+        var fg = !!obj.properties.fg;
+        var batch = fg ? foregroundBatch : levelBatch;
         decorations.push(new chem.Sprite(chem.Animation.fromImage(img), {
-          batch: levelBatch,
+          batch: batch,
           pos: pos,
           zOrder: parseInt(obj.properties.zOrder || 0, 10),
           alpha: parseFloat(obj.properties.opacity || 1, 10),

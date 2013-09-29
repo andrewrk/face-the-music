@@ -1768,17 +1768,19 @@
   </object>
   <object name="Decoration" x="19683" y="87" width="306" height="458">
    <properties>
+    <property name="fg" value="true"/>
     <property name="image" value="end_wall.png"/>
     <property name="zOrder" value="0"/>
    </properties>
   </object>
-  <object name="Start" x="19399" y="380" width="75" height="61"/>
-  <object name="Decoration" x="19483" y="127" width="389" height="417">
+  <object name="Decoration" x="19457" y="142" width="389" height="417">
    <properties>
+    <property name="fg" value="true"/>
     <property name="image" value="end_wall_spotlight.png"/>
-    <property name="zOrder" value="0"/>
+    <property name="zOrder" value="3"/>
    </properties>
   </object>
   <object name="Platform" x="19826" y="96" width="231" height="457"/>
+  <object name="Start" x="417" y="367" width="75" height="61"/>
  </objectgroup>
 </map>
