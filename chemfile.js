@@ -93,6 +93,15 @@ exports.spritesheet = {
       anchor: {x: 25, y: 22},
       loop: false,
     },
+    roadieHit: {
+      frames: [
+        "roadie/roadie_explosion_hit_1.png",
+        "roadie/roadie_explosion_hit_2.png",
+      ],
+      anchor: {x: 25, y: 22},
+      loop: false,
+      delay: 0.2,
+    },
     attack_mic: {},
     attack_drum: {},
     skullAttack: {

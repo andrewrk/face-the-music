@@ -36,6 +36,7 @@ function startGame(map) {
   var playerRunAcc = 0.25;
   var playerAirAcc = 0.15;
   var playerJumpVec = v(0,-6.5); //added ONCE
+  var playerKnockBackTime = 0;
   var friction = 1.15;
   var grounded = false;
   var scroll = v(0, 0);
@@ -273,13 +274,16 @@ function startGame(map) {
     // gravity
     playerVel.y += GRAVITY * dx;
 
+    playerKnockBackTime -= dt;
     var wantedAni = getPlayerAnimation();
     if (player.animation !== wantedAni) {
       player.setAnimation(wantedAni);
       player.setFrameIndex(0);
     }
 
-    directionFacing = sign(playerVel.x) || directionFacing;
+    if (playerKnockBackTime <= 0) {
+      directionFacing = sign(playerVel.x) || directionFacing;
+    }
     player.scale.x = directionFacing;
     player.pos = playerPos.clone();
     // compensate for offset
@@ -290,6 +294,8 @@ function startGame(map) {
     function getPlayerAnimation() {
       if (dying) {
         return ani.roadieDeath;
+      } else if (playerKnockBackTime > 0) {
+        return ani.roadieHit;
       } else if (grounded) {
         if (Math.abs(playerVel.x) > 0) {
           if (left&&playerVel.x<=0 || right&&playerVel.x>=0) {
@@ -311,27 +317,27 @@ function startGame(map) {
 
   function spikeBallUpdate(dt, dx) {
     //spike balls
-    var i;
-    for(i=0;i<spikeBalls.length; i++){
+    for(var i=0;i<spikeBalls.length; i++){
       var ball = spikeBalls[i];
 
       var ballRect = {
             pos: ball.pos.plus(v(-12,-32)),
             size: v(24,65)
       }
-      
+
       var ballColliding = false;
-      
-      
+
+
       //check against player
-      if(rectCollision(player,ballRect)){
+      if(rectCollision(playerRect(),ballRect)){
+        applyKnockBack();
         ball.sprite.delete();
         spikeBalls.splice(i,1);
         i--;
         continue;
       }
-      
-      if(!ballColliding){
+
+      if (!ballColliding) {
         //move it!
         if(ball.type == "vertical"){
         }
@@ -367,6 +373,11 @@ function startGame(map) {
         }
       }
     }
+  }
+
+  function applyKnockBack() {
+    playerVel.add(v(-6, -1));
+    playerKnockBackTime = 0.4;
   }
 
   function weaponUpdate(dt) {
