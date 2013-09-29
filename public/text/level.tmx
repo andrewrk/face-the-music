@@ -51,5 +51,6 @@
     <property name="zOrder" value="1"/>
    </properties>
   </object>
+  <object name="Weed" x="815" y="308" width="431" height="136"/>
  </objectgroup>
 </map>
