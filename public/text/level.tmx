@@ -275,12 +275,6 @@
    </properties>
   </object>
   <object name="Something Awesome." x="6244" y="169" width="147" height="83"/>
-  <object name="Skull" type="idle" x="6600" y="300" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
   <object name="Platform" x="6574" y="355" width="107" height="95">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
@@ -398,18 +392,6 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6750" y="150" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
-  <object name="Skull" type="idle" x="6600" y="100" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
   <object name="Skull" type="idle" x="6800" y="100" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
@@ -422,19 +404,7 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="6700" y="150" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
   <object name="Skull" type="idle" x="6650" y="100" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
-  <object name="Skull" type="idle" x="6600" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
@@ -447,12 +417,6 @@
    </properties>
   </object>
   <object name="Skull" type="idle" x="6800" y="50" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
-  <object name="Skull" type="idle" x="6650" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
@@ -531,12 +495,6 @@
    </properties>
   </object>
   <object name="Skull" type="idle" x="7050" y="150" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
-  <object name="Skull" type="idle" x="7050" y="50" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
     <property name="speed" value="3"/>
@@ -693,7 +651,6 @@
    </properties>
   </object>
   <object name="REF - maxJumpHeight" x="6430" y="65" width="26" height="95"/>
-  <object name="Start" x="7470" y="271" width="75" height="61"/>
   <object name="Platform" x="8476" y="400" width="103" height="61">
    <properties>
     <property name="image" value="portapotty_horizontal.png"/>
@@ -1747,6 +1704,49 @@
   <object name="Decoration" x="12455" y="394" width="254" height="132">
    <properties>
     <property name="image" value="smoke_fog_2.png"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="6950" y="0" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="6800" y="0" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="6900" y="0" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="6850" y="0" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Start" x="13319" y="386" width="75" height="61"/>
+  <object name="Skull" type="rotate" x="13408" y="209" width="50" height="50">
+   <properties>
+    <property name="range" value="80"/>
+    <property name="speed" value="1.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="attack" x="13816" y="307" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="6"/>
+   </properties>
+  </object>
+  <object name="Platform" x="13346" y="216" width="29" height="32">
+   <properties>
+    <property name="image" value="scaffold_vertical.png"/>
+    <property name="opacity" value=".85"/>
    </properties>
   </object>
  </objectgroup>

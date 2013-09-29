@@ -70,7 +70,7 @@ function startGame(map) {
 
   var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
-    pos: v(150*50-2000, groundY),
+    pos: v(30*100, groundY),
     zOrder: 1,
   });
   var crowdLives = 100;
@@ -95,6 +95,16 @@ function startGame(map) {
       projectileDamage: 1,
       tripleShot: false,
       cursor: 'cursor/mike',
+    },
+    {
+      name: "bass",
+      animation: ani.attack_bass,
+      reload: 0,
+      reloadAmt: 0.75,
+      projectileSpeed: 6,
+      projectileLife: 1,
+      projectileDamage: 1.5,
+      cursor: 'cursor/bass',
     },
     {
       name: "guitar",
@@ -304,10 +314,11 @@ function startGame(map) {
     forEachHittableThing(checkHitRect, checkHitCircle);
 
     var angleDiff = angleSubtract(aimVec.angle(),beam.rotation);
+    var minDiff = Math.PI/90;
 
-    if(angleDiff > Math.PI/90){
+    if(angleDiff > minDiff){
       beam.rotation += 0.005 * dx;
-    }else if(angleDiff < -Math.PI/90){
+    }else if(angleDiff < -minDiff){
       beam.rotation -= 0.005 * dx;
     }
 
@@ -554,6 +565,15 @@ function startGame(map) {
       else if(ball.type == "horizontal"){
       }
       else if(ball.type == "rotate"){
+      
+        var center = ball.startVec.plus(v(-ball.range,0));
+        //ball.period += ball.speed;//%(2*Math.PI);
+        ball.period += ball.speed*Math.PI/180;
+        
+        ball.pos.x = center.x + ball.range*Math.cos(ball.period);
+        ball.pos.y = center.y + ball.range*Math.sin(ball.period);
+        
+        //ball.pos = center;//.plus(v.unit(ball.period).scale(ball.range/2));*/
       }
       else if(ball.type == "attack"){
         if(ball.triggerOn){
@@ -567,7 +587,7 @@ function startGame(map) {
             ball.triggerOn = true;
         }
       }
-
+      
     }
   }
 
@@ -624,6 +644,17 @@ function startGame(map) {
               damage: currentWeapon.projectileDamage,
             });
           }
+        }else if(currentWeapon.name === 'bass'){
+          projectiles.push({
+            sprite: new chem.Sprite(currentWeapon.animation, {
+              batch: levelBatch,
+              pos: aimVec.scaled(10).plus(origPoint),
+              rotation: aimVec.angle(),
+            }),
+            vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerEntity.vel),
+            life: currentWeapon.projectileLife,
+            damage: currentWeapon.projectileDamage,
+          });
         }else if(currentWeapon.name === 'guitar' && !beam){
           //GUITAR
           beam = new chem.Sprite(ani.guitarBeam, {
@@ -731,8 +762,10 @@ function startGame(map) {
             }),
             type: obj.type,
             range: parseInt(obj.properties.range, 10),
-            speed: parseInt(obj.properties.speed, 10),
+            speed: parseFloat(obj.properties.speed, 10),
             triggerOn: false,
+            startVec: pos.clone(),
+            period: 0,
         };
         spikeBalls.push(spikeBall);
         break;
