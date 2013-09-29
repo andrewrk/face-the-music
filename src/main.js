@@ -70,7 +70,7 @@ function startGame(map) {
 
   var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
-    pos: v(30*100, groundY),
+    pos: v(0, groundY),
     zOrder: 1,
   });
   var crowdLives = 100;
@@ -604,7 +604,7 @@ function startGame(map) {
   }
 
   function applyKnockBack() {
-    playerEntity.vel.x = sign(playerEntity.vel.x) * -6;
+    playerEntity.vel.x = playerEntity.directionFacing * -6;
     playerEntity.vel.y = -1;
     playerEntity.knockBackTime = 0.4;
   }

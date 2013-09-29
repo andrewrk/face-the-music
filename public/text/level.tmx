@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="5000" height="554" tilewidth="100" tileheight="100">
- <objectgroup name="Object Layer 1" width="5000" height="554">
+<map version="1.0" orientation="orthogonal" width="200" height="100" tilewidth="100" tileheight="100">
+ <objectgroup name="Object Layer 1" width="200" height="100">
   <object name="Ground" x="-1" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
@@ -1730,8 +1730,8 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Start" x="13319" y="386" width="75" height="61"/>
   <object name="Skull" type="rotate" x="13392" y="209" width="50" height="50">
+  <object name="Start" x="463" y="361" width="75" height="61"/>
    <properties>
     <property name="range" value="80"/>
     <property name="speed" value="1.5"/>
