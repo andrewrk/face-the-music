@@ -240,7 +240,7 @@ function startGame(map) {
         } else {
           return ani.enemySlide;
         }
-      } else if (crowdPerson.pos.distance(playerEntity.pos) < 100) {
+      } else if (crowdPerson.pos.distance(playerEntity.pos) < crowdPerson.rockDist) {
         return crowdPerson.rockAni;
       } else {
         return ani.enemyIdle;
@@ -371,7 +371,7 @@ function startGame(map) {
     for (var i = 0; i < crowdPeople.length; i += 1) {
       var person = crowdPeople[i];
       var target = person.target;
-      var closeDist = person.behavior === 'hug' ? 0 : 100;
+      var closeDist = person.behavior === 'hug' ? 0 : person.rockDist;
       person.right = target.pos.x - person.pos.x > closeDist;
       person.left = target.pos.x - person.pos.x < -closeDist;
       if (person.jumper) {
@@ -449,6 +449,7 @@ function startGame(map) {
       health: 2,
       behavior: null,
       rockAni: randomRockAni(),
+      rockDist: Math.random() * 200,
     };
 
     assignCrowdPersonTarget(crowdPerson);

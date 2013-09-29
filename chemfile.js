@@ -34,19 +34,19 @@ exports.spritesheet = {
     rockerHeadBanging: {
       frames: "rocker/rocker_headbang",
       loop: true,
-      anchor: {x: 25, y: 30},
+      anchor: {x: 25, y: 8},
       delay: 0.2,
     },
     rockerWaving: {
       frames: "rocker/rocker_waving",
       loop: true,
-      anchor: {x: 25, y: 30},
+      anchor: {x: 25, y: 8},
       delay: 0.2,
     },
     rockerMoshing: {
       frames: "rocker/rocker_mosh",
       loop: true,
-      anchor: {x: 25, y: 30},
+      anchor: {x: 25, y: 8},
       delay: 0.2,
     },
     roadieDeath: {
