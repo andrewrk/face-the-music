@@ -1762,7 +1762,6 @@
   </object>
   <object name="Decoration" x="29625" y="86" width="306" height="458">
    <properties>
-    <property name="fg" value="true"/>
     <property name="image" value="end_wall.png"/>
     <property name="zOrder" value="0"/>
    </properties>
@@ -1893,6 +1892,7 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
+<<<<<<< HEAD
   <object name="Platform" x="7603" y="355" width="102" height="25">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
@@ -2085,5 +2085,6 @@
     <property name="speed" value="0.5"/>
    </properties>
   </object>
+  <object name="End" x="29739" y="22" width="193" height="40"/>
  </objectgroup>
 </map>

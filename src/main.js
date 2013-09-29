@@ -21,28 +21,9 @@ function startGame(map) {
   var levelBatch = new chem.Batch();
   var staticBatch = new chem.Batch();
   var foregroundBatch = new chem.Batch();
-  var playerEntity = {
-    getWantedAnimation: getPlayerAnimation,
-    pos: v(),
-    vel: v(),
-    size: v(15, 57),
-    sprite: new chem.Sprite(ani.roadieIdle, {
-      batch: foregroundBatch,//levelBatch,
-      zOrder: 2,
-    }),
-    grounded: false,
-    left: false,
-    right: false,
-    jump: false,
-    dying: false,
-    maxSpeed: 5,
-    runAcc: 0.25,
-    airAcc: 0.15,
-    jumpVec: v(0, -6.8),
-    directionFacing: 1,
-    knockBackTime: 0,
-    hugs: 0, // how many are dragging you down
-  };
+  var playerEntity = createPlayerEntity();
+
+  var timeSinceDeath = 0;
   var rockAniList = [
     ani.rockerHeadBanging,
     ani.rockerWaving,
@@ -77,17 +58,17 @@ function startGame(map) {
 
   var projectiles = [];
 
+  var mapWidth = null;
+  var maxScrollX = null;
+
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
   var groundImg = chem.resources.images['ground_dry_dirt.png'];
-  var maxScrollX = null;
+  var focusImg = chem.resources.images['black_rectangle_middle_focus.png'];
   var groundY = engine.size.y - groundImg.height;
 
-  var crowd = new chem.Sprite(ani.mobCloud1, {
-    batch: levelBatch,
-    pos: v(0*100, groundY),
-    zOrder: 1,
-  });
+  var crowd = initCrowd();
+  
   var crowdLives = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 0.01;//0.8;
@@ -99,45 +80,7 @@ function startGame(map) {
   var crowdPeopleCooldownAmt = 5;
 
   var weaponIndex = 0;
-  var weapons = [
-    {
-      name: "microphone",
-      animation: ani.attack_mic,
-      reload: 0,
-      reloadAmt: 0.5,
-      projectileSpeed: 10,
-      projectileLife: 1,
-      projectileDamage: 1,
-      tripleShot: false,
-      cursor: 'cursor/mike',
-    },
-    {
-      name: "bass",
-      animation: ani.attack_bass,
-      reload: 0,
-      reloadAmt: 0.75,
-      projectileSpeed: 6,
-      projectileLife: 0.9,
-      projectileDamage: 1.5,
-      cursor: 'cursor/bass',
-    },
-    {
-      name: "guitar",
-      reload: 0,
-      reloadAmt: 1.0,
-      cursor: 'cursor/flyingv',
-    },
-    {
-      name: "drums",
-      animation: ani.attack_drum,
-      reload: 0,
-      reloadAmt: 0.4,
-      projectileSpeed: 9,
-      projectileLife: 1,
-      projectileDamage: 1,
-      cursor: 'cursor/drum',
-    }
-  ];
+  var weapons = initializeWeapons();
 
   var fxList = [];
 
@@ -172,7 +115,53 @@ function startGame(map) {
     }
   }
 
+  function cleanupAndRestart() {
+    crowdPeople.forEach(deleteItsSprite);
+    fxList.forEach(deleteItsSprite);
+    projectiles.forEach(deleteItsSprite);
+    platforms.forEach(deleteItsSprite);
+    spikeBalls.forEach(deleteItsSprite);
+    weedClouds.forEach(deleteItsSprite);
+    decorations.forEach(deleteItsSprite);
+
+    crowdPeople = [];
+    fxList = [];
+    projectiles = [];
+    platforms = [];
+    spikeBalls = [];
+    weedClouds = [];
+    decorations = [];
+
+    if (beam) {
+      beam.delete();
+      beam = null;
+    }
+
+    deleteItsSprite(playerEntity);
+    playerEntity = createPlayerEntity();
+
+    weaponIndex = 0;
+    weapons = initializeWeapons();
+
+    crowd.delete();
+    crowd = initCrowd();
+
+    updateCursor();
+
+    loadMap();
+
+    function deleteItsSprite(thing) {
+      if (!thing.sprite) return;
+      thing.sprite.delete();
+    }
+  }
+
   function onUpdate(dt, dx) {
+    if (engine.buttonJustPressed(chem.button.KeyR) && playerEntity.dying) {
+      cleanupAndRestart();
+      return;
+    }
+
     //CONTROLS
     playerEntity.left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
     playerEntity.right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
@@ -226,12 +215,16 @@ function startGame(map) {
     scroll = playerEntity.pos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     scroll.y = 0;
-    maxScrollX = map.width*map.tileWidth - engine.size.x / 2;
+    maxScrollX = mapWidth - engine.size.x;
     if (scroll.x > maxScrollX) scroll.x = maxScrollX;
 
     doControlsAndPhysics(playerEntity, dt, dx);
 
     crowdLivesLabel.text = "Crowd lives: " + Math.floor(crowdLives);
+
+    if (playerEntity.dying) {
+      timeSinceDeath += dt;
+    }
   }
 
   function getCrowdPersonAnimation(crowdPerson) {
@@ -901,11 +894,50 @@ function startGame(map) {
     // static
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     staticBatch.draw(context);
+
+
+    if (playerEntity.dying) {
+      var percentRed = timeSinceDeath / 1.5;
+      if (percentRed > 1) percentRed = 1;
+      var maxRed = 0.50;
+
+      context.globalAlpha = percentRed * maxRed;
+      context.fillStyle = "#ff0000";
+      context.fillRect(0, 0, engine.size.x, engine.size.y);
+      context.globalAlpha = 1;
+
+      var percentBlack = (timeSinceDeath - 0.5) / 2.0;
+      if (percentBlack >= 0) {
+        if (percentBlack > 1) percentBlack = 1;
+        var focusPos = playerEntity.pos.minus(scroll).offset(-470, -236);
+        context.globalAlpha = percentBlack;
+        context.drawImage(focusImg, focusPos.x, focusPos.y);
+        context.fillStyle = "#000000";
+        if (focusPos.y > 0) {
+          context.fillRect(0, 0, engine.size.x, focusPos.y);
+        }
+        if (focusPos.x > 0 && engine.size.y - focusPos.y > 0) {
+          context.fillRect(0, focusPos.y, focusPos.x, engine.size.y);
+        }
+      }
+
+      context.globalAlpha = 1;
+
+      context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+      context.translate(-scroll.x, -scroll.y);
+      playerEntity.sprite.draw(context);
+
+      context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    }
+
     fpsLabel.draw(context);
   }
 
   function playerDie() {
+    if (playerEntity.dying) return;
     playerEntity.dying = true;
+    timeSinceDeath = 0;
+
   }
 
   function onMouseMove(pos, button) {
@@ -927,6 +959,9 @@ function startGame(map) {
     switch (obj.name) {
       case 'Start':
         playerEntity.pos = v(pos.x + size.x / 2, pos.y + size.y);
+        break;
+      case 'End':
+        mapWidth = pos.x + size.x;
         break;
       case 'Platform':
         var platform = {
@@ -994,6 +1029,80 @@ function startGame(map) {
         }));
         break;
     }
+  }
+
+  function createPlayerEntity() {
+    return {
+      getWantedAnimation: getPlayerAnimation,
+      pos: v(),
+      vel: v(),
+      size: v(15, 57),
+      sprite: new chem.Sprite(ani.roadieIdle, {
+        batch: foregroundBatch,//levelBatch,
+        zOrder: 2,
+      }),
+      grounded: false,
+      left: false,
+      right: false,
+      jump: false,
+      dying: false,
+      maxSpeed: 5,
+      runAcc: 0.25,
+      airAcc: 0.15,
+      jumpVec: v(0, -6.8),
+      directionFacing: 1,
+      knockBackTime: 0,
+      hugs: 0, // how many are dragging you down
+    };
+  }
+
+  function initializeWeapons() {
+    return [
+      {
+        name: "microphone",
+        animation: ani.attack_mic,
+        reload: 0,
+        reloadAmt: 0.5,
+        projectileSpeed: 10,
+        projectileLife: 1,
+        projectileDamage: 1,
+        tripleShot: false,
+        cursor: 'cursor/mike',
+      },
+      {
+        name: "bass",
+        animation: ani.attack_bass,
+        reload: 0,
+        reloadAmt: 0.75,
+        projectileSpeed: 6,
+        projectileLife: 0.9,
+        projectileDamage: 1.5,
+        cursor: 'cursor/bass',
+      },
+      {
+        name: "guitar",
+        reload: 0,
+        reloadAmt: 1.0,
+        cursor: 'cursor/flyingv',
+      },
+      {
+        name: "drums",
+        animation: ani.attack_drum,
+        reload: 0,
+        reloadAmt: 0.4,
+        projectileSpeed: 9,
+        projectileLife: 1,
+        projectileDamage: 1,
+        cursor: 'cursor/drum',
+      }
+    ];
+  }
+  function initCrowd() {
+    return new chem.Sprite(ani.mobCloud1, {
+      batch: levelBatch,
+      pos: v(0*100, groundY),
+      zOrder: 1,
+    });
   }
 }
 
