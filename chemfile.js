@@ -11,6 +11,18 @@ exports.spritesheet = {
     anchor: "center"
   },
   animations: {
+    "cursor/bass": {
+      anchor: {x: 6, y: 2},
+    },
+    "cursor/drum": {
+      anchor: {x: 6, y: 2},
+    },
+    "cursor/flyingv": {
+      anchor: {x: 6, y: 2},
+    },
+    "cursor/mike": {
+      anchor: {x: 6, y: 2},
+    },
     platform: {
       anchor: 'topleft',
     },

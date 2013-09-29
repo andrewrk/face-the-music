@@ -69,6 +69,24 @@ function startGame(map) {
   var tripleShot = false;
   var currentWeapon = 'microphone';
 
+  var weaponIndex = 0;
+  var weapons = [
+    {
+      name: "microphone",
+      reload: 0,
+      reloadAmt: 0.3,
+      projectileSpeed: 10,
+      projectileLife: 1,
+    },
+    {
+      name: "drums",
+      reload: 0,
+      reloadAmt: 0.4,
+      projectileSpeed: 9,
+      projectileLife: 1,
+    }
+  ];
+
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
   engine.on('mousemove', onMouseMove);
@@ -128,14 +146,15 @@ function startGame(map) {
 
     if (mikeReload <= 0) {
       if (engine.buttonState(chem.button.MouseLeft)) {
-        var aimVec = engine.mousePos.plus(scroll).minus(playerPos).normalize();
+        var origPoint = playerPos.offset(6, 10);
+        var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
 
         if(currentWeapon === 'microphone'){
-          //Microphone        
+          //Microphone
           projectiles.push({
             sprite: new chem.Sprite(ani.soundwave, {
               batch: levelBatch,
-              pos: aimVec.scaled(10).plus(playerPos.offset(0, 0)),
+              pos: aimVec.scaled(10).plus(origPoint),
               rotation: aimVec.angle(),
             }),
             vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
@@ -152,7 +171,7 @@ function startGame(map) {
             projectiles.push({
               sprite: new chem.Sprite(ani.soundwave, {
                 batch: levelBatch,
-                pos: aimVec2.scaled(10).plus(playerPos.offset(0, 0)),
+                pos: aimVec2.scaled(10).plus(origPoint),
                 rotation: aimVec2.angle(),
               }),
               vel: aimVec2.scaled(mikeProjectileSpeed).plus(playerVel),
@@ -162,32 +181,24 @@ function startGame(map) {
             projectiles.push({
               sprite: new chem.Sprite(ani.soundwave, {
                 batch: levelBatch,
-                pos: aimVec3.scaled(10).plus(playerPos.offset(0, 0)),
+                pos: aimVec3.scaled(10).plus(origPoint),
                 rotation: aimVec3.angle(),
               }),
               vel: aimVec3.scaled(mikeProjectileSpeed).plus(playerVel),
             });
           }
-        }
-        else if(currentWeapon == 'guitar'){
-          /*projectiles.push({
-            sprite: new chem.Sprite(ani.guitarBeam, {
-              batch: levelBatch,
-              pos: aimVec2.scaled(10).plus(playerPos.offset(0, 0)),
-              rotation: aimVec2.angle(),
-            }),
-          });*/
-        }else if(currentWeapon === 'drums'){
+        } else if(currentWeapon === 'guitar'){
+        } else if(currentWeapon === 'drums'){
           //var aimVec = v(1,-1).normalize();
           var angle = 0;
 
-          for(var i=0;i<16;i++){
+          for(var i=0; i<16; i++){
             angle = i*Math.PI/8
             aimVec = v.unit(angle);
             projectiles.push({
               sprite: new chem.Sprite(ani.soundwave, {
                 batch: levelBatch,
-                pos: aimVec.scaled(10).plus(playerPos.offset(0, 0)),
+                pos: aimVec.scaled(10).plus(origPoint),
                 rotation: aimVec.angle(),
               }),
               vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
