@@ -120,6 +120,13 @@ function startGame(map) {
       size: playerSize,
     };
   }
+  
+  function playerHeadRect() {
+    return{
+      pos: playerPos,
+      size: v(15,15),
+    }
+  }
 
   function onUpdate(dt, dx) {
     //CONTROLS
@@ -153,7 +160,7 @@ function startGame(map) {
       var cloud = weedClouds[i];
       var cloudRect = {pos: cloud.pos.plus(v(100,30)), size: v(230,100)};
 
-      if(rectCollision(player,cloudRect)) {
+      if(rectCollision(playerHeadRect(),cloudRect)) {
         inAnyWeedCloud = true;
       }
     }
