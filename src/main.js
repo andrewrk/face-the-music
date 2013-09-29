@@ -29,7 +29,7 @@ function startGame(map) {
     scale: v(50,900).divBy(ani.platform.frames[0].size)
   });
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
-  var crosshairSprite = new chem.Sprite(ani.crosshair, {
+  var crosshairSprite = new chem.Sprite(ani['cursor/mike'], {
     batch: staticBatch,
   });
   var playerVel = v(0,0);
@@ -57,17 +57,8 @@ function startGame(map) {
   var directionFacing = 1;
 
   var bgImg = chem.resources.images['background.png'];
+  var bgCrowd = chem.resources.images['background_crowd_loop.png'];
   var maxScrollX = null;
-
-  var mikeReloadAmt = 0.3//0.1;
-  var mikeReload = 0;
-  var mikeProjectileSpeed = 10;//6;
-
-  var mikeProjectileLife = 1;
-  var drumProjectileLife = 1;
-
-  var tripleShot = false;
-  var currentWeapon = 'microphone';
 
   var weaponIndex = 0;
   var weapons = [
@@ -77,6 +68,8 @@ function startGame(map) {
       reloadAmt: 0.3,
       projectileSpeed: 10,
       projectileLife: 1,
+      tripleShot: false,
+      cursor: 'cursor/mike',
     },
     {
       name: "drums",
@@ -84,14 +77,22 @@ function startGame(map) {
       reloadAmt: 0.4,
       projectileSpeed: 9,
       projectileLife: 1,
+      cursor: 'cursor/drum',
     }
   ];
+
+  updateCursor();
 
   engine.on('update', onUpdate);
   engine.on('draw', onDraw);
   engine.on('mousemove', onMouseMove);
 
   loadMap();
+
+  function updateCursor() {
+    var currentWeapon = weapons[weaponIndex];
+    crosshairSprite.setAnimation(ani[currentWeapon.cursor]);
+  }
 
   function playerRect() {
     return {
@@ -105,19 +106,11 @@ function startGame(map) {
     var left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
     var right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
     var jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
-    var shift = engine.buttonJustPressed(chem.button.KeyShift);
-    
+
     //Switch Weapons
-    if(shift){
-      if(currentWeapon == 'microphone'){
-        currentWeapon = 'guitar';
-      }
-      else if(currentWeapon == 'guitar'){
-        currentWeapon = 'drums';
-      }
-      else if(currentWeapon == 'drums'){
-        currentWeapon = 'microphone';
-      }
+    if (engine.buttonJustPressed(chem.button.KeyShift) || engine.buttonJustPressed(chem.button.MouseRight)) {
+      weaponIndex = (weaponIndex + 1) % weapons.length;
+      updateCursor();
     }
 
     //Update crowd position
@@ -144,12 +137,13 @@ function startGame(map) {
     }
 
 
-    if (mikeReload <= 0) {
+    var currentWeapon = weapons[weaponIndex];
+    if (currentWeapon.reload <= 0) {
       if (engine.buttonState(chem.button.MouseLeft)) {
         var origPoint = playerPos.offset(6, 10);
         var aimVec = engine.mousePos.plus(scroll).minus(origPoint).normalize();
 
-        if(currentWeapon === 'microphone'){
+        if(currentWeapon.name === 'microphone'){
           //Microphone
           projectiles.push({
             sprite: new chem.Sprite(ani.soundwave, {
@@ -157,11 +151,11 @@ function startGame(map) {
               pos: aimVec.scaled(10).plus(origPoint),
               rotation: aimVec.angle(),
             }),
-            vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
-            life: mikeProjectileLife,
+            vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerVel),
+            life: currentWeapon.projectileLife,
           });
 
-          if(tripleShot){
+          if(currentWeapon.tripleShot){
             var angle2 = aimVec.angle()+Math.PI/8;
             var angle3 = angle2-Math.PI/4;
             var aimVec2 = v.unit(angle2);
@@ -174,8 +168,8 @@ function startGame(map) {
                 pos: aimVec2.scaled(10).plus(origPoint),
                 rotation: aimVec2.angle(),
               }),
-              vel: aimVec2.scaled(mikeProjectileSpeed).plus(playerVel),
-              life: mikeProjectileLife,
+              vel: aimVec2.scaled(currentWeapon.projectileSpeed).plus(playerVel),
+              life: currentWeapon.projectileLife,
             });
 
             projectiles.push({
@@ -184,16 +178,17 @@ function startGame(map) {
                 pos: aimVec3.scaled(10).plus(origPoint),
                 rotation: aimVec3.angle(),
               }),
-              vel: aimVec3.scaled(mikeProjectileSpeed).plus(playerVel),
+              vel: aimVec3.scaled(currentWeapon.projectileSpeed).plus(playerVel),
             });
           }
-        }else if(currentWeapon == 'guitar'){
+        } else if(currentWeapon.name === 'guitar'){
           var beam = new chem.Sprite(ani.guitarBeam, {
                 batch: levelBatch,
                 pos: aimVec.scaled(10).plus(origPoint),
                 rotation: aimVec.angle(),
-          });
-        }else if(currentWeapon === 'drums'){
+          });        
+        } else if(currentWeapon.name === 'drums'){
+          //var aimVec = v(1,-1).normalize();
           var angle = 0;
 
           for(var i=0; i<16; i++){
@@ -205,16 +200,16 @@ function startGame(map) {
                 pos: aimVec.scaled(10).plus(origPoint),
                 rotation: aimVec.angle(),
               }),
-              vel: aimVec.scaled(mikeProjectileSpeed).plus(playerVel),
-              life: drumProjectileLife,
+              vel: aimVec.scaled(currentWeapon.projectileSpeed).plus(playerVel),
+              life: currentWeapon.projectileLife,
             });
           }
         }
         
-        mikeReload = mikeReloadAmt;
+        currentWeapon.reload = currentWeapon.reloadAmt;
       }
     } else {
-      mikeReload -= dt;
+      currentWeapon.reload -= dt;
     }
 
     //spike balls
@@ -258,7 +253,7 @@ function startGame(map) {
           }
         }
       }
-      
+
       if(!ballColliding){
         for (j = 0; j < projectiles.length; j += 1) {
           if(rectCollision(ballRect,projectiles[j].sprite)){
@@ -393,9 +388,13 @@ function startGame(map) {
   }
 
   function onDraw(context) {
-    var offsetX = scroll.x / maxScrollX * (bgImg.width - engine.size.x);
-    context.drawImage(bgImg, offsetX, 0, engine.size.x, bgImg.height, 0, 0, engine.size.x, engine.size.y);
+    var bgOffsetX = scroll.x / maxScrollX * (bgImg.width - engine.size.x);
+    context.drawImage(bgImg, bgOffsetX, 0, engine.size.x, bgImg.height, 0, 0, engine.size.x, bgImg.height);
 
+    var crowdOffsetX = (scroll.x * 0.8) % bgCrowd.width;
+    context.translate(-crowdOffsetX, 0);
+    context.drawImage(bgCrowd, 0, bgImg.height - bgCrowd.height);
+    context.drawImage(bgCrowd, bgCrowd.width, bgImg.height - bgCrowd.height);
 
     // draw all sprites in batch
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
