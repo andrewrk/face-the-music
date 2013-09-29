@@ -62,7 +62,7 @@ function startGame(map) {
   });
   var crowdLife = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
-  var crowdSpeed = 0.2;
+  var crowdSpeed = 0.8;
   var crowdRotationSpeed = Math.PI / 400;
   var crowdDeathRadius = 320;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="4000" height="554" tilewidth="1" tileheight="1">
  <objectgroup name="Object Layer 1" width="4000" height="554">
-  <object name="Start" x="350" y="378" width="75" height="61"/>
+  <object name="Start" x="550" y="381" width="75" height="61"/>
   <object name="Ground" x="-1" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
@@ -12,22 +12,16 @@
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
-  <object name="Skull" type="attack" x="920" y="285" width="50" height="50">
+  <object name="Skull" type="attack" x="1619" y="404" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
-    <property name="speed" value="5"/>
+    <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Skull" type="attack" x="1347" y="342" width="50" height="50">
+  <object name="Skull" type="attack" x="2677" y="109" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
-    <property name="speed" value="5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="attack" x="1098" y="316" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="5"/>
+    <property name="speed" value="3"/>
    </properties>
   </object>
   <object name="Ground" x="1967" y="445" width="984" height="106">
@@ -45,12 +39,59 @@
     <property name="image" value="ground_dry_dirt.png"/>
    </properties>
   </object>
-  <object name="Decoration" x="653" y="413" width="160" height="35">
+  <object name="Decoration" x="549" y="409" width="160" height="35">
    <properties>
     <property name="image" value="metal_barricade.png"/>
     <property name="zOrder" value="1"/>
    </properties>
   </object>
-  <object name="Weed" x="691" y="299" width="189" height="132"/>
+  <object name="Weed" x="1018" y="7" width="189" height="132"/>
+  <object name="REFERENCE - player square" x="460" y="12" width="30" height="57"/>
+  <object name="Platform" x="2151" y="185" width="194" height="256">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="REF - maxJumpHeight" x="533" y="3" width="26" height="95"/>
+  <object name="Decoration" x="710" y="409" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="1"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="873" y="409" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="1"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="1037" y="409" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="1"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="1199" y="409" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="1"/>
+   </properties>
+  </object>
+  <object name="Platform" x="1934" y="354" width="114" height="38">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="REF - maxJumpHeight" x="1872" y="168" width="26" height="95"/>
+  <object name="Platform" x="1763" y="264" width="114" height="38">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="1952" y="188" width="114" height="38">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
