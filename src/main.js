@@ -43,6 +43,11 @@ function startGame(map) {
     knockBackTime: 0,
     hugs: 0, // how many are dragging you down
   };
+  var rockAniList = [
+    ani.rockerHeadBanging,
+    ani.rockerWaving,
+    ani.rockerMoshing,
+  ];
   var crosshairSprite = new chem.Sprite(ani['cursor/mike'], {
     batch: staticBatch,
   });
@@ -235,6 +240,8 @@ function startGame(map) {
         } else {
           return ani.enemySlide;
         }
+      } else if (crowdPerson.pos.distance(playerEntity.pos) < 100) {
+        return crowdPerson.rockAni;
       } else {
         return ani.enemyIdle;
       }
@@ -353,6 +360,7 @@ function startGame(map) {
   function updateCrowdPeople(dt, dx) {
     if (crowdPeopleCooldown <= 0) {
       if (crowdPeople.length < maxCrowdPeople) {
+        crowdLives -= 1;
         spawnCrowdPerson();
         crowdPeopleCooldown = crowdPeopleCooldownAmt;
       }
@@ -363,19 +371,28 @@ function startGame(map) {
     for (var i = 0; i < crowdPeople.length; i += 1) {
       var person = crowdPeople[i];
       var target = person.target;
-      person.right = target.pos.x > person.pos.x;
-      person.left = target.pos.x < person.pos.x;
+      var closeDist = person.behavior === 'hug' ? 0 : 100;
+      person.right = target.pos.x - person.pos.x > closeDist;
+      person.left = target.pos.x - person.pos.x < -closeDist;
       if (person.jumper) {
         person.jump = person.pos.y - target.pos.y > 50;
       }
 
-      if (person.behavior === 'hug' && person.pos.distance(playerEntity.pos) < 10) {
+      if (person.behavior === 'hug' && person.pos.distance(playerEntity.pos) < 25 &&
+          !playerEntity.dying)
+      {
         startHug(person);
       }
       if (person.hugging) {
-        person.pos = playerEntity.pos.offset(10, 20);
-        doSpritePos(person);
+        if (playerEntity.dying) {
+          person.hugging = false;
+          person.sprite.setZOrder(0);
+        } else {
+          person.pos = playerEntity.pos.offset(10, 20);
+          doSpritePos(person);
+        }
       } else {
+        checkCollidePersonWithPlayer(person);
         doCollision(person, dt, dx);
         doControlsAndPhysics(person, dt, dx);
       }
@@ -388,6 +405,22 @@ function startGame(map) {
     }
   }
 
+  function checkCollidePersonWithPlayer(person) {
+    if (!rectCollision(playerRect(), person)) return;
+
+    var normal = playerEntity.pos.minus(person.pos).normalize();
+    var rv = playerEntity.vel.minus(person.vel);
+    var velAlongNormal = rv.dot(normal);
+    if (velAlongNormal > 0) return;
+    var e = 0.80;
+    var j = -(1 + e) * velAlongNormal;
+    var personMass = 1;
+    var playerMass = 1;
+    j /= 1 / personMass + 1 / playerMass;
+    var impulse = normal.scale(j);
+    person.vel.sub(impulse.scaled(1 / personMass));
+    playerEntity.vel.add(impulse.scaled(1 / playerMass));
+  }
 
   function spawnCrowdPerson() {
     var crowdPerson = {
@@ -415,12 +448,17 @@ function startGame(map) {
       knockBackTime: 0,
       health: 2,
       behavior: null,
+      rockAni: randomRockAni(),
     };
 
     assignCrowdPersonTarget(crowdPerson);
     assignRandomBehavior(crowdPerson);
 
     crowdPeople.push(crowdPerson);
+  }
+
+  function randomRockAni() {
+    return rockAniList[Math.floor(Math.random() * rockAniList.length)];
   }
 
   function assignRandomBehavior(crowdPerson) {
@@ -545,17 +583,23 @@ function startGame(map) {
   }
 
   function forEachHittableThing(checkRect, checkCircle) {
+    var i;
     var damage = checkCircle({pos: crowd.pos, radius: crowdDeathRadius});
     if (damage) {
+      var before = crowdLives;
       crowdLives -= damage;
+      var diff = Math.floor(before) - Math.floor(crowdLives);
       if (crowdLives <= 0) {
         crowdLives = 0;
         youWin();
         return;
       }
+      for (i = 0; i < diff; i += 1) {
+        spawnCrowdPerson();
+      }
     }
 
-    for (var i = 0; i < spikeBalls.length; i += 1) {
+    for (i = 0; i < spikeBalls.length; i += 1) {
       var ball = spikeBalls[i];
 
       var ballRect = {
@@ -718,7 +762,7 @@ function startGame(map) {
             life: currentWeapon.projectileLife,
             damage: currentWeapon.projectileDamage,
           });
-        }else if(currentWeapon.name === 'guitar' && !beam){
+        }else if(currentWeapon.name === 'guitar' && !beam && playerEntity.hugs === 0){
           //GUITAR
           beam = new chem.Sprite(ani.guitarBeam, {
                   batch: levelBatch,
@@ -771,7 +815,7 @@ function startGame(map) {
     context.translate(-groundOffsetX, 0);
     context.drawImage(groundImg, 0, engine.size.y - groundImg.height);
     context.drawImage(groundImg, groundImg.width, engine.size.y - groundImg.height);
-    
+
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     context.translate(-scroll.x, -scroll.y);
     foregroundBatch.draw(context);
