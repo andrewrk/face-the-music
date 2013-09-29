@@ -63,7 +63,7 @@ function startGame(map) {
 
   var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
-    pos: v(115*50, groundY),
+    pos: v(150*50, groundY),
     zOrder: 1,
   });
   var crowdLife = 100;
@@ -361,6 +361,7 @@ function startGame(map) {
       jumpVec: v(0, -1 * (3 + Math.random() * 4)),
       directionFacing: 1,
       knockBackTime: 0,
+      health: 2,
     };
 
     assignCrowdPersonTarget(crowdPerson);
@@ -488,6 +489,20 @@ function startGame(map) {
       if (checkRect(ballRect)) {
         ball.sprite.delete();
         spikeBalls.splice(i,1);
+        i--;
+      }
+    }
+    
+    for(var i=0; i<crowdPeople.length;i++){
+      var person = crowdPeople[i];
+      
+      if(checkRect(person.sprite)){
+        person.health -= 1;
+      }
+      
+      if(person.health <= 0){
+        person.sprite.delete();
+        crowdPeople.splice(i,1);
         i--;
       }
     }

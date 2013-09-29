@@ -281,17 +281,17 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Platform" x="6574" y="355" width="107" height="95">
+  <object name="Platform" x="6600" y="350" width="100" height="100">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="6829" y="307" width="150" height="150">
+  <object name="Platform" x="6850" y="300" width="150" height="150">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
   </object>
-  <object name="Platform" x="7389" y="347" width="235" height="84">
+  <object name="Platform" x="7100" y="350" width="200" height="100">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
@@ -693,6 +693,160 @@
    </properties>
   </object>
   <object name="REF - maxJumpHeight" x="6430" y="65" width="26" height="95"/>
-  <object name="Start" x="7197" y="360" width="75" height="61"/>
+  <object name="Skull" type="idle" x="7150" y="100" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7100" y="250" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7100" y="300" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7150" y="200" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7100" y="50" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7150" y="300" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7150" y="250" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7150" y="150" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7100" y="100" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7100" y="200" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7150" y="50" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7100" y="150" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7250" y="100" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7200" y="250" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7200" y="300" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7250" y="200" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7200" y="50" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7250" y="300" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7250" y="250" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7250" y="150" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7200" y="100" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7200" y="200" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7250" y="50" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="idle" x="7200" y="150" width="50" height="50">
+   <properties>
+    <property name="range" value="0"/>
+    <property name="speed" value="3"/>
+   </properties>
+  </object>
+  <object name="Platform" type="Final Wall" x="9450" y="50" width="100" height="500">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7676" y="102" width="200" height="100">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Start" x="7918" y="370" width="75" height="61"/>
  </objectgroup>
 </map>
