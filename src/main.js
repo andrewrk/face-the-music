@@ -23,11 +23,6 @@ function startGame(map) {
   });
   var playerPos = v();
   var playerSize = v(15, 57);
-  var crowd = new chem.Sprite(ani.mobCloud1, {
-    batch: levelBatch,
-    pos: v(20, 0),
-  });
-  var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crosshairSprite = new chem.Sprite(ani['cursor/mike'], {
     batch: staticBatch,
   });
@@ -44,8 +39,6 @@ function startGame(map) {
   var grounded = false;
   var scroll = v(0, 0);
 
-  var crowdSpeed = 0.2;
-
   //Enemies
   var spikeBalls = [];
   var weedClouds = [];
@@ -61,6 +54,16 @@ function startGame(map) {
   var maxScrollX = null;
   var groundY = engine.size.y - groundImg.height;
 
+  var crowd = new chem.Sprite(ani.mobCloud1, {
+    batch: levelBatch,
+    pos: v(20, groundY),
+  });
+  var crowdRect = {pos: crowd.pos, size: v(50,900)};
+  var crowdSpeed = 0.2;
+  var crowdRotationSpeed = Math.PI / 400;
+  var crowdDeathRadius = 320;
+
+  var dying = false;
 
   var weaponIndex = 0;
   var weapons = [
@@ -127,11 +130,10 @@ function startGame(map) {
 
     //Update crowd position
     crowd.pos.x += crowdSpeed;
+    crowd.rotation += crowdRotationSpeed;
 
-    if(rectCollision(playerRect(),crowdRect)){
-      //kill it
-      playerPos.x = 99999;
-      return;
+    if (playerPos.distance(crowd.pos) < crowdDeathRadius) {
+      playerDie();
     }
 
     //WEED cloud collision
@@ -359,19 +361,19 @@ function startGame(map) {
     maxScrollX = map.width - engine.size.x / 2;
     if (scroll.x > maxScrollX) scroll.x = maxScrollX;
 
-    if (left) {
+    if (left && !dying) {
       if(grounded)
         playerVel.x -= playerRunAcc;
       else
         playerVel.x -= playerAirAcc;
     }
-    if (right) {
+    if (right && !dying) {
       if(grounded)
         playerVel.x += playerRunAcc;
       else
         playerVel.x += playerAirAcc;
     }
-    if (jump) {
+    if (jump && !dying) {
       if(grounded){
         playerVel.add(playerJumpVec);
         grounded = false;
@@ -394,8 +396,7 @@ function startGame(map) {
     if(grounded && !left && !right){
       if(Math.abs(playerVel.x) < 0.25){
         playerVel.x = 0;
-      }
-      else{
+      } else{
         playerVel.scale(1/friction);
       }
     }
@@ -418,7 +419,9 @@ function startGame(map) {
     }
 
     function getPlayerAnimation() {
-      if (grounded) {
+      if (dying) {
+        return ani.roadieDeath;
+      } else if (grounded) {
         if (Math.abs(playerVel.x) > 0) {
           if (left&&playerVel.x<=0 || right&&playerVel.x>=0) {
             return ani.roadieRun;
@@ -446,20 +449,24 @@ function startGame(map) {
     context.drawImage(bgCrowd, 0, engine.size.y - groundImg.height - bgCrowd.height);
     context.drawImage(bgCrowd, bgCrowd.width, engine.size.y - groundImg.height - bgCrowd.height);
 
+    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    context.translate(-scroll.x, -scroll.y);
+    levelBatch.draw(context);
+
     var groundOffsetX = scroll.x % groundImg.width;
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     context.translate(-groundOffsetX, 0);
     context.drawImage(groundImg, 0, engine.size.y - groundImg.height);
     context.drawImage(groundImg, groundImg.width, engine.size.y - groundImg.height);
 
-    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
-    context.translate(-scroll.x, -scroll.y);
-    levelBatch.draw(context);
-
     // static
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     staticBatch.draw(context);
     fpsLabel.draw(context);
+  }
+
+  function playerDie() {
+    dying = true;
   }
 
   function onMouseMove(pos, button) {

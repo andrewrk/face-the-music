@@ -26,6 +26,20 @@ exports.spritesheet = {
     "cursor/mike": {
       anchor: {x: 6, y: 2},
     },
+    roadieDeath: {
+      frames: [
+        "roadie/roadie_death_1.png",
+        "roadie/roadie_death_2.png",
+        "roadie/roadie_death_3.png",
+        "roadie/roadie_death_4.png",
+        "roadie/roadie_death_5.png",
+        "roadie/roadie_death_6.png",
+        "roadie/roadie_death_7.png",
+        "roadie/roadie_death_8.png",
+      ],
+      anchor: {x: 25, y: 22},
+      loop: false,
+    },
     roadieRun: {
       frames: [
         "roadie/roadie_run_1.png",
