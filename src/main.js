@@ -1008,15 +1008,15 @@ function startGame(map) {
     context.drawImage(bgCrowd, 0, engine.size.y - groundImg.height - bgCrowd.height);
     context.drawImage(bgCrowd, bgCrowd.width, engine.size.y - groundImg.height - bgCrowd.height);
 
-    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
-    context.translate(-scroll.x, -scroll.y);
-    levelBatch.draw(context);
-
     var groundOffsetX = scroll.x % groundImg.width;
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     context.translate(-groundOffsetX, 0);
     context.drawImage(groundImg, 0, engine.size.y - groundImg.height);
     context.drawImage(groundImg, groundImg.width, engine.size.y - groundImg.height);
+
+    context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    context.translate(-scroll.x, -scroll.y);
+    levelBatch.draw(context);
 
     context.setTransform(1, 0, 0, 1, 0, 0); // load identity
     context.translate(-scroll.x, -scroll.y);
@@ -1328,7 +1328,7 @@ function startGame(map) {
     return new chem.Sprite(ani.mobCloud1, {
       batch: levelBatch,
       pos: v(0*100, groundY),
-      zOrder: 3,
+      zOrder: 4,
     });
   }
   function getBgCrowdImgList() {
