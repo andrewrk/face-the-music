@@ -1892,7 +1892,6 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-<<<<<<< HEAD
   <object name="Platform" x="7603" y="355" width="102" height="25">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
@@ -1931,7 +1930,7 @@
     <property name="speed" value="2.5"/>
    </properties>
   </object>
-  <object name="Start" x="8382" y="380" width="75" height="61"/>
+  <object name="Start" x="458" y="351" width="75" height="61"/>
   <object name="Skull" type="rotate" x="8376" y="194" width="50" height="50">
    <properties>
     <property name="range" value="250"/>

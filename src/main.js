@@ -1011,6 +1011,9 @@ function startGame(map) {
       if (focusPos.x > 0 && engine.size.y - focusPos.y > 0) {
         context.fillRect(0, focusPos.y, focusPos.x, engine.size.y);
       }
+      if (engine.size.x > focusPos.x + focusImg.width && engine.size.y  > focusPos.y) {
+        context.fillRect(focusPos.x + focusImg.width, focusPos.y, engine.size.x, engine.size.y);
+      }
       context.globalAlpha = 1;
     }
   }
