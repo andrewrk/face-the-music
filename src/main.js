@@ -761,6 +761,7 @@ function startGame(map) {
         ball.health -= damage;
         if (ball.health <= 0) {
           ball.sprite.delete();
+          ball.eyeColor.delete();
           spikeBalls.splice(i,1);
           i--;
         }
@@ -823,6 +824,10 @@ function startGame(map) {
       var ballRect = {
             pos: ball.pos.plus(v(-12,-32)),
             size: v(24,65)
+      }
+      
+      if(ball.type != 'attack'){
+        ball.eyeColor.pos = ball.pos.offset(-11,0);
       }
 
 
@@ -1239,7 +1244,7 @@ function startGame(map) {
         if(obj.type != 'attack'){
           spikeBall.eyeColor = new chem.Sprite(ani[chosenColor],{
               batch: levelBatch,
-              pos: pos.offset(-11,0),
+              pos: spikeBall.pos.offset(-11,0),//pos.offset(-11,0),
           });
         }
         
