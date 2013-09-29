@@ -354,7 +354,6 @@ function startGame(map) {
       doControlsAndPhysics(person, dt, dx);
 
       if (crowd.pos.x > person.pos.x + 300) {
-        crowd.setVisible(false);
         crowdPeople.splice(i, 1);
         person.sprite.delete();
         i -= 1;
