@@ -21,28 +21,8 @@ function startGame(map) {
   var levelBatch = new chem.Batch();
   var staticBatch = new chem.Batch();
   var foregroundBatch = new chem.Batch();
-  var playerEntity = {
-    getWantedAnimation: getPlayerAnimation,
-    pos: v(),
-    vel: v(),
-    size: v(15, 57),
-    sprite: new chem.Sprite(ani.roadieIdle, {
-      batch: foregroundBatch,//levelBatch,
-      zOrder: 2,
-    }),
-    grounded: false,
-    left: false,
-    right: false,
-    jump: false,
-    dying: false,
-    maxSpeed: 5,
-    runAcc: 0.25,
-    airAcc: 0.15,
-    jumpVec: v(0, -6.8),
-    directionFacing: 1,
-    knockBackTime: 0,
-    hugs: 0, // how many are dragging you down
-  };
+  var playerEntity = createPlayerEntity();
+  
   var timeSinceDeath = 0;
   var rockAniList = [
     ani.rockerHeadBanging,
@@ -85,11 +65,8 @@ function startGame(map) {
   var maxScrollX = null;
   var groundY = engine.size.y - groundImg.height;
 
-  var crowd = new chem.Sprite(ani.mobCloud1, {
-    batch: levelBatch,
-    pos: v(0*100, groundY),
-    zOrder: 1,
-  });
+  var crowd = initCrowd();
+  
   var crowdLives = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 0.8;
@@ -101,45 +78,7 @@ function startGame(map) {
   var crowdPeopleCooldownAmt = 5;
 
   var weaponIndex = 0;
-  var weapons = [
-    {
-      name: "microphone",
-      animation: ani.attack_mic,
-      reload: 0,
-      reloadAmt: 0.5,
-      projectileSpeed: 10,
-      projectileLife: 1,
-      projectileDamage: 1,
-      tripleShot: false,
-      cursor: 'cursor/mike',
-    },
-    {
-      name: "bass",
-      animation: ani.attack_bass,
-      reload: 0,
-      reloadAmt: 0.75,
-      projectileSpeed: 6,
-      projectileLife: 0.9,
-      projectileDamage: 1.5,
-      cursor: 'cursor/bass',
-    },
-    {
-      name: "guitar",
-      reload: 0,
-      reloadAmt: 1.0,
-      cursor: 'cursor/flyingv',
-    },
-    {
-      name: "drums",
-      animation: ani.attack_drum,
-      reload: 0,
-      reloadAmt: 0.4,
-      projectileSpeed: 9,
-      projectileLife: 1,
-      projectileDamage: 1,
-      cursor: 'cursor/drum',
-    }
-  ];
+  var weapons = initializeWeapons();
 
   var fxList = [];
 
@@ -174,7 +113,53 @@ function startGame(map) {
     }
   }
 
+  function cleanupAndRestart() {
+    crowdPeople.forEach(deleteItsSprite);
+    fxList.forEach(deleteItsSprite);
+    projectiles.forEach(deleteItsSprite);
+    platforms.forEach(deleteItsSprite);
+    spikeBalls.forEach(deleteItsSprite);
+    weedClouds.forEach(deleteItsSprite);
+    decorations.forEach(deleteItsSprite);
+
+    crowdPeople = [];
+    fxList = [];
+    projectiles = [];
+    platforms = [];
+    spikeBalls = [];
+    weedClouds = [];
+    decorations = [];
+
+    if (beam) {
+      beam.delete();
+      beam = null;
+    }
+
+    deleteItsSprite(playerEntity);
+    playerEntity = createPlayerEntity();
+
+    weaponIndex = 0;
+    weapons = initializeWeapons();
+
+    crowd.delete();
+    crowd = initCrowd();
+
+    updateCursor();
+
+    loadMap();
+
+    function deleteItsSprite(thing) {
+      if (!thing.sprite) return;
+      thing.sprite.delete();
+    }
+  }
+
   function onUpdate(dt, dx) {
+    if (engine.buttonJustPressed(chem.button.KeyR) && playerEntity.dying) {
+      cleanupAndRestart();
+      return;
+    }
+
     //CONTROLS
     playerEntity.left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
     playerEntity.right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
@@ -1039,6 +1024,80 @@ function startGame(map) {
         }));
         break;
     }
+  }
+
+  function createPlayerEntity() {
+    return {
+      getWantedAnimation: getPlayerAnimation,
+      pos: v(),
+      vel: v(),
+      size: v(15, 57),
+      sprite: new chem.Sprite(ani.roadieIdle, {
+        batch: foregroundBatch,//levelBatch,
+        zOrder: 2,
+      }),
+      grounded: false,
+      left: false,
+      right: false,
+      jump: false,
+      dying: false,
+      maxSpeed: 5,
+      runAcc: 0.25,
+      airAcc: 0.15,
+      jumpVec: v(0, -6.8),
+      directionFacing: 1,
+      knockBackTime: 0,
+      hugs: 0, // how many are dragging you down
+    };
+  }
+
+  function initializeWeapons() {
+    return [
+      {
+        name: "microphone",
+        animation: ani.attack_mic,
+        reload: 0,
+        reloadAmt: 0.5,
+        projectileSpeed: 10,
+        projectileLife: 1,
+        projectileDamage: 1,
+        tripleShot: false,
+        cursor: 'cursor/mike',
+      },
+      {
+        name: "bass",
+        animation: ani.attack_bass,
+        reload: 0,
+        reloadAmt: 0.75,
+        projectileSpeed: 6,
+        projectileLife: 0.9,
+        projectileDamage: 1.5,
+        cursor: 'cursor/bass',
+      },
+      {
+        name: "guitar",
+        reload: 0,
+        reloadAmt: 1.0,
+        cursor: 'cursor/flyingv',
+      },
+      {
+        name: "drums",
+        animation: ani.attack_drum,
+        reload: 0,
+        reloadAmt: 0.4,
+        projectileSpeed: 9,
+        projectileLife: 1,
+        projectileDamage: 1,
+        cursor: 'cursor/drum',
+      }
+    ];
+  }
+  function initCrowd() {
+    return new chem.Sprite(ani.mobCloud1, {
+      batch: levelBatch,
+      pos: v(0*100, groundY),
+      zOrder: 1,
+    });
   }
 }
 
