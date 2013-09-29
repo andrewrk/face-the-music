@@ -187,9 +187,13 @@ function startGame(map) {
               vel: aimVec3.scaled(mikeProjectileSpeed).plus(playerVel),
             });
           }
-        } else if(currentWeapon === 'guitar'){
-        } else if(currentWeapon === 'drums'){
-          //var aimVec = v(1,-1).normalize();
+        }else if(currentWeapon == 'guitar'){
+          var beam = new chem.Sprite(ani.guitarBeam, {
+                batch: levelBatch,
+                pos: aimVec.scaled(10).plus(origPoint),
+                rotation: aimVec.angle(),
+          });
+        }else if(currentWeapon === 'drums'){
           var angle = 0;
 
           for(var i=0; i<16; i++){
