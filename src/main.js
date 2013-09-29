@@ -830,6 +830,7 @@ function startGame(map) {
       if(rectCollision(playerRect(),ballRect)){
         applyKnockBack();
         ball.sprite.delete();
+        ball.eyeColor.delete();
         spikeBalls.splice(i,1);
         i--;
         continue;
@@ -1199,7 +1200,8 @@ function startGame(map) {
         platforms.push(platform);
         break;
       case 'Skull':
-        var animation = obj.type === 'attack' ? ani.skullAttack : ani.skullFloat;
+        var animation = obj.type === 'attack' ? ani.skullAttack : ani.eyeBall;
+        
         var spikeBall = {
             pos: pos,
             health: 1,
@@ -1215,13 +1217,32 @@ function startGame(map) {
             startVec: pos.clone(),
             period: 0,
         };
+        
+        var chosenColor = "eye/floating_eye_green_horizontal";
         if(obj.type === 'seek'){
           spikeBall.health = 3;
+          chosenColor = "eye/floating_eye_iris_orange";
         }else if(obj.type === 'idle'){
           spikeBall.health = 1;
+          chosenColor = "eye/floating_eye_iris_blue";
         }else{
           spikeBall.health = 1.5;
+          if(obj.type === 'horizontal'){
+            chosenColor = "eye/floating_eye_green_horizontal";
+          }else if(obj.type === 'vertical'){
+            chosenColor = "eye/floating_eye_green_vertical";
+          }else{
+            chosenColor = "eye/floating_eye_green_rotate";
+          }
         }
+        
+        if(obj.type != 'attack'){
+          spikeBall.eyeColor = new chem.Sprite(ani[chosenColor],{
+              batch: levelBatch,
+              pos: pos.offset(-11,0),
+          });
+        }
+        
         spikeBalls.push(spikeBall);
         break;
       case 'Weed':

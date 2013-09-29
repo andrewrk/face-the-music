@@ -241,5 +241,16 @@ exports.spritesheet = {
       loop: true,
       delay: 0.15,
     },
+    eyeBall: {
+      frames: [
+        "eye/floating_eye_body.png",
+      ],
+    },
+    "eye/floating_eye_green_rotate": {},
+    "eye/floating_eye_green_vertical": {},
+    "eye/floating_eye_green_horizontal": {},    
+    "eye/floating_eye_iris_blue": {},
+    "eye/floating_eye_iris_orange": {},
+    
   }
 };

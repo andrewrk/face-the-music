@@ -2322,6 +2322,6 @@
     <property name="image" value="weapon_drums.png"/>
    </properties>
   </object>
-  <object name="Start" x="468" y="375" width="75" height="61"/>
+  <object name="Start" x="6803" y="341" width="75" height="61"/>
  </objectgroup>
 </map>
