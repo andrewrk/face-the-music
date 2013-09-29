@@ -74,7 +74,7 @@ function startGame(map) {
       name: "microphone",
       animation: ani.attack_mic,
       reload: 0,
-      reloadAmt: 0.3,
+      reloadAmt: 0.5,//0.4,
       projectileSpeed: 10,
       projectileLife: 1,
       tripleShot: false,
@@ -207,7 +207,7 @@ function startGame(map) {
     scroll = playerPos.minus(engine.size.scaled(0.5));
     if (scroll.x < 0) scroll.x = 0;
     scroll.y = 0;
-    maxScrollX = map.width - engine.size.x / 2;
+    maxScrollX = map.width*map.tileWidth - engine.size.x / 2;
     if (scroll.x > maxScrollX) scroll.x = maxScrollX;
 
     if (left && !dying) {
@@ -343,7 +343,7 @@ function startGame(map) {
     beam.pos = origPoint;
 
     var beamLength = 1024;
-    var endPoint = origPoint.plus(aimVec.scaled(beamLength));
+    var endPoint = origPoint.plus(v.unit(beam.rotation).scaled(beamLength));
     forEachHittableThing(checkHitRect, checkHitCircle);
 
     var angleDiff = angleSubtract(aimVec.angle(),beam.rotation);
@@ -572,18 +572,34 @@ function startGame(map) {
         });
         break;
       case 'Skull':
-        spikeBalls.push({
-          pos: pos,
-          size: size,
-          sprite: new chem.Sprite(ani.skullAttack, {
-            batch: levelBatch,
+        if(obj.type == "attack"){
+          spikeBalls.push({
             pos: pos,
-          }),
-          type: obj.type,
-          range: parseInt(obj.properties.range, 10),
-          speed: parseInt(obj.properties.speed, 10),
-          triggerOn: false,
-        });
+            size: size,
+            sprite: new chem.Sprite(ani.skullAttack, {
+              batch: levelBatch,
+              pos: pos,
+            }),
+            type: obj.type,
+            range: parseInt(obj.properties.range, 10),
+            speed: parseInt(obj.properties.speed, 10),
+            triggerOn: false,
+          });
+        }
+        else{
+          spikeBalls.push({
+            pos: pos,
+            size: size,
+            sprite: new chem.Sprite(ani.skullFloat, {
+              batch: levelBatch,
+              pos: pos,
+            }),
+            type: obj.type,
+            range: parseInt(obj.properties.range, 10),
+            speed: parseInt(obj.properties.speed, 10),
+            triggerOn: false,
+          });
+        }
         break;
       case 'Weed':
         weedClouds.push({

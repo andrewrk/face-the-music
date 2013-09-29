@@ -126,5 +126,14 @@ exports.spritesheet = {
       loop: true,
       //delay: 0.1,
     },
+    skullFloat: {
+      frames: [
+        "skull/flaming_skull_static_1.png",
+        "skull/flaming_skull_static_2.png",
+        "skull/flaming_skull_static_3.png",
+      ],
+      loop: true,
+      delay: 0.15,
+    },
   }
 };
