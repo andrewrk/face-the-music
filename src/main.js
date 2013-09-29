@@ -20,6 +20,7 @@ function startGame(map) {
   var staticBatch = new chem.Batch();
   var player = new chem.Sprite(ani.roadieIdle, {
     batch: levelBatch,
+    zOrder: 1,
   });
   var playerPos = v();
   var playerSize = v(15, 57);
@@ -69,6 +70,7 @@ function startGame(map) {
   var weapons = [
     {
       name: "microphone",
+      animation: ani.attack_mic,
       reload: 0,
       reloadAmt: 0.3,
       projectileSpeed: 10,
@@ -84,6 +86,7 @@ function startGame(map) {
     },
     {
       name: "drums",
+      animation: ani.attack_drum,
       reload: 0,
       reloadAmt: 0.4,
       projectileSpeed: 9,
@@ -158,7 +161,7 @@ function startGame(map) {
         if(currentWeapon.name === 'microphone'){
           //Microphone
           projectiles.push({
-            sprite: new chem.Sprite(ani.soundwave, {
+            sprite: new chem.Sprite(currentWeapon.animation, {
               batch: levelBatch,
               pos: aimVec.scaled(10).plus(origPoint),
               rotation: aimVec.angle(),
@@ -175,7 +178,7 @@ function startGame(map) {
 
             //add a TRIPLE SHOT
             projectiles.push({
-              sprite: new chem.Sprite(ani.soundwave, {
+              sprite: new chem.Sprite(currentWeapon.animation, {
                 batch: levelBatch,
                 pos: aimVec2.scaled(10).plus(origPoint),
                 rotation: aimVec2.angle(),
@@ -185,7 +188,7 @@ function startGame(map) {
             });
 
             projectiles.push({
-              sprite: new chem.Sprite(ani.soundwave, {
+              sprite: new chem.Sprite(currentWeapon.animation, {
                 batch: levelBatch,
                 pos: aimVec3.scaled(10).plus(origPoint),
                 rotation: aimVec3.angle(),
@@ -213,7 +216,7 @@ function startGame(map) {
             angle = i*Math.PI/8
             aimVec = v.unit(angle);
             projectiles.push({
-              sprite: new chem.Sprite(ani.soundwave, {
+              sprite: new chem.Sprite(currentWeapon.animation, {
                 batch: levelBatch,
                 pos: aimVec.scaled(10).plus(origPoint),
                 rotation: aimVec.angle(),

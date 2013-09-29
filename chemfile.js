@@ -93,6 +93,8 @@ exports.spritesheet = {
       anchor: {x: 25, y: 22},
       loop: false,
     },
+    attack_mic: {},
+    attack_drum: {},
     soundwave: {},
     skullAttack: {
       frames: [
