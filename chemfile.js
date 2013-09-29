@@ -26,6 +26,11 @@ exports.spritesheet = {
     "cursor/mike": {
       anchor: {x: 6, y: 2},
     },
+    clingingGroupie: {
+      frames: "groupie",
+      loop: true,
+      anchor: {x: 100, y:50},
+    },
     roadieDeath: {
       frames: [
         "roadie/roadie_death_1.png",

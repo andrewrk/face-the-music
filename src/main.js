@@ -15,6 +15,7 @@ canvas.focus();
 
 var GRAVITY = 0.2;
 var MAX_CROWD_X_DIST = engine.size.x / 2 + 400;
+var crowdBehaviors = ['idle', 'hug'];
 
 function startGame(map) {
   var levelBatch = new chem.Batch();
@@ -39,6 +40,7 @@ function startGame(map) {
     jumpVec: v(0, -6.8),
     directionFacing: 1,
     knockBackTime: 0,
+    hugs: 0, // how many are dragging you down
   };
   var crosshairSprite = new chem.Sprite(ani['cursor/mike'], {
     batch: staticBatch,
@@ -103,7 +105,7 @@ function startGame(map) {
       reload: 0,
       reloadAmt: 0.8,
       projectileSpeed: 5,
-      projectileLife: .9,
+      projectileLife: 0.9,
       projectileDamage: 1.5,
       cursor: 'cursor/bass',
     },
@@ -223,6 +225,8 @@ function startGame(map) {
       debugger
     } else if (crowdPerson.knockBackTime > 0) {
       debugger
+    } else if (crowdPerson.hugging) {
+      return ani.clingingGroupie;
     } else if (crowdPerson.grounded) {
       if (Math.abs(crowdPerson.vel.x) > 0) {
         if (crowdPerson.left && crowdPerson.vel.x <= 0 || crowdPerson.right && crowdPerson.vel.x >= 0) {
@@ -336,6 +340,15 @@ function startGame(map) {
     }
   }
 
+  function startHug(crowdPerson) {
+    if (crowdPerson.hugging) return;
+    crowdPerson.hugging = true;
+    playerEntity.hugs += 1;
+    crowdPerson.sprite.setAnimation(ani.clingingGroupie);
+    crowdPerson.sprite.setFrameIndex(0);
+    crowdPerson.sprite.setZOrder(3);
+  }
+
   function updateCrowdPeople(dt, dx) {
     if (crowdPeopleCooldown <= 0) {
       if (crowdPeople.length < maxCrowdPeople) {
@@ -355,8 +368,16 @@ function startGame(map) {
         person.jump = person.pos.y - target.pos.y > 50;
       }
 
-      doCollision(person, dt, dx);
-      doControlsAndPhysics(person, dt, dx);
+      if (person.behavior === 'hug' && person.pos.distance(playerEntity.pos) < 10) {
+        startHug(person);
+      }
+      if (person.hugging) {
+        person.pos = playerEntity.pos.offset(10, 20);
+        doSpritePos(person);
+      } else {
+        doCollision(person, dt, dx);
+        doControlsAndPhysics(person, dt, dx);
+      }
 
       if (crowd.pos.x > person.pos.x + 300) {
         crowdPeople.splice(i, 1);
@@ -392,11 +413,18 @@ function startGame(map) {
       directionFacing: 1,
       knockBackTime: 0,
       health: 2,
+      behavior: null,
     };
 
     assignCrowdPersonTarget(crowdPerson);
+    assignRandomBehavior(crowdPerson);
 
     crowdPeople.push(crowdPerson);
+  }
+
+  function assignRandomBehavior(crowdPerson) {
+    var index = Math.floor(Math.random() * crowdBehaviors.length);
+    crowdPerson.behavior = crowdBehaviors[index];
   }
 
   function assignCrowdPersonTarget(crowdPerson) {
@@ -415,21 +443,24 @@ function startGame(map) {
   }
 
   function doControlsAndPhysics(entity, dt, dx) {
+    var hugCount = entity.hugs || 0;
+    var hugDrag = Math.pow(0.5, hugCount);
+
     if (entity.left && !entity.dying) {
       if(entity.grounded)
-        entity.vel.x -= entity.runAcc;
+        entity.vel.x -= entity.runAcc * hugDrag;
       else
-        entity.vel.x -= entity.airAcc;
+        entity.vel.x -= entity.airAcc * hugDrag;
     }
     if (entity.right && !entity.dying) {
       if(entity.grounded)
-        entity.vel.x += entity.runAcc;
+        entity.vel.x += entity.runAcc * hugDrag;
       else
-        entity.vel.x += entity.airAcc;
+        entity.vel.x += entity.airAcc * hugDrag;
     }
     if (entity.jump && !entity.dying) {
       if(entity.grounded){
-        entity.vel.add(entity.jumpVec);
+        entity.vel.add(entity.jumpVec.scaled(hugDrag));
         entity.grounded = false;
       }
     }
@@ -464,6 +495,11 @@ function startGame(map) {
     if (entity.knockBackTime <= 0) {
       entity.directionFacing = sign(entity.vel.x) || entity.directionFacing;
     }
+
+    doSpritePos(entity, dt, dx);
+  }
+
+  function doSpritePos(entity, dt, dx) {
     entity.sprite.scale.x = entity.directionFacing;
     entity.sprite.pos = entity.pos.clone();
     // compensate for offset
@@ -535,15 +571,16 @@ function startGame(map) {
         }
       }
     }
-    
-    for(var i=0; i<crowdPeople.length;i++){
+
+    for(i=0; i<crowdPeople.length;i++){
       var person = crowdPeople[i];
-      
-      if(checkRect(person.sprite)){
-        person.health -= 1;
-      }
-      
+
+      person.health -= checkRect(person);
+
       if(person.health <= 0){
+        if (person.hugging) {
+          playerEntity.hugs -= 1;
+        }
         person.sprite.delete();
         crowdPeople.splice(i,1);
         i--;
