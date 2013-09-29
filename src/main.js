@@ -35,7 +35,7 @@ function startGame(map) {
   var playerMaxSpeed = playerStartSpeed;
   var playerRunAcc = 0.25;
   var playerAirAcc = 0.15;
-  var playerJumpVec = v(0,-6.5); //added ONCE
+  var playerJumpVec = v(0,-6.8); //added ONCE
   var playerKnockBackTime = 0;
   var friction = 1.15;
   var grounded = false;
@@ -58,7 +58,7 @@ function startGame(map) {
 
   var crowd = new chem.Sprite(ani.mobCloud1, {
     batch: levelBatch,
-    pos: v(20, groundY),
+    pos: v(115*50, groundY),
   });
   var crowdLife = 100;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
