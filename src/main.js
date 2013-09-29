@@ -40,11 +40,27 @@ function startGame(map) {
   });
   var platforms = [];
   var fpsLabel = engine.createFpsLabel();
+  var fansPleasedLabel = new chem.Label("FANS PLEASED:", {
+    pos: v(82, 42),
+    font: "12px Arial",
+    textAlign: "center",
+    textBaseline: "bottom",
+    fillStyle: "#ffffff",
+  });
+  var eargasmQuota = 100;
+  var eargasmCount = 0;
+  var quotaLabel = new chem.Label("/" + eargasmQuota, {
+    pos: v(82, 70),
+    font: "18px Arial",
+    textAlign: "center",
+    textBaseline: "top",
+    fillStyle: "#ffffff",
+  });
   var crowdLivesLabel = new chem.Label("crowd lives: 100", {
-    pos: v(10, engine.size.y - 10),
-    batch: staticBatch,
-    font: "16px sans-serif",
-    textAlign: "start",
+    pos: v(82, 58),
+    font: "30px Arial",
+    textAlign: "center",
+    textBaseline: "middle",
     fillStyle: "#ffffff",
   });
 
@@ -99,8 +115,7 @@ function startGame(map) {
 
   var crowd = initCrowd();
 
-  var crowdLives;
-  initCrowdLives();
+  var crowdDamage = 0;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 0.8;
   var crowdRotationSpeed = Math.PI / 400;
@@ -148,6 +163,7 @@ function startGame(map) {
   }
 
   function cleanupAndRestart() {
+    eargasmCount = 0;
     canvas.style.cursor = "none";
 
     crowdPeople.forEach(deleteItsSprite);
@@ -191,6 +207,53 @@ function startGame(map) {
     }
   }
 
+  function getAllPowerUps() {
+    while (powerUps.length) {
+      getPowerUp(0);
+    }
+  }
+
+  function getPowerUp(i) {
+    if(powerUps[i].type === "bass"){
+      weapons.push({
+        name: "bass",
+        animation: ani.attack_bass,
+        reload: 0,
+        reloadAmt: 0.75,
+        projectileSpeed: 6,
+        projectileLife: 0.9,
+        projectileDamage: 1.5,
+        cursor: 'cursor/bass',
+      });
+    }
+    else if(powerUps[i].type === "guitar"){
+      weapons.push({
+        name: "guitar",
+        reload: 0,
+        reloadAmt: 1.0,
+        cursor: 'cursor/flyingv',
+      });
+    }
+    else if(powerUps[i].type === "drums"){
+      console.log("POWERING UP!!");
+      weapons.push({
+        name: "drums",
+        animation: ani.attack_drum,
+        reload: 0,
+        reloadAmt: 0.4,
+        projectileSpeed: 9,
+        projectileLife: 1,
+        projectileDamage: 1,
+        cursor: 'cursor/drum',
+      });
+    }
+    else if(powerUps[i].type === "microphone"){
+      tripleShot = true;
+    }
+    powerUps[i].sprite.delete();
+    powerUps.splice(i, 1);
+  }
+
   function onUpdate(dt, dx) {
     if (engine.buttonJustPressed(chem.button.KeyR) && playerEntity.dying) {
       cleanupAndRestart();
@@ -220,6 +283,9 @@ function startGame(map) {
     }
     if (engine.buttonJustPressed(chem.button.KeyV)) {
       youWin();
+    }
+    if (engine.buttonJustPressed(chem.button.KeyH)) {
+      getAllPowerUps();
     }
 
     //Switch Weapons
@@ -271,7 +337,7 @@ function startGame(map) {
 
     doControlsAndPhysics(playerEntity, dt, dx);
 
-    crowdLivesLabel.text = "Crowd lives: " + Math.floor(crowdLives);
+    crowdLivesLabel.text = eargasmCount;
 
     if (playerEntity.dying || winning) {
       timeSinceGameOver += dt;
@@ -433,7 +499,6 @@ function startGame(map) {
   function updateCrowdPeople(dt, dx) {
     if (crowdPeopleCooldown <= 0) {
       if (crowdPeople.length < maxCrowdPeople) {
-        crowdLives -= 1;
         spawnCrowdPerson();
         crowdPeopleCooldown = crowdPeopleCooldownAmt;
       }
@@ -650,56 +715,18 @@ function startGame(map) {
       entity.grounded = true;
     }
     entity.pos = newPos;
-    
+
     //check against POWER UPS
-    for(var i=0;i<powerUps.length;i++){
+    for(i=0;i<powerUps.length;i++){
       if(rectCollision(entity,powerUps[i])){
-        if(powerUps[i].type === "bass"){
-          weapons.push({
-            name: "bass",
-            animation: ani.attack_bass,
-            reload: 0,
-            reloadAmt: 0.75,
-            projectileSpeed: 6,
-            projectileLife: 0.9,
-            projectileDamage: 1.5,
-            cursor: 'cursor/bass',
-          });
-        }
-        else if(powerUps[i].type === "guitar"){
-          weapons.push({
-            name: "guitar",
-            reload: 0,
-            reloadAmt: 1.0,
-            cursor: 'cursor/flyingv',
-          });
-        }
-        else if(powerUps[i].type === "drums"){
-          console.log("POWERING UP!!");
-          weapons.push({
-            name: "drums",
-            animation: ani.attack_drum,
-            reload: 0,
-            reloadAmt: 0.4,
-            projectileSpeed: 9,
-            projectileLife: 1,
-            projectileDamage: 1,
-            cursor: 'cursor/drum',
-          });
-        }
-        else if(powerUps[i].type === "microphone"){
-          tripleShot = true;
-        }
-        
-        powerUps[i].sprite.delete();
-        powerUps.splice(i,1);
-        i--;
+        getPowerUp(i);
+        break;
       }
     }
   }
 
   function testYouWin() {
-    if (crowdLives <= 0 && crowdPeople.length === 0 && !winning && !playerEntity.dying) {
+    if (eargasmCount >= eargasmQuota && !winning && !playerEntity.dying) {
       youWin();
     }
   }
@@ -713,19 +740,14 @@ function startGame(map) {
     var i;
     var damage = checkCircle({pos: crowd.pos, radius: crowdDeathRadius});
     if (damage) {
-      var before = crowdLives;
-      crowdLives -= damage;
-      var diff = Math.floor(before) - Math.floor(crowdLives);
-      if (crowdLives <= 0) {
-        crowdLives = 0;
-        testYouWin();
-        return;
-      }
+      crowdDamage += damage;
+      var diff = Math.floor(crowdDamage);
+      crowdDamage -= diff;
       for (i = 0; i < diff; i += 1) {
         spawnCrowdPerson();
       }
     }
-    
+
     //skulls
     for (i = 0; i < spikeBalls.length; i += 1) {
       var ball = spikeBalls[i];
@@ -785,6 +807,8 @@ function startGame(map) {
         zOrder: 2,
       }),
     });
+    eargasmCount += 1;
+    testYouWin();
   }
 
   function randomEargasmTextAni() {
@@ -998,6 +1022,9 @@ function startGame(map) {
     var barImg = crowdPercentLeft > 0.50 ? barNormalImg : barCautionImg;
     var height = crowdPercentLeft * barImg.height;
     context.drawImage(barImg, 0, 0, barImg.width, barImg.height, 16, engine.size.y - height - 16, barImg.width, height);
+    crowdLivesLabel.draw(context);
+    quotaLabel.draw(context);
+    fansPleasedLabel.draw(context);
 
     if (playerEntity.dying) {
       var percentRed = timeSinceGameOver / 1.5;
@@ -1279,9 +1306,6 @@ function startGame(map) {
       pos: v(0*100, groundY),
       zOrder: 3,
     });
-  }
-  function initCrowdLives() {
-    crowdLives = 100;
   }
 }
 
