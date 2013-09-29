@@ -48,6 +48,12 @@ function startGame(map) {
     ani.rockerWaving,
     ani.rockerMoshing,
   ];
+  var eargasmTextAniList = [
+    ani.eargasmText1,
+    ani.eargasmText2,
+    ani.eargasmText3,
+    ani.eargasmText4,
+  ];
   var crosshairSprite = new chem.Sprite(ani['cursor/mike'], {
     batch: staticBatch,
   });
@@ -133,6 +139,7 @@ function startGame(map) {
     }
   ];
 
+  var fxList = [];
 
   var beam = null;
   var beamLife = 0;
@@ -212,6 +219,7 @@ function startGame(map) {
     updateProjectiles(dt, dx);
     updateBeam(dt, dx);
     updateCrowdPeople(dt, dx);
+    updateFx(dt, dx);
 
     doCollision(playerEntity, dt, dx);
 
@@ -240,7 +248,7 @@ function startGame(map) {
         } else {
           return ani.enemySlide;
         }
-      } else if (crowdPerson.pos.distance(playerEntity.pos) < 100) {
+      } else if (crowdPerson.pos.distance(playerEntity.pos) < crowdPerson.rockDist) {
         return crowdPerson.rockAni;
       } else {
         return ani.enemyIdle;
@@ -360,6 +368,24 @@ function startGame(map) {
     crowdPerson.sprite.setZOrder(3);
   }
 
+  function updateFx(dt, dx) {
+    for (var i = 0; i < fxList.length; i += 1) {
+      var fx = fxList[i];
+
+      fx.life -= dt;
+      if (fx.life <= 0) {
+        fx.sprite.delete();
+        fxList.splice(i, 1);
+        i--;
+        continue;
+      }
+
+      if (fx.vel) {
+        fx.sprite.pos.add(fx.vel.scaled(dx));
+      }
+    }
+  }
+
   function updateCrowdPeople(dt, dx) {
     if (crowdPeopleCooldown <= 0) {
       if (crowdPeople.length < maxCrowdPeople) {
@@ -374,7 +400,7 @@ function startGame(map) {
     for (var i = 0; i < crowdPeople.length; i += 1) {
       var person = crowdPeople[i];
       var target = person.target;
-      var closeDist = person.behavior === 'hug' ? 0 : 100;
+      var closeDist = person.behavior === 'hug' ? 0 : person.rockDist;
       person.right = target.pos.x - person.pos.x > closeDist;
       person.left = target.pos.x - person.pos.x < -closeDist;
       if (person.jumper) {
@@ -452,6 +478,7 @@ function startGame(map) {
       health: 2,
       behavior: null,
       rockAni: randomRockAni(),
+      rockDist: Math.random() * 200,
     };
 
     assignCrowdPersonTarget(crowdPerson);
@@ -581,6 +608,12 @@ function startGame(map) {
     entity.pos = newPos;
   }
 
+  function testYouWin() {
+    if (crowdLives <= 0 && crowdPeople.length === 0) {
+      youWin();
+    }
+  }
+
   function youWin() {
     console.log("you win");
   }
@@ -594,7 +627,7 @@ function startGame(map) {
       var diff = Math.floor(before) - Math.floor(crowdLives);
       if (crowdLives <= 0) {
         crowdLives = 0;
-        youWin();
+        testYouWin();
         return;
       }
       for (i = 0; i < diff; i += 1) {
@@ -631,7 +664,7 @@ function startGame(map) {
         if (person.hugging) {
           playerEntity.hugs -= 1;
         }
-        person.sprite.delete();
+        omgEargasm(person);
         crowdPeople.splice(i,1);
         i--;
       }
@@ -641,6 +674,30 @@ function startGame(map) {
     for(i=0; i<platforms.length;i++){
        checkRect(platforms[i], true);
     }
+  }
+
+  function omgEargasm(person) {
+    person.sprite.setAnimation(ani.eargasmKneel);
+    person.sprite.setFrameIndex(0);
+    person.sprite.setZOrder(2);
+    var life = 1.5;
+    fxList.push({
+      life: life,
+      sprite: person.sprite,
+    });
+    fxList.push({
+      life: life,
+      vel: v(0, -0.5),
+      sprite: new chem.Sprite(randomEargasmTextAni(), {
+        batch: levelBatch,
+        pos: person.sprite.pos.offset(0, -30),
+        zOrder: 2,
+      }),
+    });
+  }
+
+  function randomEargasmTextAni() {
+    return eargasmTextAniList[Math.floor(Math.random() * eargasmTextAniList.length)];
   }
 
   function spikeBallUpdate(dt, dx) {
