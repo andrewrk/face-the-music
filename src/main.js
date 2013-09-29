@@ -95,11 +95,12 @@ function startGame(map) {
 
   var crowd = initCrowd();
 
-  var crowdLives = 100;
+  var crowdLives;
+  initCrowdLives();
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 0.01;//0.8;
   var crowdRotationSpeed = Math.PI / 400;
-  var crowdDeathRadius = 320;
+  var crowdDeathRadius = 280;
   var crowdPeople = [];
   var maxCrowdPeople = 5;
   var crowdPeopleCooldown = 5;
@@ -1173,7 +1174,7 @@ function startGame(map) {
       vel: v(),
       size: v(15, 57),
       sprite: new chem.Sprite(ani.roadieIdle, {
-        batch: foregroundBatch,//levelBatch,
+        batch: levelBatch,
         zOrder: 2,
       }),
       grounded: false,
@@ -1236,8 +1237,11 @@ function startGame(map) {
     return new chem.Sprite(ani.mobCloud1, {
       batch: levelBatch,
       pos: v(0*100, groundY),
-      zOrder: 1,
+      zOrder: 3,
     });
+  }
+  function initCrowdLives() {
+    crowdLives = 100;
   }
 }
 
