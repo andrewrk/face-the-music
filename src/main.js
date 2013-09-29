@@ -341,7 +341,8 @@ function startGame(map) {
       crowdPeopleCooldown -= dt;
     }
 
-    crowdPeople.forEach(function(person) {
+    for (var i = 0; i < crowdPeople.length; i += 1) {
+      var person = crowdPeople[i];
       var target = person.target;
       person.right = target.pos.x > person.pos.x;
       person.left = target.pos.x < person.pos.x;
@@ -351,7 +352,14 @@ function startGame(map) {
 
       doCollision(person, dt, dx);
       doControlsAndPhysics(person, dt, dx);
-    });
+
+      if (crowd.pos.x > person.pos.x + 300) {
+        crowd.setVisible(false);
+        crowdPeople.splice(i, 1);
+        person.sprite.delete();
+        i -= 1;
+      }
+    }
   }
 
 

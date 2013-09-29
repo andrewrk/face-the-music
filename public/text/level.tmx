@@ -1731,12 +1731,12 @@
    </properties>
   </object>
   <object name="Skull" type="rotate" x="13392" y="209" width="50" height="50">
-  <object name="Start" x="463" y="361" width="75" height="61"/>
    <properties>
     <property name="range" value="80"/>
     <property name="speed" value="1.5"/>
    </properties>
   </object>
+  <object name="Start" x="463" y="361" width="75" height="61"/>
   <object name="Skull" type="attack" x="13816" y="307" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
