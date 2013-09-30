@@ -196,8 +196,13 @@ function startGame(map) {
     projectiles.forEach(deleteItsSprite);
     platforms.forEach(deleteItsSprite);
     spikeBalls.forEach(deleteItsSprite);
+    spikeBalls.forEach(function(spikeBall) {
+      if(spikeBall.eyeColor) spikeBall.eyeColor.delete();
+    });
     weedClouds.forEach(deleteItsSprite);
     decorations.forEach(deleteItsSprite);
+    powerUps.forEach(deleteItsSprite);
+    
 
     crowdPeople = [];
     fxList = [];
@@ -206,6 +211,7 @@ function startGame(map) {
     spikeBalls = [];
     weedClouds = [];
     decorations = [];
+    weapons = [];
 
     if (beam) {
       beam.delete();
