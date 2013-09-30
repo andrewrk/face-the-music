@@ -84,7 +84,7 @@ function startGame(map) {
 
   var sfxBass = new chem.Sound('sfx/bass.ogg');
   var sfxGuitar = new chem.Sound('sfx/guitar.ogg');
-  var sfxMike = new chem.Sound('sfx/mike.ogg');
+  var sfxJump = new chem.Sound('sfx/jump.ogg');
   var sfxDrumList = [
     new chem.Sound('sfx/drum1.ogg'),
     new chem.Sound('sfx/drum2.ogg'),
@@ -404,17 +404,19 @@ function startGame(map) {
     }
 
     // cheats
-    if (engine.buttonJustPressed(chem.button.KeyY)) {
-      spawnCrowdPerson();
-    }
-    if (engine.buttonJustPressed(chem.button.KeyV)) {
-      youWin();
-    }
-    if (engine.buttonJustPressed(chem.button.KeyH)) {
-      getAllPowerUps();
-    }
-    if (engine.buttonState(chem.button.Key9)) {
-      playerEntity.pos.x += 50;
+    if (engine.buttonState(chem.button.Key1)) {
+      if (engine.buttonJustPressed(chem.button.KeyY)) {
+        spawnCrowdPerson();
+      }
+      if (engine.buttonJustPressed(chem.button.KeyV)) {
+        youWin();
+      }
+      if (engine.buttonJustPressed(chem.button.KeyH)) {
+        getAllPowerUps();
+      }
+      if (engine.buttonState(chem.button.Key9)) {
+        playerEntity.pos.x += 50;
+      }
     }
 
     //Switch Weapons
@@ -779,6 +781,9 @@ function startGame(map) {
       if(entity.grounded){
         entity.vel.add(entity.jumpVec.scaled(hugDrag));
         entity.grounded = false;
+        if (entity === playerEntity) {
+          playSfx(sfxJump);
+        }
       }
     }
 
@@ -1079,7 +1084,6 @@ function startGame(map) {
 
         if(currentWeapon.name === 'microphone'){
           //Microphone
-          playSfx(sfxMike);
           projectiles.push({
             sprite: new chem.Sprite(currentWeapon.animation, {
               batch: levelBatch,
@@ -1488,6 +1492,7 @@ function startGame(map) {
           sprite: new chem.Sprite(chem.Animation.fromImage(img), {
             batch: levelBatch,
             pos: pos,
+            zOrder: parseInt(obj.properties.zOrder || 0, 10),
           }),
         });
         break;

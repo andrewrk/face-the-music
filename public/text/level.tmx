@@ -44,7 +44,7 @@
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Weed" x="1018" y="7" width="189" height="132"/>
+  <object name="Weed" x="142" y="313" width="189" height="132"/>
   <object name="REFERENCE - player square" x="460" y="12" width="30" height="57"/>
   <object name="Platform" x="2185" y="186" width="232" height="256">
    <properties>
@@ -76,22 +76,8 @@
     <property name="zOrder" value="3"/>
    </properties>
   </object>
-  <object name="Platform" x="1934" y="354" width="114" height="38">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
   <object name="REF - maxJumpHeight" x="1872" y="168" width="26" height="95"/>
-  <object name="Platform" x="1763" y="264" width="114" height="38">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="1974" y="183" width="114" height="38">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
+  <object name="Platform" x="1763" y="264" width="114" height="38"/>
   <object name="Ground" x="4921" y="445" width="984" height="106">
    <properties>
     <property name="image" value="ground_dry_dirt.png"/>
@@ -120,58 +106,8 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Platform" x="3897" y="376" width="146" height="66">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="4179" y="282" width="113" height="38">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
   <object name="REF - maxJumpHeight" x="3766" y="89" width="26" height="95"/>
-  <object name="Platform" x="4519" y="280" width="113" height="38">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="4786" y="273" width="149" height="168">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="5174" y="254" width="113" height="38">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="4937" y="360" width="29" height="29">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
   <object name="REF - maxJumpHeight" x="5015" y="48" width="26" height="95"/>
-  <object name="Platform" x="5496" y="229" width="113" height="38">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="5829" y="204" width="113" height="38">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="6165" y="167" width="152" height="49">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="4376" y="375" width="75" height="65">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
   <object name="REF - maxJumpHeight" x="4428" y="57" width="26" height="95"/>
   <object name="Skull" type="attack" x="4689" y="385" width="50" height="50">
    <properties>
@@ -263,12 +199,7 @@
     <property name="speed" value="3"/>
    </properties>
   </object>
-  <object name="Weed" x="2377" y="262" width="1520" height="180"/>
-  <object name="Platform" x="2666" y="352" width="118" height="85">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
+  <object name="Weed" x="2393" y="268" width="1520" height="180"/>
   <object name="Platform" x="11514" y="355" width="107" height="88">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
@@ -1719,16 +1650,6 @@
     <property name="speed" value="4"/>
    </properties>
   </object>
-  <object name="Platform" x="6680" y="-2" width="54" height="347">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="7019" y="60" width="58" height="383">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
   <object name="Platform" x="6948" y="364" width="68" height="20">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
@@ -1766,16 +1687,6 @@
    </properties>
   </object>
   <object name="Platform" x="7177" y="245" width="39" height="131">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="6956" y="189" width="63" height="17">
-   <properties>
-    <property name="image" value="scaffold_horizontal.png"/>
-   </properties>
-  </object>
-  <object name="Platform" x="6843" y="102" width="64" height="24">
    <properties>
     <property name="image" value="scaffold_horizontal.png"/>
    </properties>
@@ -2270,11 +2181,6 @@
     <property name="image" value="weapon_mic.png"/>
    </properties>
   </object>
-  <object name="Powerup" type="bass" x="6209" y="76" width="62" height="72">
-   <properties>
-    <property name="image" value="weapon_bass.png"/>
-   </properties>
-  </object>
   <object name="Powerup" type="guitar" x="10430" y="150" width="62" height="72">
    <properties>
     <property name="image" value="weapon_flying_v.png"/>
@@ -2681,6 +2587,476 @@
     <property name="speed" value="-3.5"/>
    </properties>
   </object>
-  <object name="Start" x="509" y="353" width="75" height="61"/>
+  <object name="Platform" x="-151" y="363" width="310" height="82">
+   <properties>
+    <property name="image" value="vehicle_bus.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="163" y="363" width="310" height="82">
+   <properties>
+    <property name="image" value="vehicle_bus.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="623" y="397" width="152" height="56">
+   <properties>
+    <property name="image" value="vehicle_police.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="787" y="396" width="152" height="56">
+   <properties>
+    <property name="image" value="vehicle_police.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="950" y="323" width="90" height="128">
+   <properties>
+    <property name="image" value="vehicle_truck_backclosed__off.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="1048" y="323" width="90" height="128">
+   <properties>
+    <property name="image" value="vehicle_truck_backclosed__off.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="1145" y="323" width="90" height="128">
+   <properties>
+    <property name="image" value="vehicle_truck_backopen__on.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="1243" y="323" width="90" height="128">
+   <properties>
+    <property name="image" value="vehicle_truck_backopen__off.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="2380" y="315" width="90" height="128">
+   <properties>
+    <property name="image" value="vehicle_truck_on_2.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="2185" y="315" width="90" height="128">
+   <properties>
+    <property name="image" value="vehicle_truck_off_1.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="2283" y="315" width="90" height="128">
+   <properties>
+    <property name="image" value="vehicle_truck_on_1.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="1764" y="-118" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="1822" y="-118" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="1976" y="183" width="114" height="38"/>
+  <object name="Decoration" x="2035" y="-199" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="1977" y="-199" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="1937" y="392" width="114" height="23">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="2047" y="352" width="191" height="94">
+   <properties>
+    <property name="image" value="portapotty_1.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="1937" y="416" width="115" height="28">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="1937" y="353" width="114" height="38">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="2674" y="398" width="103" height="61">
+   <properties>
+    <property name="image" value="portapotty_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="3897" y="401" width="103" height="61">
+   <properties>
+    <property name="image" value="portapotty_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="3276" y="365" width="191" height="94">
+   <properties>
+    <property name="image" value="portapotty_2.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="3081" y="365" width="191" height="94">
+   <properties>
+    <property name="image" value="portapotty_1.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="3469" y="365" width="191" height="94">
+   <properties>
+    <property name="image" value="portapotty_3.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="2885" y="365" width="191" height="94">
+   <properties>
+    <property name="image" value="portapotty_1.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="2884" y="364" width="778" height="6"/>
+  <object name="Decoration" x="3662" y="366" width="191" height="94">
+   <properties>
+    <property name="image" value="portapotty_3.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4180" y="281" width="114" height="38"/>
+  <object name="Decoration" x="4239" y="-101" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="4181" y="-101" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="5127" y="254" width="161" height="36"/>
+  <object name="Decoration" x="5235" y="-128" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5181" y="-128" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4378" y="375" width="38" height="86">
+   <properties>
+    <property name="image" value="speaker_stack_1.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4417" y="375" width="37" height="86">
+   <properties>
+    <property name="image" value="speaker_stack_1.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4787" y="365" width="38" height="94">
+   <properties>
+    <property name="image" value="speaker_stack_1.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4826" y="365" width="37" height="94">
+   <properties>
+    <property name="image" value="speaker_stack_1.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4862" y="365" width="39" height="93">
+   <properties>
+    <property name="image" value="speaker_stack_1.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4901" y="365" width="36" height="94">
+   <properties>
+    <property name="image" value="speaker_stack_1.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4791" y="282" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4829" y="282" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4865" y="282" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4900" y="282" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="4939" y="365" width="36" height="94">
+   <properties>
+    <property name="image" value="speaker_stack_1.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5525" y="-149" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="5470" y="233" width="164" height="38"/>
+  <object name="Decoration" x="5471" y="-149" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5832" y="-178" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5886" y="-178" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="5831" y="204" width="114" height="38"/>
+  <object name="Decoration" x="6167" y="-215" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6166" y="167" width="151" height="38"/>
+  <object name="Decoration" x="6263" y="-215" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6215" y="-215" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Powerup" type="bass" x="6212" y="79" width="62" height="72">
+   <properties>
+    <property name="image" value="weapon_bass.png"/>
+    <property name="zOrder" value="2"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5579" y="-149" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5126" y="-127" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5269" y="409" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5335" y="327" width="160" height="121">
+   <properties>
+    <property name="image" value="stage_lights_on.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5651" y="328" width="160" height="121">
+   <properties>
+    <property name="image" value="stage_lights_on.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5428" y="409" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5493" y="328" width="160" height="121">
+   <properties>
+    <property name="image" value="stage_lights_on.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5938" y="412" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5589" y="409" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="4630" y="408" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="4789" y="408" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5109" y="408" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="4950" y="408" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="5892" y="330" width="160" height="121">
+   <properties>
+    <property name="image" value="stage_lights_off.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6208" y="331" width="160" height="121">
+   <properties>
+    <property name="image" value="stage_lights_off.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6050" y="331" width="160" height="121">
+   <properties>
+    <property name="image" value="stage_lights_on.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6099" y="411" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6258" y="411" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6419" y="411" width="160" height="35">
+   <properties>
+    <property name="image" value="metal_barricade.png"/>
+    <property name="zOrder" value="3"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6682" y="-116" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6682" y="-205" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6682" y="-381" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6682" y="-292" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6682" y="-470" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6682" y="-381" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6682" y="-244" width="55" height="588"/>
+  <object name="Decoration" x="6742" y="-196" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6961" y="-199" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6957" y="185" width="63" height="23">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Decoration" x="6849" y="-280" width="54" height="460">
+   <properties>
+    <property name="image" value="speaker_hanging.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="6844" y="104" width="63" height="23">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7014" y="353" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7052" y="353" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7053" y="277" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7015" y="277" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7053" y="203" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7015" y="203" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7054" y="60" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7053" y="135" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7015" y="135" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7016" y="60" width="38" height="92">
+   <properties>
+    <property name="image" value="speaker_stack_2.png"/>
+   </properties>
+  </object>
+  <object name="Platform" x="7013" y="417" width="75" height="27">
+   <properties>
+    <property name="image" value="scaffold_horizontal.png"/>
+   </properties>
+  </object>
+  <object name="Start" x="627" y="316" width="75" height="61"/>
  </objectgroup>
 </map>
