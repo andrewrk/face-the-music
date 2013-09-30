@@ -45,7 +45,7 @@ function startGame(map) {
     textBaseline: "bottom",
     fillStyle: "#ffffff",
   });
-  var eargasmQuota = 200;
+  var eargasmQuota = 175;
   var eargasmCount = 0;
   var quotaLabel = new chem.Label("/" + eargasmQuota, {
     pos: v(82, 70),
@@ -1144,8 +1144,18 @@ function startGame(map) {
             damage: currentWeapon.projectileDamage,
             bulletType: "bass",
           });
-        }else if(currentWeapon.name === 'guitar' && !beam && playerEntity.hugs === 0){
+        }else if(currentWeapon.name === 'guitar' && !beam){
           playSfx(sfxGuitar);
+
+          // everbody unhug me
+          var huggers = crowdPeople.filter(function(crowdPerson) {
+            return crowdPerson.hugging;
+          });
+          playerEntity.hugs = 0;
+          huggers.forEach(function(hugger) {
+            omgEargasm(hugger);
+          });
+
           //GUITAR
           beam = new chem.Sprite(ani.guitarBeam, {
                   batch: levelBatch,
