@@ -47,7 +47,7 @@ function startGame(map) {
     textBaseline: "bottom",
     fillStyle: "#ffffff",
   });
-  var eargasmQuota = 100;
+  var eargasmQuota = 200;
   var eargasmCount = 0;
   var quotaLabel = new chem.Label("/" + eargasmQuota, {
     pos: v(82, 70),
@@ -142,7 +142,7 @@ function startGame(map) {
 
   var crowdDamage = 0;
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
-  var crowdSpeed = 0.8;
+  var crowdSpeed = 1.4;
   var crowdRotationSpeed = Math.PI / 400;
   var crowdDeathRadius = 280;
   var crowdPeople = [];
@@ -261,7 +261,7 @@ function startGame(map) {
       weapons.push({
         name: "guitar",
         reload: 0,
-        reloadAmt: 1.0,
+        reloadAmt: 1.81,
         cursor: 'cursor/flyingv',
       });
     }
@@ -606,7 +606,7 @@ function startGame(map) {
         pos: crowd.pos.clone(),
       }),
       maxSpeed: 2 + Math.random() * 4,
-      pos: crowd.pos.clone(),
+      pos: crowd.pos.clone().plus(v(150,-150)),
       vel: v(),
       left: false,
       right: false,
@@ -626,6 +626,15 @@ function startGame(map) {
       rockAni: randomRockAni(),
       rockDist: Math.random() * 200,
     };
+    
+    var rand = Math.random()*3;
+    if(rand > 1){
+      /*var angle = Math.rand()*(-3*Math.PI/4);
+      var length = 5;//Math.rand()*5;
+      crowdPerson.vel = v.unit(angle).scaled(length);*/
+      crowdPerson.vel = v(Math.random()*20+10,Math.random()*(-5)-5);
+      v(20,-10)
+    }
 
     assignCrowdPersonTarget(crowdPerson);
     assignRandomBehavior(crowdPerson);

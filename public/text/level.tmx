@@ -952,36 +952,6 @@
     <property name="opacity" value=".5"/>
    </properties>
   </object>
-  <object name="Skull" type="idle" x="14467" y="393" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
-  <object name="Skull" type="idle" x="14295" y="392" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
-  <object name="Skull" type="idle" x="14909" y="384" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
-  <object name="Skull" type="idle" x="14611" y="240" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
-  <object name="Skull" type="idle" x="14907" y="239" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
   <object name="Decoration" x="14380" y="-268" width="54" height="460">
    <properties>
     <property name="image" value="speaker_hanging.png"/>
@@ -2310,11 +2280,407 @@
     <property name="image" value="weapon_flying_v.png"/>
    </properties>
   </object>
-  <object name="Powerup" type="drums" x="16393" y="359" width="62" height="72">
+  <object name="Powerup" type="drums" x="15718" y="349" width="62" height="72">
    <properties>
     <property name="image" value="weapon_drums.png"/>
    </properties>
   </object>
-  <object name="Start" x="448" y="360" width="75" height="61"/>
+  <object name="Skull" type="vertical" x="12800" y="0" width="50" height="50">
+   <properties>
+    <property name="range" value="-180"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="12873" y="338" width="50" height="50">
+   <properties>
+    <property name="range" value="180"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="12962" y="-1" width="50" height="50">
+   <properties>
+    <property name="range" value="-180"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="13307" y="0" width="50" height="50">
+   <properties>
+    <property name="range" value="-180"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="13143" y="0" width="50" height="50">
+   <properties>
+    <property name="range" value="-180"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="13052" y="343" width="50" height="50">
+   <properties>
+    <property name="range" value="180"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="vertical" x="13227" y="343" width="50" height="50">
+   <properties>
+    <property name="range" value="180"/>
+    <property name="speed" value="3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="13723" y="324" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="6.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="13876" y="145" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="6.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="14014" y="143" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="6.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="14178" y="328" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="6.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="13943" y="12" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="6.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="13630" y="35" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="6.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="14240" y="47" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="6.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15975" y="-29" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="16098" y="44" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="16188" y="188" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="16175" y="437" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="16066" y="589" width="50" height="50">
+   <properties>
+    <property name="range" value="400"/>
+    <property name="speed" value=".5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15840" y="594" width="50" height="50">
+   <properties>
+    <property name="range" value="300"/>
+    <property name="speed" value=".5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15863" y="-19" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15603" y="-22" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15728" y="-45" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15455" y="57" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15530" y="578" width="50" height="50">
+   <properties>
+    <property name="range" value="300"/>
+    <property name="speed" value=".5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="16034" y="497" width="50" height="50">
+   <properties>
+    <property name="range" value="400"/>
+    <property name="speed" value=".5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15674" y="608" width="50" height="50">
+   <properties>
+    <property name="range" value="300"/>
+    <property name="speed" value=".5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15443" y="521" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value=".3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15387" y="198" width="50" height="50">
+   <properties>
+    <property name="range" value="200"/>
+    <property name="speed" value=".3"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15483" y="-18" width="50" height="50">
+   <properties>
+    <property name="range" value="450"/>
+    <property name="speed" value=".5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15547" y="-28" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15794" y="-43" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="16049" y="-4" width="50" height="50">
+   <properties>
+    <property name="range" value="500"/>
+    <property name="speed" value="1"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15529" y="156" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15617" y="101" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15727" y="83" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15890" y="108" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="16015" y="213" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15548" y="85" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15678" y="52" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15810" y="75" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="15951" y="161" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="seek" x="16016" y="118" width="50" height="50">
+   <properties>
+    <property name="range" value="350"/>
+    <property name="speed" value=".4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="15012" y="198" width="50" height="50">
+   <properties>
+    <property name="range" value="200"/>
+    <property name="speed" value="-3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14510" y="209" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14399" y="205" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14597" y="141" width="50" height="50">
+   <properties>
+    <property name="range" value="300"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14696" y="338" width="50" height="50">
+   <properties>
+    <property name="range" value="250"/>
+    <property name="speed" value="2"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14461" y="42" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14687" y="49" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14910" y="186" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14902" y="398" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14746" y="153" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14406" y="463" width="50" height="50">
+   <properties>
+    <property name="range" value="100"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14682" y="275" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14507" y="333" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14867" y="287" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14882" y="28" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14815" y="198" width="50" height="50">
+   <properties>
+    <property name="range" value="150"/>
+    <property name="speed" value="4"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14778" y="103" width="50" height="50">
+   <properties>
+    <property name="range" value="300"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14584" y="260" width="50" height="50">
+   <properties>
+    <property name="range" value="300"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14560" y="49" width="50" height="50">
+   <properties>
+    <property name="range" value="300"/>
+    <property name="speed" value="-5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14997" y="52" width="50" height="50">
+   <properties>
+    <property name="range" value="200"/>
+    <property name="speed" value="-3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14700" y="207" width="50" height="50">
+   <properties>
+    <property name="range" value="200"/>
+    <property name="speed" value="-3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14763" y="391" width="50" height="50">
+   <properties>
+    <property name="range" value="200"/>
+    <property name="speed" value="-3.5"/>
+   </properties>
+  </object>
+  <object name="Skull" type="rotate" x="14559" y="356" width="50" height="50">
+   <properties>
+    <property name="range" value="200"/>
+    <property name="speed" value="-3.5"/>
+   </properties>
+  </object>
+  <object name="Start" x="509" y="353" width="75" height="61"/>
  </objectgroup>
 </map>
