@@ -133,12 +133,6 @@
     <property name="speed" value="4"/>
    </properties>
   </object>
-  <object name="Skull" type="attack" x="4976" y="373" width="50" height="50">
-   <properties>
-    <property name="range" value="0"/>
-    <property name="speed" value="3"/>
-   </properties>
-  </object>
   <object name="Skull" type="attack" x="3897" y="358" width="50" height="50">
    <properties>
     <property name="range" value="0"/>
@@ -2128,12 +2122,6 @@
     <property name="speed" value="6.5"/>
    </properties>
   </object>
-  <object name="Skull" type="seek" x="14178" y="328" width="50" height="50">
-   <properties>
-    <property name="range" value="150"/>
-    <property name="speed" value="6.5"/>
-   </properties>
-  </object>
   <object name="Skull" type="seek" x="13943" y="12" width="50" height="50">
    <properties>
     <property name="range" value="150"/>
@@ -2141,12 +2129,6 @@
    </properties>
   </object>
   <object name="Skull" type="seek" x="13630" y="35" width="50" height="50">
-   <properties>
-    <property name="range" value="150"/>
-    <property name="speed" value="6.5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="seek" x="14240" y="47" width="50" height="50">
    <properties>
     <property name="range" value="150"/>
     <property name="speed" value="6.5"/>
@@ -2338,12 +2320,6 @@
     <property name="speed" value="4"/>
    </properties>
   </object>
-  <object name="Skull" type="rotate" x="14399" y="205" width="50" height="50">
-   <properties>
-    <property name="range" value="100"/>
-    <property name="speed" value="-5"/>
-   </properties>
-  </object>
   <object name="Skull" type="rotate" x="14597" y="141" width="50" height="50">
    <properties>
     <property name="range" value="300"/>
@@ -2380,13 +2356,7 @@
     <property name="speed" value="-5"/>
    </properties>
   </object>
-  <object name="Skull" type="rotate" x="14746" y="153" width="50" height="50">
-   <properties>
-    <property name="range" value="100"/>
-    <property name="speed" value="-5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="rotate" x="14406" y="463" width="50" height="50">
+  <object name="Skull" type="rotate" x="14877" y="65" width="50" height="50">
    <properties>
     <property name="range" value="100"/>
     <property name="speed" value="-5"/>
@@ -2410,25 +2380,7 @@
     <property name="speed" value="4"/>
    </properties>
   </object>
-  <object name="Skull" type="rotate" x="14882" y="28" width="50" height="50">
-   <properties>
-    <property name="range" value="150"/>
-    <property name="speed" value="4"/>
-   </properties>
-  </object>
-  <object name="Skull" type="rotate" x="14815" y="198" width="50" height="50">
-   <properties>
-    <property name="range" value="150"/>
-    <property name="speed" value="4"/>
-   </properties>
-  </object>
   <object name="Skull" type="rotate" x="14778" y="103" width="50" height="50">
-   <properties>
-    <property name="range" value="300"/>
-    <property name="speed" value="-5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="rotate" x="14584" y="260" width="50" height="50">
    <properties>
     <property name="range" value="300"/>
     <property name="speed" value="-5"/>
@@ -2453,12 +2405,6 @@
    </properties>
   </object>
   <object name="Skull" type="rotate" x="14763" y="391" width="50" height="50">
-   <properties>
-    <property name="range" value="200"/>
-    <property name="speed" value="-3.5"/>
-   </properties>
-  </object>
-  <object name="Skull" type="rotate" x="14559" y="356" width="50" height="50">
    <properties>
     <property name="range" value="200"/>
     <property name="speed" value="-3.5"/>
@@ -2883,6 +2829,11 @@
     <property name="image" value="vehicle_bus.png"/>
    </properties>
   </object>
-  <object name="Start" x="612" y="330" width="75" height="61"/>
+  <object name="Platform" x="4978" y="365" width="38" height="94">
+   <properties>
+    <property name="image" value="speaker_stack_1.png"/>
+   </properties>
+  </object>
+  <object name="Start" x="583" y="319" width="75" height="61"/>
  </objectgroup>
 </map>
