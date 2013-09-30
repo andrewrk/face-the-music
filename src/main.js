@@ -316,6 +316,10 @@ function startGame(map) {
   function titleScreenUpdate(dt, dx) {
     if (clickedStart) {
       timeSinceStarted += dt;
+      if (engine.buttonJustPressed(chem.button.MouseLeft)) {
+        doneWithTitleScreen();
+        titleFadeout = 0;
+      }
     } else {
       if (engine.buttonJustPressed(chem.button.MouseLeft)) {
         if (controlsScreen) {
