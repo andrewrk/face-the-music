@@ -878,6 +878,11 @@ function startGame(map) {
   function youWin() {
     winning = true;
     timeSinceGameOver = 0;
+    mainMusic.pause();
+    var victoryAudio = new Audio('music/victory.ogg');
+    victoryAudio.play();
+    crowdExcitedAudio.currentTime = 0;
+    crowdExcitedAudio.play();
   }
 
   function forEachHittableThing(checkRect, checkCircle) {
