@@ -159,7 +159,7 @@ function startGame(map) {
   var crowdRect = {pos: crowd.pos, size: v(50,900)};
   var crowdSpeed = 1.4;
   var crowdRotationSpeed = Math.PI / 400;
-  var crowdDeathRadius = 280;
+  var crowdDeathRadius = 280*1.4;
   var crowdPeople = [];
   var maxCrowdPeople = 5;
   var crowdPeopleCooldown = 5;
@@ -174,7 +174,7 @@ function startGame(map) {
 
   var beam = null;
   var beamLife = 0;
-  var beamDamage = 0.1//0.05;
+  var beamDamage = 0.2;//0.05;
   var tripleShot = false;
 
   var timeSinceStarted = null;
@@ -273,7 +273,7 @@ function startGame(map) {
         reloadAmt: 0.75,
         projectileSpeed: 6,
         projectileLife: 0.9,
-        projectileDamage: 1.5,
+        projectileDamage: 2,
         cursor: 'cursor/bass',
       });
     }
@@ -423,7 +423,8 @@ function startGame(map) {
     }
 
     //crowd vs human
-    if (playerEntity.pos.distance(crowd.pos) < crowdDeathRadius) {
+    if (playerEntity.pos.distance(crowd.pos) < crowdDeathRadius
+        || crowd.pos.x > playerEntity.pos.x + crowdDeathRadius) {
       playerDie();
     }
 
@@ -457,7 +458,7 @@ function startGame(map) {
 
     doControlsAndPhysics(playerEntity, dt, dx);
 
-    crowdLivesLabel.text = eargasmCount;
+    crowdLivesLabel.text = Math.floor(eargasmCount);
 
     if (playerEntity.dying || winning) {
       timeSinceGameOver += dt;
@@ -1526,6 +1527,7 @@ function startGame(map) {
     return new chem.Sprite(ani.mobCloud1, {
       batch: levelBatch,
       pos: v(0*100, groundY),
+      scale: v(1.4,1.4),
       zOrder: 4,
     });
   }
