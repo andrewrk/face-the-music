@@ -307,7 +307,7 @@ function startGame(map) {
     playerEntity.right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
     playerEntity.jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
 
-    if (engine.buttonJustPressed(chem.button.KeyPeriod)) {
+    if (engine.buttonJustPressed(chem.button.KeyM)) {
       toggleMute();
     }
 
