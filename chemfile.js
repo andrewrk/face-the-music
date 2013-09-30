@@ -49,8 +49,13 @@ exports.spritesheet = {
       anchor: {x: 25, y: 8},
       delay: 0.2,
     },
+    explosion: {
+      loop: false,
+      delay: 0.1,
+      anchor: 'topleft',
+    },
     eargasmKneel: {
-      delay: 0.4,
+      delay: 0.1,
       frames: 'eargasm/eargasm_kneel',
       anchor: {x: 27, y: 50},
       loop: false,

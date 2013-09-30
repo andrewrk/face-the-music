@@ -301,7 +301,7 @@ function startGame(map) {
     playerEntity.right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
     playerEntity.jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
 
-    if (engine.buttonJustPressed(chem.button.KeyPeriod)) {
+    if (engine.buttonJustPressed(chem.button.KeyM)) {
       toggleMute();
     }
 
@@ -826,6 +826,14 @@ function startGame(map) {
     person.sprite.setFrameIndex(0);
     person.sprite.setZOrder(2);
     var life = 1.5;
+    fxList.push({
+      life: 0.5,
+      sprite: new chem.Sprite(ani.explosion, {
+        batch: levelBatch,
+        pos: person.sprite.pos.offset(-15, -30),
+        zOrder: 0,
+      }),
+    });
     fxList.push({
       life: life,
       sprite: person.sprite,
