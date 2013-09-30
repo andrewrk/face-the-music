@@ -781,7 +781,7 @@ function startGame(map) {
         ball.health -= damage;
         if (ball.health <= 0) {
           ball.sprite.delete();
-          ball.eyeColor.delete();
+          if(ball.type != 'attack') ball.eyeColor.delete();
           spikeBalls.splice(i,1);
           i--;
         }
@@ -855,7 +855,7 @@ function startGame(map) {
       if(rectCollision(playerRect(),ballRect)){
         applyKnockBack();
         ball.sprite.delete();
-        ball.eyeColor.delete();
+        if(ball.type != 'attack') ball.eyeColor.delete();
         spikeBalls.splice(i,1);
         i--;
         continue;
