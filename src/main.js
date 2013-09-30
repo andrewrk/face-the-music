@@ -96,22 +96,22 @@ function startGame(map) {
     new chem.Sound('sfx/drum8.ogg'),
   ];
   var mainMusicVol = 0.75;
-  var mainMusic = new Audio('music/main_music.ogg');
+  var mainMusic = new Audio(chem.resources.url('music/main_music.ogg'));
   mainMusic.loop = true;
   mainMusic.volume = 0;
   mainMusic.play();
   mainMusic.pause();
 
-  var crowdIdleAudio = new Audio('music/crowd_idle.ogg');
+  var crowdIdleAudio = new Audio(chem.resources.url('music/crowd_idle.ogg'));
   crowdIdleAudio.loop = true;
   crowdIdleAudio.play();
 
-  var crowdExcitedAudio = new Audio('music/crowd_excited.ogg');
+  var crowdExcitedAudio = new Audio(chem.resources.url('music/crowd_excited.ogg'));
   crowdExcitedAudio.volume = 0;
   crowdExcitedAudio.play();
   crowdExcitedAudio.pause();
 
-  var victoryAudio = new Audio('music/victory.ogg');
+  var victoryAudio = new Audio(chem.resources.url('music/victory.ogg'));
   victoryAudio.play();
   victoryAudio.pause();
 
