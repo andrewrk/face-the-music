@@ -5,8 +5,6 @@ var canvas = document.getElementById("game");
 var engine = new chem.Engine(canvas);
 var tmx = require('chem-tmx');
 
-canvas.style.cursor = "none";
-
 engine.buttonCaptureExceptions[chem.button.KeyF5] = true;
 
 engine.showLoadProgressBar();
@@ -100,8 +98,18 @@ function startGame(map) {
   var mainMusicVol = 0.75;
   var mainMusic = new Audio('music/main_music.ogg');
   mainMusic.loop = true;
-  mainMusic.volume = mainMusicVol;
+  mainMusic.volume = 0;
   mainMusic.play();
+  mainMusic.pause();
+
+  var crowdIdleAudio = new Audio('music/crowd_idle.ogg');
+  crowdIdleAudio.loop = true;
+  crowdIdleAudio.play();
+
+  var crowdExcitedAudio = new Audio('music/crowd_excited.ogg');
+  crowdExcitedAudio.volume = 0;
+  crowdExcitedAudio.play();
+  crowdExcitedAudio.pause();
 
   var muted = false;
 
@@ -116,7 +124,12 @@ function startGame(map) {
   var leftSideHudImg = chem.resources.images['leftside_hud.png'];
   var barNormalImg = chem.resources.images['progress_bar_normal.png'];
   var barCautionImg = chem.resources.images['progress_bar_caution.png'];
+  var titleScreenImg = chem.resources.images['intro_background.png'];
+  var titleLogoImg = chem.resources.images['face_the_music_logo_intro.png'];
+  var startGameBtnImg = chem.resources.images['start_button.png'];
   var groundY = engine.size.y - groundImg.height;
+
+  var titleScreen = true;
 
   var loseMsgImgList = [
     chem.resources.images['message_1.png'],
@@ -155,10 +168,15 @@ function startGame(map) {
 
   var fxList = [];
 
+  var titleFadeout;
+
   var beam = null;
   var beamLife = 0;
   var beamDamage = 0.1//0.05;
   var tripleShot = false;
+
+  var timeSinceStarted = null;
+  var clickedStart = false;
 
   updateCursor();
 
@@ -284,7 +302,58 @@ function startGame(map) {
     powerUps.splice(i, 1);
   }
 
+  function startFromTitle() {
+    crowdIdleAudio.pause();
+    crowdExcitedAudio.currentTime = 0;
+    crowdExcitedAudio.volume = 1;
+    crowdExcitedAudio.play();
+    clickedStart = true;
+    timeSinceStarted = 0;
+  }
+
+  function titleScreenUpdate(dt, dx) {
+    if (clickedStart) {
+      timeSinceStarted += dt;
+    } else {
+      if (engine.buttonJustPressed(chem.button.MouseLeft)) {
+        startFromTitle();
+      }
+    }
+  }
+
+  function doneWithTitleScreen() {
+    titleFadeout = 1.0;
+    titleScreen = false;
+    mainMusic.currentTime = 0;
+    mainMusic.volume = mainMusicVol;
+    mainMusic.play();
+    canvas.style.cursor = "none";
+  }
+
+  function titleScreenDraw(context) {
+    var titleImgY = 0;
+    if (clickedStart) {
+      var percent = Math.min(1, timeSinceStarted / 5.0);
+      titleImgY = -percent * (titleScreenImg.height - engine.size.y);
+      if (percent === 1) {
+        doneWithTitleScreen();
+      }
+    }
+    context.drawImage(titleScreenImg, 0, Math.floor(titleImgY));
+    context.drawImage(titleLogoImg, Math.floor(engine.size.x / 2 - titleLogoImg.width / 2), Math.floor(engine.size.y / 2 - 200));
+    context.drawImage(startGameBtnImg, Math.floor(engine.size.x / 2 - startGameBtnImg.width / 2), Math.floor(engine.size.y / 2 + 200) - titleImgY);
+  }
+
   function onUpdate(dt, dx) {
+    if (titleScreen) {
+      titleScreenUpdate(dt, dx);
+      return;
+    }
+
+    if (titleFadeout >= 0) {
+      titleFadeout -= 0.01 * dx;
+    }
+
     if (engine.buttonJustPressed(chem.button.KeyR) && playerEntity.dying) {
       cleanupAndRestart();
       return;
@@ -1067,6 +1136,10 @@ function startGame(map) {
   }
 
   function onDraw(context) {
+    if (titleScreen) {
+      titleScreenDraw(context);
+      return;
+    }
     var bgOffsetX = scroll.x / maxScrollX * (bgImg.width - engine.size.x);
     context.drawImage(bgImg, bgOffsetX, 0, engine.size.x, bgImg.height, 0, 0, engine.size.x, bgImg.height);
     for (var i = 0; i < bgCrowdInstances.length; i += 1) {
@@ -1122,8 +1195,8 @@ function startGame(map) {
       if (textAmt < 0) textAmt = 0;
       if (textAmt > 1) textAmt = 1;
       context.globalAlpha = textAmt;
-      context.drawImage(chosenLoseMsg, engine.size.x / 2 - chosenLoseMsg.width / 2, engine.size.y / 2 - chosenLoseMsg.height / 2);
-      context.drawImage(retryBtnImg, engine.size.x / 2 - retryBtnImg.width / 2, engine.size.y / 2 + chosenLoseMsg.height / 2 + 20);
+      context.drawImage(chosenLoseMsg, Math.floor(engine.size.x / 2 - chosenLoseMsg.width / 2), Math.floor(engine.size.y / 2 - chosenLoseMsg.height / 2));
+      context.drawImage(retryBtnImg, Math.floor(engine.size.x / 2 - retryBtnImg.width / 2), Math.floor(engine.size.y / 2 + chosenLoseMsg.height / 2) + 20);
       context.globalAlpha = 1;
 
       context.setTransform(1, 0, 0, 1, 0, 0); // load identity
@@ -1194,6 +1267,12 @@ function startGame(map) {
       playerEntity.sprite.draw(context);
 
       context.setTransform(1, 0, 0, 1, 0, 0); // load identity
+    }
+
+    if (titleFadeout >= 0) {
+      context.globalAlpha = titleFadeout;
+      context.drawImage(titleScreenImg, 0, engine.size.y - titleScreenImg.height);
+      context.globalAlpha = 1;
     }
 
     fpsLabel.draw(context);
