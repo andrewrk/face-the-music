@@ -127,12 +127,18 @@ function startGame(map) {
   var titleScreenImg = chem.resources.images['intro_background.png'];
   var titleLogoImg = chem.resources.images['face_the_music_logo_intro.png'];
   var startGameBtnImg = chem.resources.images['start_button.png'];
-  var controlsImg = chem.resources.images['controls_explanation.png'];
   var indieTextImg = chem.resources.images['indie_speed_run_text.png'];
+  var introSequence = [
+    chem.resources.images['dev_team.png'],
+    chem.resources.images['story_1.png'],
+    chem.resources.images['story_2.png'],
+    chem.resources.images['story_3.png'],
+    chem.resources.images['controls_explanation.png'],
+  ];
   var groundY = engine.size.y - groundImg.height;
 
   var titleScreen = true;
-  var controlsScreen = false;
+  var titleSequenceIndex = -1;
 
   var loseMsgImgList = [
     chem.resources.images['message_1.png'],
@@ -323,10 +329,10 @@ function startGame(map) {
       }
     } else {
       if (engine.buttonJustPressed(chem.button.MouseLeft)) {
-        if (controlsScreen) {
+        if (titleSequenceIndex + 1 >= introSequence.length) {
           startFromTitle();
         } else {
-          controlsScreen = true;
+          titleSequenceIndex += 1;
         }
       }
     }
@@ -351,8 +357,9 @@ function startGame(map) {
       }
     }
     context.drawImage(titleScreenImg, 0, Math.floor(titleImgY));
-    if (controlsScreen) {
-      context.drawImage(controlsImg, Math.floor(engine.size.x / 2 - controlsImg.width / 2), Math.floor(engine.size.y / 2 - controlsImg.height / 2 + titleImgY));
+    if (titleSequenceIndex >= 0) {
+      var img = introSequence[titleSequenceIndex];
+      context.drawImage(img, Math.floor(engine.size.x / 2 - img.width / 2), Math.floor(engine.size.y / 2 - img.height / 2 + titleImgY));
     } else {
       context.drawImage(titleLogoImg, Math.floor(engine.size.x / 2 - titleLogoImg.width / 2), Math.floor(engine.size.y / 2 - 200));
       context.drawImage(indieTextImg, Math.floor(engine.size.x / 2 - indieTextImg.width / 2), Math.floor(engine.size.y / 2 + 125));
