@@ -1461,7 +1461,8 @@ function startGame(map) {
       case 'Decoration':
         var fg = !!obj.properties.fg;
         var batch = fg ? foregroundBatch : levelBatch;
-        decorations.push(new chem.Sprite(chem.Animation.fromImage(img), {
+        var animation = obj.properties.animation ? ani[obj.properties.animation] : chem.Animation.fromImage(img);
+        decorations.push(new chem.Sprite(animation, {
           batch: batch,
           pos: pos,
           zOrder: parseInt(obj.properties.zOrder || 0, 10),

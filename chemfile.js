@@ -26,6 +26,9 @@ exports.spritesheet = {
     "cursor/mike": {
       anchor: {x: 6, y: 2},
     },
+    barrel_fire: {
+      anchor: 'topleft',
+    },
     clingingGroupie: {
       frames: "groupie",
       loop: true,
