@@ -1209,8 +1209,9 @@ function startGame(map) {
       if (textAmt < 0) textAmt = 0;
       if (textAmt > 1) textAmt = 1;
       context.globalAlpha = textAmt;
-      context.drawImage(chosenLoseMsg, Math.floor(engine.size.x / 2 - chosenLoseMsg.width / 2), Math.floor(engine.size.y / 2 - chosenLoseMsg.height / 2));
-      context.drawImage(retryBtnImg, Math.floor(engine.size.x / 2 - retryBtnImg.width / 2), Math.floor(engine.size.y / 2 + chosenLoseMsg.height / 2) + 20);
+      var moveItUp = 200;
+      context.drawImage(chosenLoseMsg, Math.floor(engine.size.x / 2 - chosenLoseMsg.width / 2), Math.floor(engine.size.y / 2 - chosenLoseMsg.height / 2 - moveItUp));
+      context.drawImage(retryBtnImg, Math.floor(engine.size.x / 2 - retryBtnImg.width / 2), Math.floor(engine.size.y / 2 + chosenLoseMsg.height / 2) + 40 - moveItUp);
       context.globalAlpha = 1;
 
       context.setTransform(1, 0, 0, 1, 0, 0); // load identity
