@@ -233,7 +233,8 @@ function startGame(map) {
     weedClouds.forEach(deleteItsSprite);
     decorations.forEach(deleteItsSprite);
     powerUps.forEach(deleteItsSprite);
-    
+
+    tripleShot = false;
 
     crowdPeople = [];
     fxList = [];
