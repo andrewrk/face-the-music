@@ -97,6 +97,13 @@ function startGame(map) {
     new chem.Sound('sfx/drum7.ogg'),
     new chem.Sound('sfx/drum8.ogg'),
   ];
+  var mainMusicVol = 0.75;
+  var mainMusic = new Audio('music/main_music.ogg');
+  mainMusic.loop = true;
+  mainMusic.volume = mainMusicVol;
+  mainMusic.play();
+
+  var muted = false;
 
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
@@ -293,6 +300,10 @@ function startGame(map) {
     playerEntity.left = engine.buttonState(chem.button.KeyLeft) || engine.buttonState(chem.button.KeyA);
     playerEntity.right = engine.buttonState(chem.button.KeyRight) || engine.buttonState(chem.button.KeyD);
     playerEntity.jump = engine.buttonState(chem.button.KeyUp) || engine.buttonState(chem.button.KeyW) || engine.buttonState(chem.button.KeySpace);
+
+    if (engine.buttonJustPressed(chem.button.KeyPeriod)) {
+      toggleMute();
+    }
 
     // cheats
     if (engine.buttonJustPressed(chem.button.KeyY)) {
@@ -926,7 +937,7 @@ function startGame(map) {
 
         if(currentWeapon.name === 'microphone'){
           //Microphone
-          sfxMike.play();
+          playSfx(sfxMike);
           projectiles.push({
             sprite: new chem.Sprite(currentWeapon.animation, {
               batch: levelBatch,
@@ -970,7 +981,7 @@ function startGame(map) {
             });
           }
         }else if(currentWeapon.name === 'bass'){
-          sfxBass.play();
+          playSfx(sfxBass);
           projectiles.push({
             sprite: new chem.Sprite(currentWeapon.animation, {
               batch: levelBatch,
@@ -983,7 +994,7 @@ function startGame(map) {
             bulletType: "bass",
           });
         }else if(currentWeapon.name === 'guitar' && !beam && playerEntity.hugs === 0){
-          sfxGuitar.play();
+          playSfx(sfxGuitar);
           //GUITAR
           beam = new chem.Sprite(ani.guitarBeam, {
                   batch: levelBatch,
@@ -1455,7 +1466,21 @@ function startGame(map) {
 
   function playDrumSound() {
     var sfx = sfxDrumList[Math.floor(Math.random() * sfxDrumList.length)];
+    playSfx(sfx);
+  }
+
+  function playSfx(sfx) {
+    if (muted) return;
     sfx.play();
+  }
+
+  function toggleMute() {
+    muted = !muted;
+    if (muted) {
+      mainMusic.volume = 0;
+    } else {
+      mainMusic.volume = mainMusicVol;
+    }
   }
 }
 
