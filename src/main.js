@@ -84,6 +84,20 @@ function startGame(map) {
   var bgCrowdInstances = null;
   var bgCrowdScrollRatio = 0.8;
 
+  var sfxBass = new chem.Sound('sfx/bass.ogg');
+  var sfxGuitar = new chem.Sound('sfx/guitar.ogg');
+  var sfxMike = new chem.Sound('sfx/mike.ogg');
+  var sfxDrumList = [
+    new chem.Sound('sfx/drum1.ogg'),
+    new chem.Sound('sfx/drum2.ogg'),
+    new chem.Sound('sfx/drum3.ogg'),
+    new chem.Sound('sfx/drum4.ogg'),
+    new chem.Sound('sfx/drum5.ogg'),
+    new chem.Sound('sfx/drum6.ogg'),
+    new chem.Sound('sfx/drum7.ogg'),
+    new chem.Sound('sfx/drum8.ogg'),
+  ];
+
   var bgImg = chem.resources.images['background.png'];
   var bgCrowd = chem.resources.images['background_crowd_loop.png'];
   var groundImg = chem.resources.images['ground_dry_dirt.png'];
@@ -912,6 +926,7 @@ function startGame(map) {
 
         if(currentWeapon.name === 'microphone'){
           //Microphone
+          sfxMike.play();
           projectiles.push({
             sprite: new chem.Sprite(currentWeapon.animation, {
               batch: levelBatch,
@@ -955,6 +970,7 @@ function startGame(map) {
             });
           }
         }else if(currentWeapon.name === 'bass'){
+          sfxBass.play();
           projectiles.push({
             sprite: new chem.Sprite(currentWeapon.animation, {
               batch: levelBatch,
@@ -967,6 +983,7 @@ function startGame(map) {
             bulletType: "bass",
           });
         }else if(currentWeapon.name === 'guitar' && !beam && playerEntity.hugs === 0){
+          sfxGuitar.play();
           //GUITAR
           beam = new chem.Sprite(ani.guitarBeam, {
                   batch: levelBatch,
@@ -975,6 +992,7 @@ function startGame(map) {
           });
           beamLife = 0.750;
         }else if(currentWeapon.name === 'drums'){
+          playDrumSound();
           //var aimVec = v(1,-1).normalize();
           var angle = 0;
 
@@ -1433,6 +1451,11 @@ function startGame(map) {
       },
     ];
 
+  }
+
+  function playDrumSound() {
+    var sfx = sfxDrumList[Math.floor(Math.random() * sfxDrumList.length)];
+    sfx.play();
   }
 }
 
