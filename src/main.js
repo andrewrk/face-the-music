@@ -882,7 +882,12 @@ function startGame(map) {
         addHitFx(ballRect.pos.plus(ballRect.size.scaled(0.5)));
         ball.health -= damage;
         if (ball.health <= 0) {
-          ball.sprite.delete();
+          fxList.push({
+            life: 0.3,
+            sprite: ball.sprite,
+          });
+          ball.sprite.setAnimation(ani.eyeDie);
+          ball.sprite.setFrameIndex(0);
           if(ball.type != 'attack') ball.eyeColor.delete();
           spikeBalls.splice(i,1);
           i--;
