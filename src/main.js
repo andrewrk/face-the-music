@@ -111,6 +111,10 @@ function startGame(map) {
   crowdExcitedAudio.play();
   crowdExcitedAudio.pause();
 
+  var victoryAudio = new Audio('music/victory.ogg');
+  victoryAudio.play();
+  victoryAudio.pause();
+
   var muted = false;
 
   var bgImg = chem.resources.images['background.png'];
@@ -879,7 +883,7 @@ function startGame(map) {
     winning = true;
     timeSinceGameOver = 0;
     mainMusic.pause();
-    var victoryAudio = new Audio('music/victory.ogg');
+    victoryAudio.currentTime = 0;
     victoryAudio.play();
     crowdExcitedAudio.currentTime = 0;
     crowdExcitedAudio.play();
