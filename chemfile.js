@@ -49,6 +49,12 @@ exports.spritesheet = {
       anchor: {x: 25, y: 8},
       delay: 0.2,
     },
+    fxProjectileImpact: {
+      frames: "projectile_feedback_impact",
+    },
+    fxProjectileNote: {
+      frames: "projectile_feedback_note",
+    },
     eargasmKneel: {
       delay: 0.4,
       frames: 'eargasm/eargasm_kneel',

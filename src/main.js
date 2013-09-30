@@ -606,7 +606,7 @@ function startGame(map) {
         pos: crowd.pos.clone(),
       }),
       maxSpeed: 2 + Math.random() * 4,
-      pos: crowd.pos.clone(),
+      pos: crowd.pos.offset(200, 20),
       vel: v(),
       left: false,
       right: false,
@@ -780,6 +780,7 @@ function startGame(map) {
       crowdDamage += damage;
       var diff = Math.floor(crowdDamage);
       crowdDamage -= diff;
+      addHitFx(crowd.pos.offset(40, -100));
       for (i = 0; i < diff; i += 1) {
         spawnCrowdPerson();
       }
@@ -795,6 +796,7 @@ function startGame(map) {
       };
       damage = checkRect(ballRect);
       if (damage) {
+        addHitFx(ballRect.pos.plus(ballRect.size.scaled(0.5)));
         ball.health -= damage;
         if (ball.health <= 0) {
           ball.sprite.delete();
@@ -809,16 +811,22 @@ function startGame(map) {
     for(i=0; i<crowdPeople.length;i++){
       var person = crowdPeople[i];
 
-      person.health -= checkRect(person);
+      var damage = checkRect(person);
 
-      if(person.health <= 0){
-        if (person.hugging) {
-          playerEntity.hugs -= 1;
+      if (damage > 0) {
+        addHitFx(person.pos.plus(person.size.scaled(0.5)));
+
+        person.health -= damage;
+        if(person.health <= 0){
+          if (person.hugging) {
+            playerEntity.hugs -= 1;
+          }
+          omgEargasm(person);
+          crowdPeople.splice(i,1);
+          i--;
         }
-        omgEargasm(person);
-        crowdPeople.splice(i,1);
-        i--;
       }
+
     }
     
     //platforms
@@ -851,6 +859,27 @@ function startGame(map) {
 
   function randomEargasmTextAni() {
     return eargasmTextAniList[Math.floor(Math.random() * eargasmTextAniList.length)];
+  }
+
+  function addHitFx(pos) {
+    fxList.push({
+      life: 1.0,
+      vel: v(0, -0.5),
+      sprite: new chem.Sprite(ani.fxProjectileNote, {
+        batch: levelBatch,
+        pos: pos.clone(),
+        zOrder: 5,
+      }),
+    });
+    fxList.push({
+      life: 0.5,
+      vel: v(0, 1),
+      sprite: new chem.Sprite(ani.fxProjectileImpact, {
+        batch: levelBatch,
+        pos: pos.clone(),
+        zOrder: 5,
+      }),
+    });
   }
 
   function spikeBallUpdate(dt, dx) {
