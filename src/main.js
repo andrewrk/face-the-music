@@ -128,6 +128,7 @@ function startGame(map) {
   var titleLogoImg = chem.resources.images['face_the_music_logo_intro.png'];
   var startGameBtnImg = chem.resources.images['start_button.png'];
   var controlsImg = chem.resources.images['controls_explanation.png'];
+  var indieTextImg = chem.resources.images['indie_speed_run_text.png'];
   var groundY = engine.size.y - groundImg.height;
 
   var titleScreen = true;
@@ -354,6 +355,7 @@ function startGame(map) {
       context.drawImage(controlsImg, Math.floor(engine.size.x / 2 - controlsImg.width / 2), Math.floor(engine.size.y / 2 - controlsImg.height / 2 + titleImgY));
     } else {
       context.drawImage(titleLogoImg, Math.floor(engine.size.x / 2 - titleLogoImg.width / 2), Math.floor(engine.size.y / 2 - 200));
+      context.drawImage(indieTextImg, Math.floor(engine.size.x / 2 - indieTextImg.width / 2), Math.floor(engine.size.y / 2 + 125));
     }
     context.drawImage(startGameBtnImg, Math.floor(engine.size.x / 2 - startGameBtnImg.width / 2), Math.floor(engine.size.y / 2 + 200 + titleImgY));
   }
