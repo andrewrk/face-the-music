@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "chem-cli": "~1.2.0",
-    "chem": "~3.2.0",
+    "chem": "~4.0.0",
     "chem-tmx": "~2.0.5"
   }
 }
