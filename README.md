@@ -3,7 +3,7 @@
 48-hour game jam - rock your way out of being trampled by a mob of
 screaming fans.
 
-Built with [chem](https://github.com/superjoe30/chem/)
+Built with [chem](https://github.com/andrewrk/chem/)
 rapid development game engine.
 
 [play in your browser](http://s3.amazonaws.com/superjoe/temp/face-the-music/index.html)
