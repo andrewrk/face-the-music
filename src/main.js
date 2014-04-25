@@ -431,8 +431,8 @@ function startGame(map) {
     }
 
     //Update crowd position
-    crowd.pos.x += crowdSpeed;
-    crowd.rotation += crowdRotationSpeed;
+    crowd.pos.x += crowdSpeed * dx;
+    crowd.rotation += crowdRotationSpeed * dx;
 
     if (playerEntity.pos.x - crowd.pos.x > MAX_CROWD_X_DIST) {
       crowd.pos.x = playerEntity.pos.x - MAX_CROWD_X_DIST;
