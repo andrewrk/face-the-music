@@ -9,5 +9,15 @@
     "chem": "~4.1.0",
     "chem-cli": "~1.2.2",
     "chem-tmx": "~2.0.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewrk/face-the-music.git"
+  },
+  "author": "Andrew Kelley <superjoe30@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewrk/face-the-music/issues"
+  },
+  "homepage": "https://github.com/andrewrk/face-the-music"
 }
